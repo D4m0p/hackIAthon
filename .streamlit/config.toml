@@ -1,13 +1,15 @@
 [theme]
 base = "light"
-primaryColor = "#0FB5C4"
-backgroundColor = "#F3FAFB"
-secondaryBackgroundColor = "#E4F4F6"
-textColor = "#0B2533"
-font = "'Public Sans':https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap"
-headingFont = "'Bricolage Grotesque':https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&display=swap"
-baseRadius = "0.9rem"
-chartCategoricalColors = ["#B7CBD3", "#0FB5C4", "#2F6BFF", "#7B5CFF"]
+primaryColor = "#12566A"
+backgroundColor = "#EFF4F5"
+secondaryBackgroundColor = "#FFFFFF"
+textColor = "#16262C"
+font = "'Source Sans 3':https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+headingFont = "'Source Serif 4':https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap"
+baseRadius = "0.75rem"
+# Azul y cálido están validados para daltonismo y contraste; no los cambie
+# sin volver a comprobarlos.
+chartCategoricalColors = ["#00719B", "#BE6B26", "#35915F", "#A87515"]
 
 [theme.sidebar]
-backgroundColor = "#E4F4F6"
+backgroundColor = "#FFFFFF"
