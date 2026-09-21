@@ -118,6 +118,7 @@ df = analisis.cargar(DATA / "diagnosticos.csv")
 tabla = analisis.frecuencias(df)
 
 with paso1:
+    st.markdown(ui.seccion("analisis", "🔬", "Análisis anónimo", "Qué diagnósticos se repiten más entre los asegurados, sin ver a ninguna persona."), unsafe_allow_html=True)
     c1, c2, c3 = st.columns(3)
     c1.metric("Registros analizados", f"{len(df):,}")
     c2.metric("Diagnósticos distintos", len(tabla))
@@ -146,6 +147,7 @@ with paso1:
 # --- Paso 2 ---------------------------------------------------------------------
 
 with paso2:
+    st.markdown(ui.seccion("campanas", "📣", "Campañas de prevención", "La IA propone una campaña por cada diagnóstico prevenible y usted las publica en el CRM."), unsafe_allow_html=True)
     top = st.slider("¿Cuántos diagnósticos prevenibles atacar?", 3, 7, 5)
     resumen = analisis.resumen_para_ia(df, top)
     with st.expander("Ver exactamente lo que recibe la IA (datos agregados, sin identidades)"):
@@ -178,6 +180,7 @@ with paso2:
 # --- Paso 3 ---------------------------------------------------------------------
 
 with paso3:
+    st.markdown(ui.seccion("premios", "🏆", "Chequeos y premios", "El hospital reporta los chequeos realizados y el agente premia a quien cumple."), unsafe_allow_html=True)
     if "decisiones" in st.session_state:
         decisiones = st.session_state.decisiones
         premiados = [d for d in decisiones if d.estado == "Premiado"]
@@ -224,6 +227,7 @@ with paso3:
 # --- CRM ------------------------------------------------------------------------
 
 with tab_crm:
+    st.markdown(ui.seccion("crm", "🗂️", "CRM de asegurados", "Puntos, nivel y prima de cada asegurado, tal como quedan en Notion."), unsafe_allow_html=True)
     tabla_crm = pd.DataFrame(lista_asegurados).drop(columns=["id"])
     medalla = {"Bronce": "🥉 Bronce", "Plata": "🥈 Plata", "Oro": "🥇 Oro"}
     tabla_crm["nivel"] = tabla_crm["nivel"].map(medalla)

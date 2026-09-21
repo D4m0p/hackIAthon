@@ -64,6 +64,61 @@ CSS = f"""
 .stTabs .react-aria-SelectionIndicator {{ display: none; }}
 .stTabs [data-testid="stTab"]:focus-visible {{ outline: 3px solid #7B5CFF; outline-offset: 2px; }}
 
+/* Transición al cambiar de sección: Streamlit monta el panel de nuevo en cada cambio */
+.stTabs [data-testid="stTab"] {{
+  transition: background .35s ease, box-shadow .35s ease, transform .25s ease;
+}}
+.stTabs [data-testid="stTab"][aria-selected="true"] {{
+  box-shadow: 0 6px 18px -6px rgba(47,107,255,.65), 0 0 0 3px rgba(15,181,196,.14);
+  transform: translateY(-1px);
+}}
+.stTabs [role="tabpanel"] {{ animation: entrar .6s cubic-bezier(.22,1,.36,1) both; }}
+@keyframes entrar {{
+  from {{ opacity: 0; transform: translateY(18px); filter: blur(6px); }}
+  to   {{ opacity: 1; transform: none; filter: none; }}
+}}
+.grilla > *, [data-testid="stMetric"] {{ animation: entrar .7s cubic-bezier(.22,1,.36,1) both; }}
+.grilla > :nth-child(2) {{ animation-delay: .07s; }}
+.grilla > :nth-child(3) {{ animation-delay: .14s; }}
+.grilla > :nth-child(4) {{ animation-delay: .21s; }}
+.grilla > :nth-child(5) {{ animation-delay: .28s; }}
+.grilla > :nth-child(n+6) {{ animation-delay: .35s; }}
+[data-testid="stColumn"]:nth-child(2) [data-testid="stMetric"] {{ animation-delay: .08s; }}
+[data-testid="stColumn"]:nth-child(3) [data-testid="stMetric"] {{ animation-delay: .16s; }}
+
+/* Encabezado de cada sección, con su propio degradado */
+.seccion {{
+  display: flex; align-items: center; gap: 1rem; margin: .6rem 0 1.3rem; padding: 1rem 1.2rem;
+  border-radius: 1.2rem; background: rgba(255,255,255,.8); border: 1px solid #D5ECEF; position: relative; overflow: hidden;
+}}
+.seccion::after {{
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(100deg, transparent 30%, rgba(255,255,255,.55) 50%, transparent 70%);
+  transform: translateX(-100%); animation: brillo 1.1s .25s ease-out both;
+}}
+@keyframes brillo {{ to {{ transform: translateX(100%); }} }}
+.seccion .icono {{
+  flex: none; display: grid; place-items: center; width: 3.1rem; height: 3.1rem; border-radius: 1rem;
+  font-size: 1.5rem; box-shadow: 0 10px 22px -10px rgba(47,107,255,.7);
+  animation: aparecer .7s cubic-bezier(.34,1.56,.64,1) both;
+}}
+@keyframes aparecer {{ from {{ transform: scale(.4) rotate(-12deg); opacity: 0; }} to {{ transform: none; opacity: 1; }} }}
+.seccion h3 {{ font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 1.35rem; margin: 0; padding: 0; line-height: 1.15; }}
+.seccion p {{ margin: .15rem 0 0; color: #466373; font-size: .95rem; }}
+.seccion.analisis .icono {{ background: linear-gradient(135deg, #5EE6E0, #0FB5C4); }}
+.seccion.campanas .icono {{ background: linear-gradient(135deg, #0FB5C4, #2F6BFF); }}
+.seccion.premios  .icono {{ background: linear-gradient(135deg, #2F6BFF, #7B5CFF); }}
+.seccion.crm      .icono {{ background: linear-gradient(135deg, #7B5CFF, #0FB5C4); }}
+.seccion.analisis {{ border-left: 5px solid #0FB5C4; }}
+.seccion.campanas {{ border-left: 5px solid #2F6BFF; }}
+.seccion.premios  {{ border-left: 5px solid #7B5CFF; }}
+.seccion.crm      {{ border-left: 5px solid #5E8BFF; }}
+
+@media (prefers-reduced-motion: reduce) {{
+  .stTabs [role="tabpanel"], .grilla > *, [data-testid="stMetric"], .seccion .icono {{ animation: none; }}
+  .seccion::after {{ display: none; }}
+}}
+
 /* Métricas como tarjetas translúcidas */
 [data-testid="stMetric"] {{
   background: rgba(255,255,255,.8); border: 1px solid #D5ECEF; border-radius: 1.1rem; padding: 1rem 1.2rem;
@@ -197,6 +252,11 @@ def rechazos(lista: list) -> str:
         for d in lista
     )
     return f'<div class="rechazos">{filas}</div>'
+
+
+def seccion(clase: str, icono: str, titulo: str, texto: str) -> str:
+    return (f'<div class="seccion {clase}"><div class="icono">{icono}</div>'
+            f"<div><h3>{titulo}</h3><p>{texto}</p></div></div>")
 
 
 def privacidad(minimo: int) -> str:
