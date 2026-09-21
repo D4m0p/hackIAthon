@@ -11,7 +11,9 @@ import requests
 from agente.catalogo import CHEQUEOS, NOMBRES_CAMPANA, POBLACION_BASE, SEXO_OBLIGATORIO
 
 URL_GROQ = "https://api.groq.com/openai/v1/chat/completions"
-MODELO_POR_DEFECTO = "qwen/qwen3.8-27b"
+MODELO_POR_DEFECTO = "openai/gpt-oss-120b"
+# Si el principal agota su cupo por minuto (plan gratuito de Groq), se prueba este.
+MODELO_RESPALDO = "qwen/qwen3.8-27b"
 
 INSTRUCCIONES = f"""Eres el agente de bienestar preventivo de una aseguradora de salud en Latinoamérica.
 Recibes estadísticas ANÓNIMAS y agregadas de los diagnósticos más frecuentes del hospital.
@@ -76,29 +78,39 @@ def _validar(c: dict, item: dict) -> dict:
     }
 
 
+def _pedir_a_groq(resumen: list[dict], api_key: str, modelo: str) -> list[dict]:
+    cuerpo = {
+        "model": modelo,
+        "temperature": 0.6,
+        "response_format": {"type": "json_object"},
+        "messages": [
+            {"role": "system", "content": INSTRUCCIONES},
+            {"role": "user", "content": json.dumps(resumen, ensure_ascii=False)},
+        ],
+    }
+    if "gpt-oss" in modelo:
+        cuerpo["reasoning_effort"] = "low"  # menos tokens de razonamiento: más rápido y gasta menos cupo
+    r = requests.post(URL_GROQ, headers={"Authorization": f"Bearer {api_key}"}, json=cuerpo, timeout=30)
+    r.raise_for_status()
+    return json.loads(r.json()["choices"][0]["message"]["content"])["campanas"]
+
+
 def disenar(resumen: list[dict], api_key: str | None, modelo: str | None = None) -> tuple[list[dict], str]:
     """Devuelve (campañas, origen). Origen: 'ia' o 'plantillas' (con el motivo)."""
     if not api_key:
         return [_plantilla(i) for i in resumen], "plantillas (sin clave de Groq configurada)"
-    try:
-        r = requests.post(
-            URL_GROQ,
-            headers={"Authorization": f"Bearer {api_key}"},
-            json={
-                "model": modelo or MODELO_POR_DEFECTO,
-                "temperature": 0.4,
-                "response_format": {"type": "json_object"},
-                "messages": [
-                    {"role": "system", "content": INSTRUCCIONES},
-                    {"role": "user", "content": json.dumps(resumen, ensure_ascii=False)},
-                ],
-            },
-            timeout=30,
-        )
-        r.raise_for_status()
-        propuestas = json.loads(r.json()["choices"][0]["message"]["content"])["campanas"]
-    except Exception as e:  # la demo nunca debe caerse por la IA
-        return [_plantilla(i) for i in resumen], f"plantillas (la IA falló: {type(e).__name__})"
+    modelos = list(dict.fromkeys([modelo or MODELO_POR_DEFECTO, MODELO_RESPALDO]))
+    propuestas, error = None, None
+    for m in modelos:
+        try:
+            propuestas = _pedir_a_groq(resumen, api_key, m)
+            break
+        except requests.HTTPError as e:
+            error = "cupo de Groq agotado por este minuto" if e.response.status_code == 429 else f"HTTP {e.response.status_code}"
+        except Exception as e:  # la demo nunca debe caerse por la IA
+            error = type(e).__name__
+    if propuestas is None:
+        return [_plantilla(i) for i in resumen], f"plantillas (la IA no respondió: {error})"
 
     por_tipo = {p.get("tipo_chequeo"): p for p in propuestas if isinstance(p, dict)}
     campanas = [

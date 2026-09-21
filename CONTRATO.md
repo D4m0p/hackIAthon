@@ -145,14 +145,14 @@ NOTION_DB_ASEGURADOS  = "..."
 NOTION_DB_CAMPANAS    = "..."
 NOTION_DB_CHEQUEOS    = "..."
 GROQ_API_KEY          = "gsk_..."
-GROQ_MODEL            = "qwen/qwen3.8-27b"          # opcional; se puede cambiar sin tocar código
+GROQ_MODEL            = "openai/gpt-oss-120b"          # opcional; se puede cambiar sin tocar código
 ```
 
 **Persona 3 — clave de Groq:** entre a <https://console.groq.com/keys>, inicie sesión
 (correo o Google) → **Create API Key** → nombre `agente-bienestar` → copie la clave
 (empieza con `gsk_`; solo se muestra una vez). No pide tarjeta.
 De paso, en <https://console.groq.com/docs/models> confirme que el modelo
-`qwen/qwen3.8-27b` sigue disponible; si no, avise cuál recomienda Groq.
+`openai/gpt-oss-120b` sigue disponible; si no, avise cuál recomienda Groq.
 
 ---
 
