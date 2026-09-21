@@ -1,0 +1,1801 @@
+id_registro,edad,sexo,codigo_cie10,diagnostico,fecha
+D00001,31,M,K29.7,Gastritis,2026-01-27
+D00002,83,M,C61,Tumor maligno de próstata,2026-06-09
+D00003,52,F,E11.9,Diabetes mellitus tipo 2,2026-07-16
+D00004,28,F,M54.5,Lumbalgia,2026-05-31
+D00005,49,F,J06.9,Infección respiratoria aguda,2026-07-29
+D00006,70,M,I10,Hipertensión esencial,2026-07-28
+D00007,43,F,J06.9,Infección respiratoria aguda,2026-08-26
+D00008,38,F,I10,Hipertensión esencial,2026-07-10
+D00009,46,M,M54.5,Lumbalgia,2026-03-15
+D00010,41,F,J06.9,Infección respiratoria aguda,2026-06-15
+D00011,72,F,M54.5,Lumbalgia,2026-04-19
+D00012,51,M,M54.5,Lumbalgia,2026-05-30
+D00013,59,F,E78.5,Dislipidemia,2026-08-10
+D00014,35,F,K29.7,Gastritis,2026-05-15
+D00015,59,F,C18.9,Tumor maligno de colon,2026-05-12
+D00016,30,M,K29.7,Gastritis,2026-07-16
+D00017,65,M,I10,Hipertensión esencial,2026-06-21
+D00018,18,M,K29.7,Gastritis,2026-04-20
+D00019,68,F,E78.5,Dislipidemia,2026-02-01
+D00020,73,F,E11.9,Diabetes mellitus tipo 2,2026-07-02
+D00021,25,F,J06.9,Infección respiratoria aguda,2026-07-24
+D00022,39,F,I10,Hipertensión esencial,2026-04-13
+D00023,56,F,J06.9,Infección respiratoria aguda,2026-02-08
+D00024,76,F,E78.5,Dislipidemia,2026-08-26
+D00025,41,F,I10,Hipertensión esencial,2026-04-30
+D00026,56,F,E78.5,Dislipidemia,2026-05-23
+D00027,54,M,C61,Tumor maligno de próstata,2026-01-26
+D00028,35,F,M54.5,Lumbalgia,2026-07-20
+D00029,18,F,M54.5,Lumbalgia,2026-08-04
+D00030,60,F,C50.9,Tumor maligno de mama,2026-06-16
+D00031,60,F,J06.9,Infección respiratoria aguda,2026-08-08
+D00032,39,F,J06.9,Infección respiratoria aguda,2026-08-23
+D00033,62,M,I10,Hipertensión esencial,2026-08-03
+D00034,57,M,I10,Hipertensión esencial,2026-02-20
+D00035,51,M,I10,Hipertensión esencial,2026-03-10
+D00036,51,F,J06.9,Infección respiratoria aguda,2026-03-22
+D00037,34,F,K29.7,Gastritis,2026-05-02
+D00038,18,M,M54.5,Lumbalgia,2026-08-13
+D00039,68,F,C50.9,Tumor maligno de mama,2026-07-20
+D00040,60,F,I10,Hipertensión esencial,2026-04-10
+D00041,37,M,J06.9,Infección respiratoria aguda,2026-01-28
+D00042,46,F,C50.9,Tumor maligno de mama,2026-01-14
+D00043,25,F,M54.5,Lumbalgia,2026-01-07
+D00044,18,F,J06.9,Infección respiratoria aguda,2026-03-19
+D00045,44,F,C50.9,Tumor maligno de mama,2026-05-27
+D00046,55,M,J06.9,Infección respiratoria aguda,2026-05-14
+D00047,34,M,K29.7,Gastritis,2026-06-23
+D00048,53,M,I10,Hipertensión esencial,2026-01-09
+D00049,42,M,M54.5,Lumbalgia,2026-08-27
+D00050,40,M,K29.7,Gastritis,2026-07-13
+D00051,24,M,J06.9,Infección respiratoria aguda,2026-06-15
+D00052,50,M,E78.5,Dislipidemia,2026-05-13
+D00053,64,M,M54.5,Lumbalgia,2026-04-19
+D00054,74,F,E78.5,Dislipidemia,2026-04-09
+D00055,51,F,M54.5,Lumbalgia,2026-07-19
+D00056,57,F,K29.7,Gastritis,2026-02-15
+D00057,30,F,K29.7,Gastritis,2026-05-15
+D00058,45,F,E78.5,Dislipidemia,2026-08-06
+D00059,52,M,C61,Tumor maligno de próstata,2026-06-15
+D00060,87,F,I10,Hipertensión esencial,2026-07-20
+D00061,62,M,J06.9,Infección respiratoria aguda,2026-05-24
+D00062,44,M,J06.9,Infección respiratoria aguda,2026-07-03
+D00063,28,F,J06.9,Infección respiratoria aguda,2026-03-17
+D00064,40,F,I10,Hipertensión esencial,2026-02-03
+D00065,49,M,K29.7,Gastritis,2026-01-28
+D00066,40,M,I10,Hipertensión esencial,2026-07-04
+D00067,43,M,J06.9,Infección respiratoria aguda,2026-05-31
+D00068,41,M,J06.9,Infección respiratoria aguda,2026-03-22
+D00069,47,M,K29.7,Gastritis,2026-08-18
+D00070,53,F,M54.5,Lumbalgia,2026-01-04
+D00071,50,M,J06.9,Infección respiratoria aguda,2026-06-25
+D00072,49,F,K29.7,Gastritis,2026-04-27
+D00073,60,M,K29.7,Gastritis,2026-04-29
+D00074,41,F,C53.9,Tumor maligno de cuello uterino,2026-08-13
+D00075,35,M,M54.5,Lumbalgia,2026-08-25
+D00076,18,F,J06.9,Infección respiratoria aguda,2026-07-29
+D00077,71,F,E78.5,Dislipidemia,2026-03-14
+D00078,56,F,K29.7,Gastritis,2026-07-16
+D00079,43,M,M54.5,Lumbalgia,2026-01-06
+D00080,63,F,K29.7,Gastritis,2026-01-15
+D00081,52,M,J06.9,Infección respiratoria aguda,2026-05-14
+D00082,54,F,I10,Hipertensión esencial,2026-06-17
+D00083,68,F,M54.5,Lumbalgia,2026-04-09
+D00084,51,F,K29.7,Gastritis,2026-04-18
+D00085,49,M,J06.9,Infección respiratoria aguda,2026-07-03
+D00086,37,F,E11.9,Diabetes mellitus tipo 2,2026-07-21
+D00087,48,M,M54.5,Lumbalgia,2026-04-17
+D00088,50,F,C53.9,Tumor maligno de cuello uterino,2026-02-05
+D00089,58,M,E11.9,Diabetes mellitus tipo 2,2026-07-30
+D00090,30,F,J06.9,Infección respiratoria aguda,2026-05-14
+D00091,76,F,E11.9,Diabetes mellitus tipo 2,2026-03-04
+D00092,58,F,J06.9,Infección respiratoria aguda,2026-02-26
+D00093,79,M,I10,Hipertensión esencial,2026-04-03
+D00094,32,M,K29.7,Gastritis,2026-03-12
+D00095,57,F,I10,Hipertensión esencial,2026-04-28
+D00096,36,F,E11.9,Diabetes mellitus tipo 2,2026-06-22
+D00097,56,F,J06.9,Infección respiratoria aguda,2026-08-17
+D00098,68,M,C61,Tumor maligno de próstata,2026-07-28
+D00099,54,F,J06.9,Infección respiratoria aguda,2026-04-06
+D00100,26,F,J06.9,Infección respiratoria aguda,2026-07-09
+D00101,51,M,J06.9,Infección respiratoria aguda,2026-08-06
+D00102,47,F,I10,Hipertensión esencial,2026-04-11
+D00103,18,F,K29.7,Gastritis,2026-06-19
+D00104,37,M,E78.5,Dislipidemia,2026-01-27
+D00105,57,M,I10,Hipertensión esencial,2026-03-21
+D00106,60,M,E11.9,Diabetes mellitus tipo 2,2026-06-19
+D00107,54,M,I10,Hipertensión esencial,2026-04-02
+D00108,59,M,C61,Tumor maligno de próstata,2026-02-18
+D00109,61,M,C61,Tumor maligno de próstata,2026-04-02
+D00110,29,M,K29.7,Gastritis,2026-01-08
+D00111,44,M,J06.9,Infección respiratoria aguda,2026-01-30
+D00112,56,M,C61,Tumor maligno de próstata,2026-01-17
+D00113,41,F,M54.5,Lumbalgia,2026-03-05
+D00114,66,M,J06.9,Infección respiratoria aguda,2026-03-25
+D00115,71,F,J06.9,Infección respiratoria aguda,2026-03-09
+D00116,67,F,E11.9,Diabetes mellitus tipo 2,2026-03-31
+D00117,54,F,I10,Hipertensión esencial,2026-08-01
+D00118,43,F,I10,Hipertensión esencial,2026-04-27
+D00119,72,F,J06.9,Infección respiratoria aguda,2026-05-07
+D00120,61,F,K29.7,Gastritis,2026-06-19
+D00121,56,M,I10,Hipertensión esencial,2026-03-24
+D00122,62,F,M54.5,Lumbalgia,2026-02-15
+D00123,51,M,E11.9,Diabetes mellitus tipo 2,2026-03-31
+D00124,37,F,K29.7,Gastritis,2026-07-25
+D00125,51,F,I10,Hipertensión esencial,2026-07-08
+D00126,64,M,I10,Hipertensión esencial,2026-03-26
+D00127,34,M,K29.7,Gastritis,2026-02-07
+D00128,75,F,K29.7,Gastritis,2026-02-06
+D00129,45,M,M54.5,Lumbalgia,2026-04-13
+D00130,68,M,I10,Hipertensión esencial,2026-03-26
+D00131,35,F,E11.9,Diabetes mellitus tipo 2,2026-08-21
+D00132,68,M,I10,Hipertensión esencial,2026-06-15
+D00133,63,F,J06.9,Infección respiratoria aguda,2026-03-10
+D00134,53,F,J06.9,Infección respiratoria aguda,2026-05-29
+D00135,62,F,E78.5,Dislipidemia,2026-05-04
+D00136,23,F,J06.9,Infección respiratoria aguda,2026-07-13
+D00137,32,M,I10,Hipertensión esencial,2026-03-25
+D00138,30,M,M54.5,Lumbalgia,2026-07-22
+D00139,25,F,J06.9,Infección respiratoria aguda,2026-05-23
+D00140,45,M,M54.5,Lumbalgia,2026-01-03
+D00141,71,M,C61,Tumor maligno de próstata,2026-02-22
+D00142,83,M,E11.9,Diabetes mellitus tipo 2,2026-01-22
+D00143,42,F,M54.5,Lumbalgia,2026-01-28
+D00144,24,M,J06.9,Infección respiratoria aguda,2026-04-18
+D00145,58,M,C18.9,Tumor maligno de colon,2026-08-22
+D00146,71,F,E11.9,Diabetes mellitus tipo 2,2026-03-29
+D00147,35,F,J06.9,Infección respiratoria aguda,2026-08-15
+D00148,65,F,E78.5,Dislipidemia,2026-01-10
+D00149,60,F,M54.5,Lumbalgia,2026-08-03
+D00150,61,F,J06.9,Infección respiratoria aguda,2026-03-12
+D00151,40,F,E78.5,Dislipidemia,2026-08-09
+D00152,67,M,E11.9,Diabetes mellitus tipo 2,2026-06-15
+D00153,69,F,E78.5,Dislipidemia,2026-05-14
+D00154,45,F,M54.5,Lumbalgia,2026-06-19
+D00155,43,F,M54.5,Lumbalgia,2026-07-24
+D00156,52,M,E78.5,Dislipidemia,2026-08-12
+D00157,23,F,M54.5,Lumbalgia,2026-01-08
+D00158,21,F,J06.9,Infección respiratoria aguda,2026-04-20
+D00159,19,M,J06.9,Infección respiratoria aguda,2026-08-12
+D00160,45,F,J06.9,Infección respiratoria aguda,2026-06-23
+D00161,32,F,K29.7,Gastritis,2026-07-05
+D00162,65,M,J06.9,Infección respiratoria aguda,2026-05-22
+D00163,46,M,E11.9,Diabetes mellitus tipo 2,2026-06-18
+D00164,39,M,I10,Hipertensión esencial,2026-08-10
+D00165,45,M,E11.9,Diabetes mellitus tipo 2,2026-02-05
+D00166,61,F,C53.9,Tumor maligno de cuello uterino,2026-06-27
+D00167,54,F,E11.9,Diabetes mellitus tipo 2,2026-07-12
+D00168,54,M,E11.9,Diabetes mellitus tipo 2,2026-04-16
+D00169,82,F,M54.5,Lumbalgia,2026-05-12
+D00170,26,F,M54.5,Lumbalgia,2026-01-24
+D00171,41,F,C50.9,Tumor maligno de mama,2026-02-07
+D00172,33,M,K29.7,Gastritis,2026-01-15
+D00173,29,M,K29.7,Gastritis,2026-07-29
+D00174,72,F,M54.5,Lumbalgia,2026-01-08
+D00175,18,M,J06.9,Infección respiratoria aguda,2026-06-19
+D00176,47,F,J06.9,Infección respiratoria aguda,2026-08-04
+D00177,49,M,M54.5,Lumbalgia,2026-04-06
+D00178,71,M,I10,Hipertensión esencial,2026-08-11
+D00179,44,F,K29.7,Gastritis,2026-02-23
+D00180,30,F,K29.7,Gastritis,2026-04-23
+D00181,76,F,E11.9,Diabetes mellitus tipo 2,2026-01-30
+D00182,66,M,M54.5,Lumbalgia,2026-06-23
+D00183,56,M,M54.5,Lumbalgia,2026-08-19
+D00184,55,F,J06.9,Infección respiratoria aguda,2026-02-07
+D00185,44,F,J06.9,Infección respiratoria aguda,2026-05-14
+D00186,62,F,E78.5,Dislipidemia,2026-08-04
+D00187,39,F,I10,Hipertensión esencial,2026-05-24
+D00188,48,M,E78.5,Dislipidemia,2026-04-27
+D00189,31,F,I10,Hipertensión esencial,2026-06-21
+D00190,34,F,M54.5,Lumbalgia,2026-06-24
+D00191,33,M,M54.5,Lumbalgia,2026-05-15
+D00192,51,M,E78.5,Dislipidemia,2026-03-17
+D00193,52,M,I10,Hipertensión esencial,2026-04-26
+D00194,50,M,M54.5,Lumbalgia,2026-06-15
+D00195,32,F,J06.9,Infección respiratoria aguda,2026-03-23
+D00196,34,M,J06.9,Infección respiratoria aguda,2026-04-11
+D00197,63,M,J06.9,Infección respiratoria aguda,2026-01-12
+D00198,75,M,E78.5,Dislipidemia,2026-05-14
+D00199,44,M,K29.7,Gastritis,2026-02-09
+D00200,18,F,M54.5,Lumbalgia,2026-03-03
+D00201,44,F,J06.9,Infección respiratoria aguda,2026-03-03
+D00202,30,F,J06.9,Infección respiratoria aguda,2026-05-06
+D00203,33,M,M54.5,Lumbalgia,2026-05-31
+D00204,38,F,M54.5,Lumbalgia,2026-05-04
+D00205,36,M,M54.5,Lumbalgia,2026-05-16
+D00206,48,F,E11.9,Diabetes mellitus tipo 2,2026-03-17
+D00207,56,M,E78.5,Dislipidemia,2026-08-10
+D00208,37,M,J06.9,Infección respiratoria aguda,2026-08-11
+D00209,55,M,M54.5,Lumbalgia,2026-02-25
+D00210,45,M,M54.5,Lumbalgia,2026-04-28
+D00211,58,F,E78.5,Dislipidemia,2026-04-17
+D00212,21,F,M54.5,Lumbalgia,2026-03-04
+D00213,73,M,K29.7,Gastritis,2026-03-10
+D00214,56,F,J06.9,Infección respiratoria aguda,2026-02-12
+D00215,54,M,E78.5,Dislipidemia,2026-05-24
+D00216,78,M,C61,Tumor maligno de próstata,2026-05-21
+D00217,27,M,M54.5,Lumbalgia,2026-04-30
+D00218,74,M,C61,Tumor maligno de próstata,2026-08-19
+D00219,23,M,J06.9,Infección respiratoria aguda,2026-01-24
+D00220,18,M,K29.7,Gastritis,2026-03-13
+D00221,70,M,J06.9,Infección respiratoria aguda,2026-08-25
+D00222,49,F,J06.9,Infección respiratoria aguda,2026-06-29
+D00223,29,M,K29.7,Gastritis,2026-05-07
+D00224,42,M,M54.5,Lumbalgia,2026-02-28
+D00225,36,F,J06.9,Infección respiratoria aguda,2026-04-09
+D00226,50,M,M54.5,Lumbalgia,2026-06-09
+D00227,52,M,J06.9,Infección respiratoria aguda,2026-07-13
+D00228,56,F,M54.5,Lumbalgia,2026-06-15
+D00229,44,M,J06.9,Infección respiratoria aguda,2026-07-12
+D00230,48,M,E78.5,Dislipidemia,2026-05-26
+D00231,56,M,E11.9,Diabetes mellitus tipo 2,2026-06-25
+D00232,31,F,J06.9,Infección respiratoria aguda,2026-05-21
+D00233,66,M,J06.9,Infección respiratoria aguda,2026-06-28
+D00234,70,F,E11.9,Diabetes mellitus tipo 2,2026-06-21
+D00235,33,F,M54.5,Lumbalgia,2026-06-01
+D00236,46,M,I10,Hipertensión esencial,2026-03-02
+D00237,39,M,J06.9,Infección respiratoria aguda,2026-06-22
+D00238,56,M,K29.7,Gastritis,2026-05-17
+D00239,62,M,E11.9,Diabetes mellitus tipo 2,2026-07-02
+D00240,45,F,I10,Hipertensión esencial,2026-03-04
+D00241,48,F,C50.9,Tumor maligno de mama,2026-08-27
+D00242,38,F,J06.9,Infección respiratoria aguda,2026-02-02
+D00243,37,M,K29.7,Gastritis,2026-03-06
+D00244,38,M,K29.7,Gastritis,2026-03-17
+D00245,31,M,K29.7,Gastritis,2026-02-01
+D00246,63,M,K29.7,Gastritis,2026-03-25
+D00247,59,F,C50.9,Tumor maligno de mama,2026-04-23
+D00248,19,F,K29.7,Gastritis,2026-08-01
+D00249,47,F,M54.5,Lumbalgia,2026-03-17
+D00250,74,F,E78.5,Dislipidemia,2026-01-27
+D00251,61,M,K29.7,Gastritis,2026-07-14
+D00252,90,F,K29.7,Gastritis,2026-06-27
+D00253,51,F,M54.5,Lumbalgia,2026-06-03
+D00254,54,F,I10,Hipertensión esencial,2026-04-12
+D00255,37,M,K29.7,Gastritis,2026-04-07
+D00256,38,F,K29.7,Gastritis,2026-08-25
+D00257,48,F,J06.9,Infección respiratoria aguda,2026-06-09
+D00258,67,M,M54.5,Lumbalgia,2026-08-06
+D00259,44,F,C53.9,Tumor maligno de cuello uterino,2026-06-12
+D00260,40,F,I10,Hipertensión esencial,2026-06-06
+D00261,45,F,M54.5,Lumbalgia,2026-05-24
+D00262,19,F,K29.7,Gastritis,2026-02-27
+D00263,57,F,I10,Hipertensión esencial,2026-03-31
+D00264,19,F,K29.7,Gastritis,2026-05-15
+D00265,67,M,I10,Hipertensión esencial,2026-08-17
+D00266,49,F,E78.5,Dislipidemia,2026-07-24
+D00267,33,M,M54.5,Lumbalgia,2026-08-10
+D00268,42,M,J06.9,Infección respiratoria aguda,2026-02-25
+D00269,32,M,I10,Hipertensión esencial,2026-02-10
+D00270,48,F,M54.5,Lumbalgia,2026-04-06
+D00271,18,M,J06.9,Infección respiratoria aguda,2026-04-12
+D00272,35,M,K29.7,Gastritis,2026-03-30
+D00273,35,M,I10,Hipertensión esencial,2026-01-25
+D00274,55,M,E78.5,Dislipidemia,2026-06-18
+D00275,31,M,K29.7,Gastritis,2026-07-31
+D00276,52,M,C61,Tumor maligno de próstata,2026-05-22
+D00277,42,F,J06.9,Infección respiratoria aguda,2026-03-02
+D00278,56,M,I10,Hipertensión esencial,2026-08-07
+D00279,65,M,C18.9,Tumor maligno de colon,2026-07-12
+D00280,38,M,J06.9,Infección respiratoria aguda,2026-06-25
+D00281,18,F,J06.9,Infección respiratoria aguda,2026-01-16
+D00282,70,F,I10,Hipertensión esencial,2026-07-11
+D00283,64,M,I10,Hipertensión esencial,2026-01-18
+D00284,47,F,E11.9,Diabetes mellitus tipo 2,2026-05-15
+D00285,34,M,J06.9,Infección respiratoria aguda,2026-08-08
+D00286,54,M,I10,Hipertensión esencial,2026-07-22
+D00287,46,F,E11.9,Diabetes mellitus tipo 2,2026-06-27
+D00288,76,M,I10,Hipertensión esencial,2026-07-12
+D00289,28,M,K29.7,Gastritis,2026-06-08
+D00290,60,F,K29.7,Gastritis,2026-08-08
+D00291,51,F,I10,Hipertensión esencial,2026-05-16
+D00292,77,F,K29.7,Gastritis,2026-05-23
+D00293,34,F,M54.5,Lumbalgia,2026-08-11
+D00294,45,F,J06.9,Infección respiratoria aguda,2026-08-27
+D00295,63,F,M54.5,Lumbalgia,2026-03-09
+D00296,73,F,J06.9,Infección respiratoria aguda,2026-06-05
+D00297,58,M,I10,Hipertensión esencial,2026-06-28
+D00298,48,F,E11.9,Diabetes mellitus tipo 2,2026-06-13
+D00299,39,M,K29.7,Gastritis,2026-04-29
+D00300,34,F,M54.5,Lumbalgia,2026-04-06
+D00301,48,F,K29.7,Gastritis,2026-04-07
+D00302,30,F,J06.9,Infección respiratoria aguda,2026-04-02
+D00303,45,F,E11.9,Diabetes mellitus tipo 2,2026-01-03
+D00304,19,F,J06.9,Infección respiratoria aguda,2026-01-12
+D00305,56,M,C61,Tumor maligno de próstata,2026-07-23
+D00306,37,M,J06.9,Infección respiratoria aguda,2026-03-26
+D00307,47,F,E78.5,Dislipidemia,2026-07-01
+D00308,61,F,J06.9,Infección respiratoria aguda,2026-02-25
+D00309,56,M,E11.9,Diabetes mellitus tipo 2,2026-08-28
+D00310,52,F,J06.9,Infección respiratoria aguda,2026-06-06
+D00311,46,M,K29.7,Gastritis,2026-01-30
+D00312,55,M,C61,Tumor maligno de próstata,2026-07-23
+D00313,80,M,E11.9,Diabetes mellitus tipo 2,2026-01-10
+D00314,47,M,K29.7,Gastritis,2026-08-02
+D00315,49,M,K29.7,Gastritis,2026-04-05
+D00316,18,F,J06.9,Infección respiratoria aguda,2026-01-14
+D00317,43,F,C50.9,Tumor maligno de mama,2026-05-18
+D00318,59,M,I10,Hipertensión esencial,2026-07-03
+D00319,85,M,I10,Hipertensión esencial,2026-05-03
+D00320,65,F,E11.9,Diabetes mellitus tipo 2,2026-02-07
+D00321,41,M,I10,Hipertensión esencial,2026-04-21
+D00322,75,M,M54.5,Lumbalgia,2026-07-09
+D00323,38,F,J06.9,Infección respiratoria aguda,2026-07-15
+D00324,46,F,J06.9,Infección respiratoria aguda,2026-01-27
+D00325,41,M,K29.7,Gastritis,2026-01-20
+D00326,49,M,K29.7,Gastritis,2026-06-21
+D00327,46,M,K29.7,Gastritis,2026-01-24
+D00328,59,F,I10,Hipertensión esencial,2026-01-29
+D00329,41,M,K29.7,Gastritis,2026-07-20
+D00330,31,M,J06.9,Infección respiratoria aguda,2026-02-19
+D00331,41,F,M54.5,Lumbalgia,2026-05-01
+D00332,33,F,J06.9,Infección respiratoria aguda,2026-07-14
+D00333,64,M,C61,Tumor maligno de próstata,2026-06-02
+D00334,41,M,M54.5,Lumbalgia,2026-03-15
+D00335,62,M,C61,Tumor maligno de próstata,2026-07-04
+D00336,46,F,M54.5,Lumbalgia,2026-08-24
+D00337,55,M,I10,Hipertensión esencial,2026-08-16
+D00338,43,M,J06.9,Infección respiratoria aguda,2026-02-01
+D00339,77,F,J06.9,Infección respiratoria aguda,2026-03-22
+D00340,41,F,K29.7,Gastritis,2026-06-29
+D00341,59,M,I10,Hipertensión esencial,2026-08-13
+D00342,42,M,M54.5,Lumbalgia,2026-08-28
+D00343,61,M,J06.9,Infección respiratoria aguda,2026-08-04
+D00344,50,F,J06.9,Infección respiratoria aguda,2026-05-08
+D00345,39,F,M54.5,Lumbalgia,2026-01-11
+D00346,29,F,M54.5,Lumbalgia,2026-05-28
+D00347,65,F,I10,Hipertensión esencial,2026-06-10
+D00348,40,F,C50.9,Tumor maligno de mama,2026-02-21
+D00349,29,F,M54.5,Lumbalgia,2026-05-18
+D00350,41,M,M54.5,Lumbalgia,2026-08-16
+D00351,18,M,J06.9,Infección respiratoria aguda,2026-06-03
+D00352,63,M,I10,Hipertensión esencial,2026-08-11
+D00353,27,F,K29.7,Gastritis,2026-04-02
+D00354,62,M,K29.7,Gastritis,2026-03-04
+D00355,49,F,C53.9,Tumor maligno de cuello uterino,2026-04-28
+D00356,58,M,J06.9,Infección respiratoria aguda,2026-07-09
+D00357,38,F,I10,Hipertensión esencial,2026-06-14
+D00358,60,M,E78.5,Dislipidemia,2026-06-29
+D00359,59,F,K29.7,Gastritis,2026-07-30
+D00360,72,F,I10,Hipertensión esencial,2026-02-21
+D00361,23,M,K29.7,Gastritis,2026-06-05
+D00362,66,F,K29.7,Gastritis,2026-03-23
+D00363,44,M,E11.9,Diabetes mellitus tipo 2,2026-03-26
+D00364,19,M,K29.7,Gastritis,2026-07-09
+D00365,54,F,J06.9,Infección respiratoria aguda,2026-07-18
+D00366,64,M,C61,Tumor maligno de próstata,2026-06-09
+D00367,30,F,I10,Hipertensión esencial,2026-08-07
+D00368,51,F,E11.9,Diabetes mellitus tipo 2,2026-06-11
+D00369,42,M,K29.7,Gastritis,2026-06-28
+D00370,81,M,E78.5,Dislipidemia,2026-08-16
+D00371,47,F,J06.9,Infección respiratoria aguda,2026-06-25
+D00372,31,F,J06.9,Infección respiratoria aguda,2026-01-15
+D00373,48,M,M54.5,Lumbalgia,2026-03-23
+D00374,62,M,K29.7,Gastritis,2026-06-22
+D00375,61,F,J06.9,Infección respiratoria aguda,2026-08-27
+D00376,49,F,E11.9,Diabetes mellitus tipo 2,2026-03-13
+D00377,74,F,C18.9,Tumor maligno de colon,2026-01-20
+D00378,45,M,J06.9,Infección respiratoria aguda,2026-03-10
+D00379,63,F,J06.9,Infección respiratoria aguda,2026-04-05
+D00380,48,F,E11.9,Diabetes mellitus tipo 2,2026-06-26
+D00381,47,M,J06.9,Infección respiratoria aguda,2026-01-05
+D00382,47,M,I10,Hipertensión esencial,2026-06-12
+D00383,66,M,E78.5,Dislipidemia,2026-06-01
+D00384,50,M,M54.5,Lumbalgia,2026-01-14
+D00385,48,M,M54.5,Lumbalgia,2026-02-26
+D00386,26,M,J06.9,Infección respiratoria aguda,2026-01-09
+D00387,67,M,I10,Hipertensión esencial,2026-04-25
+D00388,52,M,C61,Tumor maligno de próstata,2026-07-01
+D00389,68,F,M54.5,Lumbalgia,2026-03-03
+D00390,20,F,J06.9,Infección respiratoria aguda,2026-01-02
+D00391,66,M,C61,Tumor maligno de próstata,2026-01-13
+D00392,51,F,J06.9,Infección respiratoria aguda,2026-02-22
+D00393,61,M,M54.5,Lumbalgia,2026-07-13
+D00394,43,F,C50.9,Tumor maligno de mama,2026-08-13
+D00395,33,F,J06.9,Infección respiratoria aguda,2026-07-28
+D00396,48,M,E78.5,Dislipidemia,2026-01-21
+D00397,43,M,I10,Hipertensión esencial,2026-07-20
+D00398,50,M,E78.5,Dislipidemia,2026-08-09
+D00399,18,F,K29.7,Gastritis,2026-06-04
+D00400,53,M,I10,Hipertensión esencial,2026-06-08
+D00401,56,M,J06.9,Infección respiratoria aguda,2026-08-13
+D00402,77,M,K29.7,Gastritis,2026-01-16
+D00403,72,M,J06.9,Infección respiratoria aguda,2026-04-18
+D00404,46,M,K29.7,Gastritis,2026-08-12
+D00405,61,M,C61,Tumor maligno de próstata,2026-06-03
+D00406,63,M,C61,Tumor maligno de próstata,2026-05-06
+D00407,38,M,J06.9,Infección respiratoria aguda,2026-03-08
+D00408,32,F,J06.9,Infección respiratoria aguda,2026-04-12
+D00409,50,M,I10,Hipertensión esencial,2026-07-21
+D00410,41,M,E78.5,Dislipidemia,2026-07-28
+D00411,38,F,M54.5,Lumbalgia,2026-01-24
+D00412,42,M,J06.9,Infección respiratoria aguda,2026-04-27
+D00413,39,M,E78.5,Dislipidemia,2026-04-15
+D00414,56,F,E78.5,Dislipidemia,2026-05-13
+D00415,18,M,K29.7,Gastritis,2026-07-22
+D00416,25,M,J06.9,Infección respiratoria aguda,2026-07-07
+D00417,44,M,M54.5,Lumbalgia,2026-01-07
+D00418,34,F,J06.9,Infección respiratoria aguda,2026-02-11
+D00419,71,M,J06.9,Infección respiratoria aguda,2026-08-14
+D00420,39,F,J06.9,Infección respiratoria aguda,2026-01-16
+D00421,29,M,K29.7,Gastritis,2026-04-26
+D00422,42,M,J06.9,Infección respiratoria aguda,2026-03-22
+D00423,28,M,M54.5,Lumbalgia,2026-03-01
+D00424,52,M,E78.5,Dislipidemia,2026-02-06
+D00425,58,F,M54.5,Lumbalgia,2026-07-10
+D00426,36,F,M54.5,Lumbalgia,2026-02-19
+D00427,18,F,J06.9,Infección respiratoria aguda,2026-04-30
+D00428,43,F,I10,Hipertensión esencial,2026-06-14
+D00429,73,M,I10,Hipertensión esencial,2026-01-28
+D00430,65,M,J06.9,Infección respiratoria aguda,2026-05-16
+D00431,33,F,J06.9,Infección respiratoria aguda,2026-02-02
+D00432,58,M,I10,Hipertensión esencial,2026-07-15
+D00433,36,F,J06.9,Infección respiratoria aguda,2026-02-02
+D00434,39,F,J06.9,Infección respiratoria aguda,2026-04-12
+D00435,50,F,J06.9,Infección respiratoria aguda,2026-07-11
+D00436,44,F,J06.9,Infección respiratoria aguda,2026-07-07
+D00437,18,M,K29.7,Gastritis,2026-01-19
+D00438,60,F,J06.9,Infección respiratoria aguda,2026-06-15
+D00439,64,M,K29.7,Gastritis,2026-03-02
+D00440,78,F,J06.9,Infección respiratoria aguda,2026-03-28
+D00441,79,F,E11.9,Diabetes mellitus tipo 2,2026-05-20
+D00442,55,M,E78.5,Dislipidemia,2026-03-25
+D00443,51,F,J06.9,Infección respiratoria aguda,2026-08-24
+D00444,63,M,J06.9,Infección respiratoria aguda,2026-03-31
+D00445,56,M,J06.9,Infección respiratoria aguda,2026-04-05
+D00446,60,M,J06.9,Infección respiratoria aguda,2026-05-17
+D00447,38,M,J06.9,Infección respiratoria aguda,2026-05-11
+D00448,40,M,J06.9,Infección respiratoria aguda,2026-05-26
+D00449,53,M,J06.9,Infección respiratoria aguda,2026-05-11
+D00450,41,F,E11.9,Diabetes mellitus tipo 2,2026-01-17
+D00451,41,M,J06.9,Infección respiratoria aguda,2026-07-04
+D00452,54,M,J06.9,Infección respiratoria aguda,2026-02-25
+D00453,55,F,C50.9,Tumor maligno de mama,2026-05-17
+D00454,75,F,I10,Hipertensión esencial,2026-01-12
+D00455,44,F,C50.9,Tumor maligno de mama,2026-03-15
+D00456,33,F,K29.7,Gastritis,2026-03-25
+D00457,42,F,E11.9,Diabetes mellitus tipo 2,2026-04-21
+D00458,36,F,I10,Hipertensión esencial,2026-01-19
+D00459,22,M,K29.7,Gastritis,2026-05-06
+D00460,25,F,J06.9,Infección respiratoria aguda,2026-06-11
+D00461,44,F,E78.5,Dislipidemia,2026-08-24
+D00462,50,F,J06.9,Infección respiratoria aguda,2026-06-06
+D00463,43,M,K29.7,Gastritis,2026-01-06
+D00464,51,F,I10,Hipertensión esencial,2026-04-04
+D00465,64,F,M54.5,Lumbalgia,2026-03-09
+D00466,49,M,J06.9,Infección respiratoria aguda,2026-05-11
+D00467,75,F,I10,Hipertensión esencial,2026-04-10
+D00468,34,F,K29.7,Gastritis,2026-01-03
+D00469,45,F,E78.5,Dislipidemia,2026-03-20
+D00470,60,M,C61,Tumor maligno de próstata,2026-04-28
+D00471,64,M,K29.7,Gastritis,2026-08-07
+D00472,50,M,C61,Tumor maligno de próstata,2026-04-10
+D00473,32,M,K29.7,Gastritis,2026-04-08
+D00474,50,F,J06.9,Infección respiratoria aguda,2026-07-06
+D00475,29,F,K29.7,Gastritis,2026-01-12
+D00476,42,M,M54.5,Lumbalgia,2026-02-13
+D00477,69,M,C61,Tumor maligno de próstata,2026-04-15
+D00478,52,F,K29.7,Gastritis,2026-08-22
+D00479,49,F,E11.9,Diabetes mellitus tipo 2,2026-05-13
+D00480,48,F,M54.5,Lumbalgia,2026-01-06
+D00481,56,M,J06.9,Infección respiratoria aguda,2026-08-08
+D00482,65,M,E78.5,Dislipidemia,2026-01-05
+D00483,28,M,M54.5,Lumbalgia,2026-02-07
+D00484,27,F,J06.9,Infección respiratoria aguda,2026-05-08
+D00485,62,M,C61,Tumor maligno de próstata,2026-02-09
+D00486,52,F,E78.5,Dislipidemia,2026-02-25
+D00487,63,M,K29.7,Gastritis,2026-08-28
+D00488,25,F,J06.9,Infección respiratoria aguda,2026-02-12
+D00489,66,M,C61,Tumor maligno de próstata,2026-04-25
+D00490,64,M,J06.9,Infección respiratoria aguda,2026-01-24
+D00491,53,F,C18.9,Tumor maligno de colon,2026-03-16
+D00492,38,F,K29.7,Gastritis,2026-07-22
+D00493,26,F,M54.5,Lumbalgia,2026-01-17
+D00494,56,M,E78.5,Dislipidemia,2026-02-25
+D00495,71,M,E11.9,Diabetes mellitus tipo 2,2026-05-11
+D00496,59,F,C50.9,Tumor maligno de mama,2026-02-10
+D00497,41,M,M54.5,Lumbalgia,2026-07-17
+D00498,49,M,J06.9,Infección respiratoria aguda,2026-05-25
+D00499,47,F,K29.7,Gastritis,2026-01-08
+D00500,29,M,K29.7,Gastritis,2026-07-16
+D00501,53,F,I10,Hipertensión esencial,2026-02-13
+D00502,56,F,M54.5,Lumbalgia,2026-03-24
+D00503,38,F,J06.9,Infección respiratoria aguda,2026-06-28
+D00504,43,F,J06.9,Infección respiratoria aguda,2026-03-25
+D00505,22,M,K29.7,Gastritis,2026-08-17
+D00506,60,F,K29.7,Gastritis,2026-08-08
+D00507,61,M,C61,Tumor maligno de próstata,2026-03-15
+D00508,55,F,J06.9,Infección respiratoria aguda,2026-08-20
+D00509,77,F,I10,Hipertensión esencial,2026-03-26
+D00510,40,M,J06.9,Infección respiratoria aguda,2026-06-11
+D00511,44,F,C50.9,Tumor maligno de mama,2026-05-20
+D00512,34,M,I10,Hipertensión esencial,2026-01-29
+D00513,49,M,I10,Hipertensión esencial,2026-04-20
+D00514,42,M,J06.9,Infección respiratoria aguda,2026-06-24
+D00515,19,M,M54.5,Lumbalgia,2026-05-11
+D00516,37,M,M54.5,Lumbalgia,2026-08-01
+D00517,90,F,J06.9,Infección respiratoria aguda,2026-01-30
+D00518,66,F,E11.9,Diabetes mellitus tipo 2,2026-03-15
+D00519,45,F,J06.9,Infección respiratoria aguda,2026-04-01
+D00520,53,F,K29.7,Gastritis,2026-06-21
+D00521,31,M,M54.5,Lumbalgia,2026-01-13
+D00522,32,M,J06.9,Infección respiratoria aguda,2026-05-27
+D00523,61,M,E78.5,Dislipidemia,2026-06-16
+D00524,30,M,K29.7,Gastritis,2026-05-10
+D00525,43,M,J06.9,Infección respiratoria aguda,2026-01-20
+D00526,69,F,J06.9,Infección respiratoria aguda,2026-05-05
+D00527,51,M,I10,Hipertensión esencial,2026-04-24
+D00528,63,F,E78.5,Dislipidemia,2026-01-25
+D00529,18,F,J06.9,Infección respiratoria aguda,2026-03-10
+D00530,42,F,K29.7,Gastritis,2026-08-19
+D00531,41,M,M54.5,Lumbalgia,2026-01-12
+D00532,58,F,M54.5,Lumbalgia,2026-05-14
+D00533,70,F,E11.9,Diabetes mellitus tipo 2,2026-07-13
+D00534,34,F,J06.9,Infección respiratoria aguda,2026-03-11
+D00535,64,F,C18.9,Tumor maligno de colon,2026-07-25
+D00536,45,F,I10,Hipertensión esencial,2026-03-08
+D00537,38,M,J06.9,Infección respiratoria aguda,2026-05-07
+D00538,35,F,J06.9,Infección respiratoria aguda,2026-05-30
+D00539,60,F,E11.9,Diabetes mellitus tipo 2,2026-05-19
+D00540,67,M,E11.9,Diabetes mellitus tipo 2,2026-06-18
+D00541,48,M,E78.5,Dislipidemia,2026-01-21
+D00542,65,F,K29.7,Gastritis,2026-01-08
+D00543,45,F,K29.7,Gastritis,2026-06-22
+D00544,65,F,E11.9,Diabetes mellitus tipo 2,2026-01-19
+D00545,37,M,M54.5,Lumbalgia,2026-01-20
+D00546,74,F,E78.5,Dislipidemia,2026-08-21
+D00547,34,M,J06.9,Infección respiratoria aguda,2026-08-22
+D00548,29,F,K29.7,Gastritis,2026-03-22
+D00549,55,F,K29.7,Gastritis,2026-07-30
+D00550,45,F,C50.9,Tumor maligno de mama,2026-07-06
+D00551,55,F,J06.9,Infección respiratoria aguda,2026-04-25
+D00552,47,F,K29.7,Gastritis,2026-05-17
+D00553,55,M,E11.9,Diabetes mellitus tipo 2,2026-06-28
+D00554,43,F,K29.7,Gastritis,2026-01-20
+D00555,81,M,C61,Tumor maligno de próstata,2026-01-04
+D00556,18,M,J06.9,Infección respiratoria aguda,2026-03-10
+D00557,79,F,E78.5,Dislipidemia,2026-01-06
+D00558,81,M,E11.9,Diabetes mellitus tipo 2,2026-08-17
+D00559,50,F,M54.5,Lumbalgia,2026-01-17
+D00560,19,F,J06.9,Infección respiratoria aguda,2026-05-12
+D00561,27,F,K29.7,Gastritis,2026-04-14
+D00562,46,M,M54.5,Lumbalgia,2026-04-28
+D00563,42,F,K29.7,Gastritis,2026-07-11
+D00564,61,F,M54.5,Lumbalgia,2026-07-15
+D00565,41,F,E78.5,Dislipidemia,2026-08-16
+D00566,39,F,K29.7,Gastritis,2026-05-19
+D00567,37,F,K29.7,Gastritis,2026-02-17
+D00568,47,F,E11.9,Diabetes mellitus tipo 2,2026-08-14
+D00569,64,F,I10,Hipertensión esencial,2026-08-27
+D00570,55,M,M54.5,Lumbalgia,2026-03-13
+D00571,51,M,J06.9,Infección respiratoria aguda,2026-01-23
+D00572,40,F,J06.9,Infección respiratoria aguda,2026-02-05
+D00573,52,M,K29.7,Gastritis,2026-03-22
+D00574,61,M,I10,Hipertensión esencial,2026-05-06
+D00575,18,F,J06.9,Infección respiratoria aguda,2026-03-19
+D00576,45,F,M54.5,Lumbalgia,2026-01-23
+D00577,77,M,I10,Hipertensión esencial,2026-08-17
+D00578,72,M,C61,Tumor maligno de próstata,2026-02-24
+D00579,52,M,I10,Hipertensión esencial,2026-08-22
+D00580,53,F,K29.7,Gastritis,2026-02-01
+D00581,55,F,J06.9,Infección respiratoria aguda,2026-05-28
+D00582,78,M,I10,Hipertensión esencial,2026-05-12
+D00583,54,F,E11.9,Diabetes mellitus tipo 2,2026-07-21
+D00584,63,F,I10,Hipertensión esencial,2026-03-20
+D00585,51,F,J06.9,Infección respiratoria aguda,2026-07-13
+D00586,58,F,M54.5,Lumbalgia,2026-07-16
+D00587,36,F,M54.5,Lumbalgia,2026-03-11
+D00588,49,F,E78.5,Dislipidemia,2026-07-23
+D00589,39,M,M54.5,Lumbalgia,2026-04-17
+D00590,76,F,K29.7,Gastritis,2026-02-10
+D00591,80,F,K29.7,Gastritis,2026-02-01
+D00592,41,F,E78.5,Dislipidemia,2026-02-20
+D00593,18,F,J06.9,Infección respiratoria aguda,2026-07-15
+D00594,32,M,I10,Hipertensión esencial,2026-01-26
+D00595,34,F,M54.5,Lumbalgia,2026-03-14
+D00596,18,F,J06.9,Infección respiratoria aguda,2026-07-20
+D00597,62,F,J06.9,Infección respiratoria aguda,2026-06-16
+D00598,42,F,J06.9,Infección respiratoria aguda,2026-02-04
+D00599,44,F,E78.5,Dislipidemia,2026-07-01
+D00600,39,F,M54.5,Lumbalgia,2026-04-12
+D00601,52,F,E11.9,Diabetes mellitus tipo 2,2026-07-21
+D00602,43,F,J06.9,Infección respiratoria aguda,2026-08-20
+D00603,33,F,I10,Hipertensión esencial,2026-06-06
+D00604,44,M,J06.9,Infección respiratoria aguda,2026-07-27
+D00605,72,M,J06.9,Infección respiratoria aguda,2026-08-04
+D00606,55,F,M54.5,Lumbalgia,2026-05-29
+D00607,35,F,J06.9,Infección respiratoria aguda,2026-07-29
+D00608,54,M,J06.9,Infección respiratoria aguda,2026-08-05
+D00609,34,M,J06.9,Infección respiratoria aguda,2026-08-11
+D00610,52,F,C53.9,Tumor maligno de cuello uterino,2026-04-26
+D00611,44,M,J06.9,Infección respiratoria aguda,2026-05-18
+D00612,37,M,J06.9,Infección respiratoria aguda,2026-07-13
+D00613,63,M,K29.7,Gastritis,2026-07-25
+D00614,68,M,I10,Hipertensión esencial,2026-05-14
+D00615,51,M,K29.7,Gastritis,2026-01-01
+D00616,66,F,E78.5,Dislipidemia,2026-06-01
+D00617,45,M,M54.5,Lumbalgia,2026-02-06
+D00618,40,F,K29.7,Gastritis,2026-03-01
+D00619,36,F,I10,Hipertensión esencial,2026-03-14
+D00620,76,F,M54.5,Lumbalgia,2026-06-19
+D00621,83,F,I10,Hipertensión esencial,2026-08-19
+D00622,67,F,I10,Hipertensión esencial,2026-02-18
+D00623,18,M,J06.9,Infección respiratoria aguda,2026-04-29
+D00624,25,M,M54.5,Lumbalgia,2026-02-19
+D00625,56,F,I10,Hipertensión esencial,2026-02-24
+D00626,53,M,E11.9,Diabetes mellitus tipo 2,2026-04-25
+D00627,69,F,I10,Hipertensión esencial,2026-03-22
+D00628,75,F,I10,Hipertensión esencial,2026-04-15
+D00629,35,M,E78.5,Dislipidemia,2026-07-25
+D00630,71,M,E78.5,Dislipidemia,2026-08-09
+D00631,40,F,J06.9,Infección respiratoria aguda,2026-07-26
+D00632,52,M,E78.5,Dislipidemia,2026-05-02
+D00633,41,F,I10,Hipertensión esencial,2026-05-01
+D00634,31,M,J06.9,Infección respiratoria aguda,2026-01-03
+D00635,18,M,J06.9,Infección respiratoria aguda,2026-02-27
+D00636,38,M,K29.7,Gastritis,2026-07-29
+D00637,39,F,C53.9,Tumor maligno de cuello uterino,2026-04-18
+D00638,64,M,K29.7,Gastritis,2026-01-31
+D00639,41,M,K29.7,Gastritis,2026-04-14
+D00640,71,M,M54.5,Lumbalgia,2026-06-24
+D00641,67,M,J06.9,Infección respiratoria aguda,2026-03-24
+D00642,82,M,C61,Tumor maligno de próstata,2026-04-12
+D00643,30,F,M54.5,Lumbalgia,2026-06-19
+D00644,49,M,E78.5,Dislipidemia,2026-01-06
+D00645,18,F,J06.9,Infección respiratoria aguda,2026-08-28
+D00646,34,F,K29.7,Gastritis,2026-05-28
+D00647,18,M,K29.7,Gastritis,2026-07-08
+D00648,44,M,E78.5,Dislipidemia,2026-04-25
+D00649,54,F,C50.9,Tumor maligno de mama,2026-04-25
+D00650,49,F,M54.5,Lumbalgia,2026-08-29
+D00651,63,F,M54.5,Lumbalgia,2026-05-04
+D00652,52,F,K29.7,Gastritis,2026-03-10
+D00653,18,F,J06.9,Infección respiratoria aguda,2026-04-21
+D00654,26,M,J06.9,Infección respiratoria aguda,2026-04-27
+D00655,45,F,K29.7,Gastritis,2026-02-02
+D00656,38,M,K29.7,Gastritis,2026-06-30
+D00657,63,F,J06.9,Infección respiratoria aguda,2026-06-22
+D00658,43,M,E78.5,Dislipidemia,2026-03-27
+D00659,47,F,K29.7,Gastritis,2026-03-14
+D00660,35,F,K29.7,Gastritis,2026-02-18
+D00661,36,M,M54.5,Lumbalgia,2026-07-13
+D00662,34,M,J06.9,Infección respiratoria aguda,2026-06-21
+D00663,43,F,C50.9,Tumor maligno de mama,2026-07-20
+D00664,38,F,J06.9,Infección respiratoria aguda,2026-01-25
+D00665,61,M,E78.5,Dislipidemia,2026-02-24
+D00666,61,M,I10,Hipertensión esencial,2026-02-17
+D00667,47,M,I10,Hipertensión esencial,2026-06-13
+D00668,49,F,I10,Hipertensión esencial,2026-04-06
+D00669,55,M,I10,Hipertensión esencial,2026-01-06
+D00670,63,F,I10,Hipertensión esencial,2026-07-13
+D00671,45,F,J06.9,Infección respiratoria aguda,2026-07-28
+D00672,87,M,I10,Hipertensión esencial,2026-04-18
+D00673,30,F,M54.5,Lumbalgia,2026-05-08
+D00674,71,M,I10,Hipertensión esencial,2026-06-11
+D00675,44,F,K29.7,Gastritis,2026-04-23
+D00676,24,F,K29.7,Gastritis,2026-02-02
+D00677,50,F,J06.9,Infección respiratoria aguda,2026-01-16
+D00678,43,M,K29.7,Gastritis,2026-02-17
+D00679,39,F,K29.7,Gastritis,2026-04-20
+D00680,41,F,C50.9,Tumor maligno de mama,2026-06-06
+D00681,61,F,E11.9,Diabetes mellitus tipo 2,2026-07-15
+D00682,54,M,J06.9,Infección respiratoria aguda,2026-03-11
+D00683,26,M,M54.5,Lumbalgia,2026-01-08
+D00684,38,M,I10,Hipertensión esencial,2026-08-28
+D00685,18,F,K29.7,Gastritis,2026-03-16
+D00686,32,F,I10,Hipertensión esencial,2026-02-04
+D00687,33,F,J06.9,Infección respiratoria aguda,2026-03-06
+D00688,65,F,J06.9,Infección respiratoria aguda,2026-07-19
+D00689,31,F,K29.7,Gastritis,2026-05-08
+D00690,27,M,J06.9,Infección respiratoria aguda,2026-06-04
+D00691,87,F,M54.5,Lumbalgia,2026-06-02
+D00692,32,F,C53.9,Tumor maligno de cuello uterino,2026-08-10
+D00693,36,F,J06.9,Infección respiratoria aguda,2026-01-26
+D00694,86,F,J06.9,Infección respiratoria aguda,2026-04-22
+D00695,31,M,J06.9,Infección respiratoria aguda,2026-01-29
+D00696,44,M,J06.9,Infección respiratoria aguda,2026-01-13
+D00697,77,F,E11.9,Diabetes mellitus tipo 2,2026-05-04
+D00698,43,F,J06.9,Infección respiratoria aguda,2026-07-15
+D00699,40,F,K29.7,Gastritis,2026-06-19
+D00700,27,M,M54.5,Lumbalgia,2026-06-29
+D00701,45,M,I10,Hipertensión esencial,2026-07-20
+D00702,57,M,I10,Hipertensión esencial,2026-08-16
+D00703,40,F,M54.5,Lumbalgia,2026-08-04
+D00704,73,M,I10,Hipertensión esencial,2026-07-10
+D00705,45,F,J06.9,Infección respiratoria aguda,2026-06-15
+D00706,40,F,C50.9,Tumor maligno de mama,2026-06-10
+D00707,74,F,J06.9,Infección respiratoria aguda,2026-08-15
+D00708,43,F,K29.7,Gastritis,2026-01-12
+D00709,51,F,J06.9,Infección respiratoria aguda,2026-04-24
+D00710,58,M,E78.5,Dislipidemia,2026-04-14
+D00711,25,M,J06.9,Infección respiratoria aguda,2026-08-26
+D00712,31,M,M54.5,Lumbalgia,2026-04-22
+D00713,50,M,I10,Hipertensión esencial,2026-01-15
+D00714,49,M,E78.5,Dislipidemia,2026-07-28
+D00715,43,M,K29.7,Gastritis,2026-01-10
+D00716,66,M,M54.5,Lumbalgia,2026-02-16
+D00717,68,F,E11.9,Diabetes mellitus tipo 2,2026-08-24
+D00718,18,F,J06.9,Infección respiratoria aguda,2026-05-10
+D00719,43,F,J06.9,Infección respiratoria aguda,2026-05-10
+D00720,46,M,J06.9,Infección respiratoria aguda,2026-02-21
+D00721,85,M,K29.7,Gastritis,2026-04-21
+D00722,55,F,E78.5,Dislipidemia,2026-08-26
+D00723,61,F,J06.9,Infección respiratoria aguda,2026-03-02
+D00724,34,F,M54.5,Lumbalgia,2026-02-10
+D00725,66,F,J06.9,Infección respiratoria aguda,2026-06-26
+D00726,18,F,J06.9,Infección respiratoria aguda,2026-07-31
+D00727,58,M,M54.5,Lumbalgia,2026-05-16
+D00728,82,M,M54.5,Lumbalgia,2026-07-15
+D00729,55,F,M54.5,Lumbalgia,2026-08-07
+D00730,40,M,J06.9,Infección respiratoria aguda,2026-01-24
+D00731,82,M,J06.9,Infección respiratoria aguda,2026-04-08
+D00732,67,F,E78.5,Dislipidemia,2026-01-30
+D00733,60,M,C18.9,Tumor maligno de colon,2026-08-23
+D00734,28,M,K29.7,Gastritis,2026-05-21
+D00735,33,M,K29.7,Gastritis,2026-07-11
+D00736,74,M,J06.9,Infección respiratoria aguda,2026-04-15
+D00737,42,F,C50.9,Tumor maligno de mama,2026-04-19
+D00738,49,F,E11.9,Diabetes mellitus tipo 2,2026-03-06
+D00739,54,M,J06.9,Infección respiratoria aguda,2026-03-11
+D00740,70,F,E11.9,Diabetes mellitus tipo 2,2026-08-06
+D00741,57,M,C61,Tumor maligno de próstata,2026-07-16
+D00742,50,M,E11.9,Diabetes mellitus tipo 2,2026-05-02
+D00743,27,M,M54.5,Lumbalgia,2026-02-22
+D00744,68,M,I10,Hipertensión esencial,2026-01-28
+D00745,57,M,K29.7,Gastritis,2026-06-06
+D00746,45,M,E78.5,Dislipidemia,2026-03-19
+D00747,80,M,M54.5,Lumbalgia,2026-07-22
+D00748,46,M,K29.7,Gastritis,2026-05-01
+D00749,49,F,E11.9,Diabetes mellitus tipo 2,2026-07-29
+D00750,50,M,C61,Tumor maligno de próstata,2026-07-21
+D00751,22,F,K29.7,Gastritis,2026-06-01
+D00752,56,F,J06.9,Infección respiratoria aguda,2026-06-06
+D00753,55,F,K29.7,Gastritis,2026-02-06
+D00754,68,M,C61,Tumor maligno de próstata,2026-01-27
+D00755,50,M,I10,Hipertensión esencial,2026-02-05
+D00756,31,F,J06.9,Infección respiratoria aguda,2026-01-28
+D00757,61,F,J06.9,Infección respiratoria aguda,2026-04-19
+D00758,37,M,J06.9,Infección respiratoria aguda,2026-02-17
+D00759,72,M,C61,Tumor maligno de próstata,2026-08-13
+D00760,41,F,M54.5,Lumbalgia,2026-03-14
+D00761,35,F,M54.5,Lumbalgia,2026-03-07
+D00762,66,M,E11.9,Diabetes mellitus tipo 2,2026-05-06
+D00763,37,M,I10,Hipertensión esencial,2026-06-08
+D00764,46,M,I10,Hipertensión esencial,2026-06-01
+D00765,57,F,K29.7,Gastritis,2026-06-09
+D00766,90,M,E78.5,Dislipidemia,2026-08-21
+D00767,32,M,J06.9,Infección respiratoria aguda,2026-03-09
+D00768,37,F,K29.7,Gastritis,2026-05-31
+D00769,79,M,E78.5,Dislipidemia,2026-07-16
+D00770,54,F,E11.9,Diabetes mellitus tipo 2,2026-06-01
+D00771,51,M,E11.9,Diabetes mellitus tipo 2,2026-03-01
+D00772,47,F,C50.9,Tumor maligno de mama,2026-01-09
+D00773,20,M,K29.7,Gastritis,2026-03-22
+D00774,35,M,J06.9,Infección respiratoria aguda,2026-03-05
+D00775,37,F,J06.9,Infección respiratoria aguda,2026-02-21
+D00776,55,F,J06.9,Infección respiratoria aguda,2026-04-28
+D00777,44,F,K29.7,Gastritis,2026-05-02
+D00778,62,F,J06.9,Infección respiratoria aguda,2026-03-01
+D00779,36,M,E78.5,Dislipidemia,2026-07-14
+D00780,58,M,J06.9,Infección respiratoria aguda,2026-01-25
+D00781,31,M,I10,Hipertensión esencial,2026-01-12
+D00782,42,F,C50.9,Tumor maligno de mama,2026-07-13
+D00783,43,M,K29.7,Gastritis,2026-02-25
+D00784,25,F,K29.7,Gastritis,2026-08-15
+D00785,65,M,C61,Tumor maligno de próstata,2026-02-01
+D00786,49,F,J06.9,Infección respiratoria aguda,2026-03-19
+D00787,61,F,K29.7,Gastritis,2026-08-12
+D00788,22,M,J06.9,Infección respiratoria aguda,2026-02-06
+D00789,31,M,J06.9,Infección respiratoria aguda,2026-05-28
+D00790,24,M,J06.9,Infección respiratoria aguda,2026-06-15
+D00791,24,M,J06.9,Infección respiratoria aguda,2026-05-24
+D00792,59,M,I10,Hipertensión esencial,2026-06-04
+D00793,37,F,E11.9,Diabetes mellitus tipo 2,2026-08-08
+D00794,36,F,I10,Hipertensión esencial,2026-01-31
+D00795,53,M,E11.9,Diabetes mellitus tipo 2,2026-07-20
+D00796,59,F,I10,Hipertensión esencial,2026-08-17
+D00797,35,F,K29.7,Gastritis,2026-04-03
+D00798,26,M,J06.9,Infección respiratoria aguda,2026-03-12
+D00799,37,F,J06.9,Infección respiratoria aguda,2026-01-11
+D00800,82,F,E78.5,Dislipidemia,2026-02-02
+D00801,54,F,M54.5,Lumbalgia,2026-06-24
+D00802,35,M,K29.7,Gastritis,2026-01-09
+D00803,58,M,M54.5,Lumbalgia,2026-05-28
+D00804,50,M,K29.7,Gastritis,2026-06-08
+D00805,52,F,M54.5,Lumbalgia,2026-02-20
+D00806,47,F,K29.7,Gastritis,2026-01-05
+D00807,66,F,I10,Hipertensión esencial,2026-03-29
+D00808,66,F,K29.7,Gastritis,2026-06-29
+D00809,73,M,C61,Tumor maligno de próstata,2026-01-10
+D00810,53,F,K29.7,Gastritis,2026-02-12
+D00811,62,M,J06.9,Infección respiratoria aguda,2026-07-04
+D00812,34,F,I10,Hipertensión esencial,2026-04-21
+D00813,49,M,J06.9,Infección respiratoria aguda,2026-08-02
+D00814,63,F,K29.7,Gastritis,2026-07-31
+D00815,39,M,E78.5,Dislipidemia,2026-07-06
+D00816,31,F,J06.9,Infección respiratoria aguda,2026-02-23
+D00817,36,M,E11.9,Diabetes mellitus tipo 2,2026-07-14
+D00818,60,M,M54.5,Lumbalgia,2026-04-07
+D00819,73,F,I10,Hipertensión esencial,2026-08-24
+D00820,49,M,I10,Hipertensión esencial,2026-01-14
+D00821,49,M,M54.5,Lumbalgia,2026-06-03
+D00822,70,F,M54.5,Lumbalgia,2026-05-13
+D00823,44,F,M54.5,Lumbalgia,2026-04-19
+D00824,55,F,E78.5,Dislipidemia,2026-07-09
+D00825,46,M,M54.5,Lumbalgia,2026-07-22
+D00826,56,F,M54.5,Lumbalgia,2026-07-17
+D00827,49,M,K29.7,Gastritis,2026-08-11
+D00828,35,M,E11.9,Diabetes mellitus tipo 2,2026-02-10
+D00829,38,M,E78.5,Dislipidemia,2026-06-05
+D00830,48,F,E78.5,Dislipidemia,2026-01-20
+D00831,63,M,E11.9,Diabetes mellitus tipo 2,2026-01-20
+D00832,60,M,C61,Tumor maligno de próstata,2026-02-13
+D00833,33,F,J06.9,Infección respiratoria aguda,2026-05-16
+D00834,33,F,J06.9,Infección respiratoria aguda,2026-02-13
+D00835,49,M,J06.9,Infección respiratoria aguda,2026-03-27
+D00836,33,M,I10,Hipertensión esencial,2026-02-16
+D00837,63,M,K29.7,Gastritis,2026-01-14
+D00838,32,F,J06.9,Infección respiratoria aguda,2026-01-18
+D00839,18,F,K29.7,Gastritis,2026-04-27
+D00840,23,F,K29.7,Gastritis,2026-08-24
+D00841,62,M,J06.9,Infección respiratoria aguda,2026-03-11
+D00842,56,F,E11.9,Diabetes mellitus tipo 2,2026-01-26
+D00843,41,M,M54.5,Lumbalgia,2026-06-28
+D00844,82,F,E11.9,Diabetes mellitus tipo 2,2026-04-08
+D00845,75,F,I10,Hipertensión esencial,2026-08-25
+D00846,44,M,K29.7,Gastritis,2026-08-17
+D00847,34,F,M54.5,Lumbalgia,2026-04-17
+D00848,43,F,I10,Hipertensión esencial,2026-02-03
+D00849,34,M,J06.9,Infección respiratoria aguda,2026-06-22
+D00850,32,M,J06.9,Infección respiratoria aguda,2026-05-27
+D00851,42,F,I10,Hipertensión esencial,2026-07-03
+D00852,18,F,K29.7,Gastritis,2026-08-27
+D00853,71,F,K29.7,Gastritis,2026-03-03
+D00854,33,F,K29.7,Gastritis,2026-03-05
+D00855,52,F,M54.5,Lumbalgia,2026-07-09
+D00856,32,F,M54.5,Lumbalgia,2026-05-20
+D00857,61,M,I10,Hipertensión esencial,2026-06-14
+D00858,52,F,I10,Hipertensión esencial,2026-03-21
+D00859,66,F,I10,Hipertensión esencial,2026-06-23
+D00860,72,M,J06.9,Infección respiratoria aguda,2026-08-28
+D00861,44,F,M54.5,Lumbalgia,2026-07-18
+D00862,42,M,J06.9,Infección respiratoria aguda,2026-03-25
+D00863,58,M,J06.9,Infección respiratoria aguda,2026-04-30
+D00864,40,F,E11.9,Diabetes mellitus tipo 2,2026-03-08
+D00865,44,M,M54.5,Lumbalgia,2026-08-17
+D00866,45,F,J06.9,Infección respiratoria aguda,2026-05-24
+D00867,42,M,I10,Hipertensión esencial,2026-03-17
+D00868,61,F,C50.9,Tumor maligno de mama,2026-05-16
+D00869,86,F,J06.9,Infección respiratoria aguda,2026-05-30
+D00870,52,F,K29.7,Gastritis,2026-04-27
+D00871,73,M,I10,Hipertensión esencial,2026-07-08
+D00872,68,M,K29.7,Gastritis,2026-02-28
+D00873,55,M,J06.9,Infección respiratoria aguda,2026-02-17
+D00874,59,M,E78.5,Dislipidemia,2026-05-01
+D00875,61,F,M54.5,Lumbalgia,2026-05-29
+D00876,49,M,E11.9,Diabetes mellitus tipo 2,2026-03-14
+D00877,42,M,M54.5,Lumbalgia,2026-06-02
+D00878,36,M,J06.9,Infección respiratoria aguda,2026-02-01
+D00879,38,M,J06.9,Infección respiratoria aguda,2026-08-08
+D00880,70,F,E11.9,Diabetes mellitus tipo 2,2026-08-09
+D00881,21,F,J06.9,Infección respiratoria aguda,2026-07-26
+D00882,47,F,M54.5,Lumbalgia,2026-05-23
+D00883,60,F,J06.9,Infección respiratoria aguda,2026-04-19
+D00884,47,F,I10,Hipertensión esencial,2026-05-30
+D00885,53,M,K29.7,Gastritis,2026-06-09
+D00886,87,M,E11.9,Diabetes mellitus tipo 2,2026-05-30
+D00887,50,F,K29.7,Gastritis,2026-04-16
+D00888,49,F,I10,Hipertensión esencial,2026-05-22
+D00889,88,F,M54.5,Lumbalgia,2026-06-22
+D00890,27,F,J06.9,Infección respiratoria aguda,2026-03-30
+D00891,51,F,J06.9,Infección respiratoria aguda,2026-02-06
+D00892,59,F,I10,Hipertensión esencial,2026-03-25
+D00893,19,M,K29.7,Gastritis,2026-08-20
+D00894,38,M,J06.9,Infección respiratoria aguda,2026-04-14
+D00895,53,F,I10,Hipertensión esencial,2026-07-29
+D00896,48,M,E11.9,Diabetes mellitus tipo 2,2026-07-26
+D00897,77,F,I10,Hipertensión esencial,2026-01-22
+D00898,27,M,J06.9,Infección respiratoria aguda,2026-07-30
+D00899,18,M,J06.9,Infección respiratoria aguda,2026-07-27
+D00900,82,M,K29.7,Gastritis,2026-08-01
+D00901,68,F,K29.7,Gastritis,2026-07-25
+D00902,55,M,I10,Hipertensión esencial,2026-03-02
+D00903,41,M,J06.9,Infección respiratoria aguda,2026-02-11
+D00904,48,F,E11.9,Diabetes mellitus tipo 2,2026-08-06
+D00905,90,M,E78.5,Dislipidemia,2026-06-26
+D00906,27,F,M54.5,Lumbalgia,2026-06-13
+D00907,36,F,I10,Hipertensión esencial,2026-03-09
+D00908,50,M,E11.9,Diabetes mellitus tipo 2,2026-01-10
+D00909,34,F,J06.9,Infección respiratoria aguda,2026-05-17
+D00910,48,M,E78.5,Dislipidemia,2026-06-06
+D00911,64,F,I10,Hipertensión esencial,2026-02-14
+D00912,39,M,J06.9,Infección respiratoria aguda,2026-02-01
+D00913,49,M,E11.9,Diabetes mellitus tipo 2,2026-07-14
+D00914,53,M,C61,Tumor maligno de próstata,2026-04-02
+D00915,55,F,I10,Hipertensión esencial,2026-08-09
+D00916,37,M,M54.5,Lumbalgia,2026-06-19
+D00917,40,F,M54.5,Lumbalgia,2026-06-29
+D00918,45,F,J06.9,Infección respiratoria aguda,2026-08-24
+D00919,47,M,J06.9,Infección respiratoria aguda,2026-03-14
+D00920,57,M,C61,Tumor maligno de próstata,2026-03-19
+D00921,24,M,J06.9,Infección respiratoria aguda,2026-06-09
+D00922,43,M,M54.5,Lumbalgia,2026-07-04
+D00923,42,F,J06.9,Infección respiratoria aguda,2026-02-07
+D00924,51,F,E11.9,Diabetes mellitus tipo 2,2026-05-04
+D00925,31,M,J06.9,Infección respiratoria aguda,2026-05-06
+D00926,56,F,E11.9,Diabetes mellitus tipo 2,2026-07-29
+D00927,47,F,J06.9,Infección respiratoria aguda,2026-06-29
+D00928,75,M,E11.9,Diabetes mellitus tipo 2,2026-04-06
+D00929,34,F,K29.7,Gastritis,2026-08-03
+D00930,34,F,J06.9,Infección respiratoria aguda,2026-05-09
+D00931,66,F,C50.9,Tumor maligno de mama,2026-08-17
+D00932,18,F,K29.7,Gastritis,2026-03-24
+D00933,22,F,J06.9,Infección respiratoria aguda,2026-05-18
+D00934,45,M,I10,Hipertensión esencial,2026-08-28
+D00935,45,M,I10,Hipertensión esencial,2026-06-15
+D00936,20,M,J06.9,Infección respiratoria aguda,2026-08-25
+D00937,41,F,C53.9,Tumor maligno de cuello uterino,2026-03-22
+D00938,63,F,K29.7,Gastritis,2026-03-09
+D00939,55,F,E11.9,Diabetes mellitus tipo 2,2026-02-14
+D00940,57,M,J06.9,Infección respiratoria aguda,2026-06-29
+D00941,43,F,I10,Hipertensión esencial,2026-02-24
+D00942,41,M,M54.5,Lumbalgia,2026-07-16
+D00943,42,F,K29.7,Gastritis,2026-08-01
+D00944,75,M,C61,Tumor maligno de próstata,2026-05-16
+D00945,55,M,J06.9,Infección respiratoria aguda,2026-08-19
+D00946,73,M,I10,Hipertensión esencial,2026-03-18
+D00947,54,F,J06.9,Infección respiratoria aguda,2026-02-07
+D00948,50,M,J06.9,Infección respiratoria aguda,2026-05-10
+D00949,43,F,E11.9,Diabetes mellitus tipo 2,2026-02-24
+D00950,45,M,J06.9,Infección respiratoria aguda,2026-04-22
+D00951,59,F,E11.9,Diabetes mellitus tipo 2,2026-03-29
+D00952,65,M,E78.5,Dislipidemia,2026-03-29
+D00953,40,F,J06.9,Infección respiratoria aguda,2026-05-20
+D00954,32,F,J06.9,Infección respiratoria aguda,2026-03-04
+D00955,36,M,K29.7,Gastritis,2026-01-08
+D00956,45,F,J06.9,Infección respiratoria aguda,2026-04-22
+D00957,81,F,M54.5,Lumbalgia,2026-07-02
+D00958,21,M,M54.5,Lumbalgia,2026-01-04
+D00959,27,F,J06.9,Infección respiratoria aguda,2026-04-11
+D00960,57,M,K29.7,Gastritis,2026-05-13
+D00961,53,F,E78.5,Dislipidemia,2026-03-09
+D00962,43,M,I10,Hipertensión esencial,2026-03-10
+D00963,38,M,J06.9,Infección respiratoria aguda,2026-04-16
+D00964,39,F,J06.9,Infección respiratoria aguda,2026-04-17
+D00965,45,M,J06.9,Infección respiratoria aguda,2026-07-21
+D00966,37,F,I10,Hipertensión esencial,2026-07-12
+D00967,64,F,J06.9,Infección respiratoria aguda,2026-07-13
+D00968,34,F,J06.9,Infección respiratoria aguda,2026-07-15
+D00969,54,F,J06.9,Infección respiratoria aguda,2026-01-26
+D00970,49,M,J06.9,Infección respiratoria aguda,2026-03-08
+D00971,46,F,E11.9,Diabetes mellitus tipo 2,2026-07-05
+D00972,78,F,J06.9,Infección respiratoria aguda,2026-01-18
+D00973,36,F,J06.9,Infección respiratoria aguda,2026-07-25
+D00974,89,F,E11.9,Diabetes mellitus tipo 2,2026-03-06
+D00975,60,M,K29.7,Gastritis,2026-03-06
+D00976,69,F,M54.5,Lumbalgia,2026-03-02
+D00977,50,F,E78.5,Dislipidemia,2026-04-08
+D00978,48,M,E11.9,Diabetes mellitus tipo 2,2026-01-01
+D00979,55,M,J06.9,Infección respiratoria aguda,2026-01-26
+D00980,73,M,E78.5,Dislipidemia,2026-02-09
+D00981,51,F,C50.9,Tumor maligno de mama,2026-05-01
+D00982,42,M,M54.5,Lumbalgia,2026-08-22
+D00983,40,F,J06.9,Infección respiratoria aguda,2026-07-01
+D00984,38,F,M54.5,Lumbalgia,2026-04-27
+D00985,47,F,E11.9,Diabetes mellitus tipo 2,2026-08-04
+D00986,18,M,J06.9,Infección respiratoria aguda,2026-04-13
+D00987,48,M,J06.9,Infección respiratoria aguda,2026-08-07
+D00988,61,F,C50.9,Tumor maligno de mama,2026-07-27
+D00989,59,F,K29.7,Gastritis,2026-02-03
+D00990,58,F,C18.9,Tumor maligno de colon,2026-05-03
+D00991,61,F,I10,Hipertensión esencial,2026-04-08
+D00992,37,M,J06.9,Infección respiratoria aguda,2026-08-23
+D00993,39,F,J06.9,Infección respiratoria aguda,2026-02-22
+D00994,47,M,K29.7,Gastritis,2026-06-21
+D00995,34,M,J06.9,Infección respiratoria aguda,2026-07-24
+D00996,29,F,M54.5,Lumbalgia,2026-03-14
+D00997,47,F,J06.9,Infección respiratoria aguda,2026-02-14
+D00998,79,F,E11.9,Diabetes mellitus tipo 2,2026-07-06
+D00999,48,M,E78.5,Dislipidemia,2026-03-20
+D01000,60,M,E78.5,Dislipidemia,2026-05-07
+D01001,62,M,I10,Hipertensión esencial,2026-06-16
+D01002,47,M,J06.9,Infección respiratoria aguda,2026-05-01
+D01003,70,M,K29.7,Gastritis,2026-08-22
+D01004,52,M,I10,Hipertensión esencial,2026-08-09
+D01005,52,M,K29.7,Gastritis,2026-07-15
+D01006,23,M,K29.7,Gastritis,2026-07-20
+D01007,36,F,J06.9,Infección respiratoria aguda,2026-07-20
+D01008,54,M,E78.5,Dislipidemia,2026-07-15
+D01009,56,F,J06.9,Infección respiratoria aguda,2026-03-21
+D01010,19,M,J06.9,Infección respiratoria aguda,2026-01-10
+D01011,51,F,C50.9,Tumor maligno de mama,2026-07-23
+D01012,54,F,M54.5,Lumbalgia,2026-05-02
+D01013,53,M,I10,Hipertensión esencial,2026-07-08
+D01014,41,F,K29.7,Gastritis,2026-07-22
+D01015,52,M,J06.9,Infección respiratoria aguda,2026-02-02
+D01016,54,F,C53.9,Tumor maligno de cuello uterino,2026-07-23
+D01017,64,F,J06.9,Infección respiratoria aguda,2026-03-04
+D01018,58,M,C61,Tumor maligno de próstata,2026-07-21
+D01019,63,F,E11.9,Diabetes mellitus tipo 2,2026-06-23
+D01020,29,F,J06.9,Infección respiratoria aguda,2026-01-30
+D01021,34,F,J06.9,Infección respiratoria aguda,2026-05-10
+D01022,56,M,J06.9,Infección respiratoria aguda,2026-07-19
+D01023,53,M,I10,Hipertensión esencial,2026-07-20
+D01024,37,F,I10,Hipertensión esencial,2026-05-02
+D01025,35,F,J06.9,Infección respiratoria aguda,2026-03-13
+D01026,29,M,J06.9,Infección respiratoria aguda,2026-05-13
+D01027,46,M,M54.5,Lumbalgia,2026-01-02
+D01028,42,F,J06.9,Infección respiratoria aguda,2026-05-06
+D01029,61,F,I10,Hipertensión esencial,2026-06-18
+D01030,59,F,J06.9,Infección respiratoria aguda,2026-04-10
+D01031,57,F,M54.5,Lumbalgia,2026-03-08
+D01032,42,F,K29.7,Gastritis,2026-08-10
+D01033,58,F,C50.9,Tumor maligno de mama,2026-08-28
+D01034,72,M,E78.5,Dislipidemia,2026-02-20
+D01035,46,F,J06.9,Infección respiratoria aguda,2026-04-19
+D01036,77,M,J06.9,Infección respiratoria aguda,2026-08-13
+D01037,73,M,I10,Hipertensión esencial,2026-05-20
+D01038,18,F,J06.9,Infección respiratoria aguda,2026-08-08
+D01039,55,F,E11.9,Diabetes mellitus tipo 2,2026-05-12
+D01040,80,F,M54.5,Lumbalgia,2026-04-08
+D01041,50,F,E11.9,Diabetes mellitus tipo 2,2026-05-26
+D01042,38,F,J06.9,Infección respiratoria aguda,2026-08-19
+D01043,49,F,J06.9,Infección respiratoria aguda,2026-04-19
+D01044,59,M,E78.5,Dislipidemia,2026-08-12
+D01045,53,M,J06.9,Infección respiratoria aguda,2026-07-06
+D01046,41,M,J06.9,Infección respiratoria aguda,2026-02-09
+D01047,41,F,K29.7,Gastritis,2026-05-15
+D01048,45,F,J06.9,Infección respiratoria aguda,2026-03-17
+D01049,50,M,E78.5,Dislipidemia,2026-04-30
+D01050,49,F,M54.5,Lumbalgia,2026-05-31
+D01051,48,F,E11.9,Diabetes mellitus tipo 2,2026-04-29
+D01052,72,M,C61,Tumor maligno de próstata,2026-07-20
+D01053,35,M,J06.9,Infección respiratoria aguda,2026-03-27
+D01054,28,F,K29.7,Gastritis,2026-07-28
+D01055,37,F,K29.7,Gastritis,2026-08-14
+D01056,46,M,K29.7,Gastritis,2026-06-22
+D01057,65,F,J06.9,Infección respiratoria aguda,2026-02-03
+D01058,56,F,J06.9,Infección respiratoria aguda,2026-06-30
+D01059,48,F,M54.5,Lumbalgia,2026-07-04
+D01060,50,F,K29.7,Gastritis,2026-05-22
+D01061,68,M,E78.5,Dislipidemia,2026-02-19
+D01062,49,F,J06.9,Infección respiratoria aguda,2026-01-12
+D01063,55,M,C61,Tumor maligno de próstata,2026-02-07
+D01064,40,F,M54.5,Lumbalgia,2026-02-28
+D01065,32,M,J06.9,Infección respiratoria aguda,2026-01-14
+D01066,49,F,M54.5,Lumbalgia,2026-07-28
+D01067,54,M,C18.9,Tumor maligno de colon,2026-08-04
+D01068,64,F,I10,Hipertensión esencial,2026-05-29
+D01069,68,F,E11.9,Diabetes mellitus tipo 2,2026-02-08
+D01070,48,F,E11.9,Diabetes mellitus tipo 2,2026-02-22
+D01071,48,M,J06.9,Infección respiratoria aguda,2026-07-30
+D01072,35,F,E78.5,Dislipidemia,2026-06-11
+D01073,37,F,E78.5,Dislipidemia,2026-02-03
+D01074,46,F,J06.9,Infección respiratoria aguda,2026-07-18
+D01075,18,F,J06.9,Infección respiratoria aguda,2026-06-25
+D01076,62,M,M54.5,Lumbalgia,2026-03-15
+D01077,35,M,K29.7,Gastritis,2026-08-28
+D01078,60,F,J06.9,Infección respiratoria aguda,2026-01-01
+D01079,38,M,E11.9,Diabetes mellitus tipo 2,2026-07-17
+D01080,77,F,E11.9,Diabetes mellitus tipo 2,2026-08-16
+D01081,41,M,J06.9,Infección respiratoria aguda,2026-01-24
+D01082,26,M,K29.7,Gastritis,2026-08-29
+D01083,73,F,C50.9,Tumor maligno de mama,2026-03-22
+D01084,59,M,J06.9,Infección respiratoria aguda,2026-06-10
+D01085,38,M,K29.7,Gastritis,2026-06-30
+D01086,71,M,E78.5,Dislipidemia,2026-03-08
+D01087,39,F,K29.7,Gastritis,2026-06-19
+D01088,43,F,I10,Hipertensión esencial,2026-03-08
+D01089,18,M,K29.7,Gastritis,2026-01-15
+D01090,70,M,E11.9,Diabetes mellitus tipo 2,2026-04-22
+D01091,19,F,J06.9,Infección respiratoria aguda,2026-08-15
+D01092,37,M,K29.7,Gastritis,2026-08-14
+D01093,70,F,I10,Hipertensión esencial,2026-08-21
+D01094,44,F,E78.5,Dislipidemia,2026-07-24
+D01095,36,F,E78.5,Dislipidemia,2026-04-22
+D01096,23,F,J06.9,Infección respiratoria aguda,2026-07-08
+D01097,46,M,K29.7,Gastritis,2026-05-06
+D01098,71,F,J06.9,Infección respiratoria aguda,2026-08-24
+D01099,47,F,E11.9,Diabetes mellitus tipo 2,2026-08-27
+D01100,83,F,C18.9,Tumor maligno de colon,2026-08-12
+D01101,52,F,I10,Hipertensión esencial,2026-05-02
+D01102,52,F,M54.5,Lumbalgia,2026-02-15
+D01103,33,F,M54.5,Lumbalgia,2026-05-26
+D01104,51,M,J06.9,Infección respiratoria aguda,2026-08-04
+D01105,35,F,M54.5,Lumbalgia,2026-05-19
+D01106,39,M,J06.9,Infección respiratoria aguda,2026-05-15
+D01107,19,F,M54.5,Lumbalgia,2026-05-09
+D01108,53,F,K29.7,Gastritis,2026-07-02
+D01109,65,M,M54.5,Lumbalgia,2026-02-28
+D01110,21,F,J06.9,Infección respiratoria aguda,2026-02-02
+D01111,32,F,I10,Hipertensión esencial,2026-02-15
+D01112,74,M,J06.9,Infección respiratoria aguda,2026-05-08
+D01113,39,F,K29.7,Gastritis,2026-03-29
+D01114,32,F,M54.5,Lumbalgia,2026-04-05
+D01115,41,F,J06.9,Infección respiratoria aguda,2026-07-19
+D01116,71,F,I10,Hipertensión esencial,2026-04-28
+D01117,62,M,E11.9,Diabetes mellitus tipo 2,2026-05-08
+D01118,56,M,J06.9,Infección respiratoria aguda,2026-02-03
+D01119,56,F,E78.5,Dislipidemia,2026-05-31
+D01120,18,M,K29.7,Gastritis,2026-07-04
+D01121,62,M,I10,Hipertensión esencial,2026-04-08
+D01122,47,F,K29.7,Gastritis,2026-06-28
+D01123,37,F,J06.9,Infección respiratoria aguda,2026-01-22
+D01124,67,F,K29.7,Gastritis,2026-05-03
+D01125,31,F,J06.9,Infección respiratoria aguda,2026-07-07
+D01126,34,M,K29.7,Gastritis,2026-06-11
+D01127,42,M,M54.5,Lumbalgia,2026-01-24
+D01128,30,F,J06.9,Infección respiratoria aguda,2026-07-17
+D01129,51,M,M54.5,Lumbalgia,2026-05-01
+D01130,63,F,M54.5,Lumbalgia,2026-07-06
+D01131,51,F,M54.5,Lumbalgia,2026-02-17
+D01132,51,M,K29.7,Gastritis,2026-03-14
+D01133,32,F,M54.5,Lumbalgia,2026-07-17
+D01134,73,M,J06.9,Infección respiratoria aguda,2026-01-07
+D01135,48,M,M54.5,Lumbalgia,2026-05-13
+D01136,62,F,E78.5,Dislipidemia,2026-01-05
+D01137,47,F,E11.9,Diabetes mellitus tipo 2,2026-05-02
+D01138,65,M,I10,Hipertensión esencial,2026-08-12
+D01139,53,F,I10,Hipertensión esencial,2026-02-23
+D01140,40,M,J06.9,Infección respiratoria aguda,2026-01-19
+D01141,53,F,K29.7,Gastritis,2026-03-14
+D01142,45,F,M54.5,Lumbalgia,2026-04-04
+D01143,18,F,J06.9,Infección respiratoria aguda,2026-05-08
+D01144,44,M,M54.5,Lumbalgia,2026-05-04
+D01145,33,F,J06.9,Infección respiratoria aguda,2026-07-25
+D01146,46,F,J06.9,Infección respiratoria aguda,2026-01-12
+D01147,54,M,I10,Hipertensión esencial,2026-08-24
+D01148,68,F,E11.9,Diabetes mellitus tipo 2,2026-02-03
+D01149,29,F,J06.9,Infección respiratoria aguda,2026-03-30
+D01150,58,M,I10,Hipertensión esencial,2026-03-23
+D01151,37,M,K29.7,Gastritis,2026-02-01
+D01152,18,F,K29.7,Gastritis,2026-08-18
+D01153,52,F,E11.9,Diabetes mellitus tipo 2,2026-04-30
+D01154,63,F,M54.5,Lumbalgia,2026-05-02
+D01155,39,M,J06.9,Infección respiratoria aguda,2026-02-03
+D01156,33,M,J06.9,Infección respiratoria aguda,2026-02-13
+D01157,32,M,J06.9,Infección respiratoria aguda,2026-05-28
+D01158,53,F,J06.9,Infección respiratoria aguda,2026-06-12
+D01159,58,F,C50.9,Tumor maligno de mama,2026-03-02
+D01160,76,F,E11.9,Diabetes mellitus tipo 2,2026-05-14
+D01161,50,F,J06.9,Infección respiratoria aguda,2026-05-02
+D01162,60,M,J06.9,Infección respiratoria aguda,2026-06-12
+D01163,59,M,K29.7,Gastritis,2026-08-11
+D01164,60,M,J06.9,Infección respiratoria aguda,2026-03-26
+D01165,42,M,J06.9,Infección respiratoria aguda,2026-04-01
+D01166,48,F,M54.5,Lumbalgia,2026-05-12
+D01167,50,M,I10,Hipertensión esencial,2026-01-21
+D01168,48,M,K29.7,Gastritis,2026-08-13
+D01169,58,M,M54.5,Lumbalgia,2026-06-24
+D01170,34,M,I10,Hipertensión esencial,2026-02-02
+D01171,32,M,J06.9,Infección respiratoria aguda,2026-01-25
+D01172,46,F,J06.9,Infección respiratoria aguda,2026-04-13
+D01173,56,M,K29.7,Gastritis,2026-02-13
+D01174,24,M,J06.9,Infección respiratoria aguda,2026-05-22
+D01175,18,M,J06.9,Infección respiratoria aguda,2026-01-15
+D01176,69,F,K29.7,Gastritis,2026-03-12
+D01177,54,M,M54.5,Lumbalgia,2026-04-30
+D01178,49,F,J06.9,Infección respiratoria aguda,2026-07-14
+D01179,32,F,K29.7,Gastritis,2026-04-13
+D01180,41,F,I10,Hipertensión esencial,2026-01-23
+D01181,18,F,K29.7,Gastritis,2026-06-26
+D01182,52,M,C18.9,Tumor maligno de colon,2026-07-21
+D01183,43,F,E78.5,Dislipidemia,2026-04-07
+D01184,53,M,C61,Tumor maligno de próstata,2026-06-05
+D01185,25,F,J06.9,Infección respiratoria aguda,2026-06-13
+D01186,62,F,C53.9,Tumor maligno de cuello uterino,2026-06-04
+D01187,62,F,J06.9,Infección respiratoria aguda,2026-05-01
+D01188,63,F,I10,Hipertensión esencial,2026-05-01
+D01189,36,M,J06.9,Infección respiratoria aguda,2026-02-13
+D01190,43,M,K29.7,Gastritis,2026-03-06
+D01191,58,F,E11.9,Diabetes mellitus tipo 2,2026-02-01
+D01192,34,M,J06.9,Infección respiratoria aguda,2026-07-07
+D01193,49,F,M54.5,Lumbalgia,2026-02-21
+D01194,63,F,C18.9,Tumor maligno de colon,2026-08-03
+D01195,49,M,J06.9,Infección respiratoria aguda,2026-08-06
+D01196,49,M,J06.9,Infección respiratoria aguda,2026-03-02
+D01197,50,M,M54.5,Lumbalgia,2026-05-03
+D01198,70,M,I10,Hipertensión esencial,2026-03-13
+D01199,59,F,I10,Hipertensión esencial,2026-05-19
+D01200,18,F,K29.7,Gastritis,2026-01-06
+D01201,58,M,E78.5,Dislipidemia,2026-01-13
+D01202,28,M,K29.7,Gastritis,2026-03-15
+D01203,44,M,M54.5,Lumbalgia,2026-06-09
+D01204,37,F,E78.5,Dislipidemia,2026-04-22
+D01205,36,F,K29.7,Gastritis,2026-07-12
+D01206,53,M,M54.5,Lumbalgia,2026-05-21
+D01207,35,F,K29.7,Gastritis,2026-05-01
+D01208,26,M,J06.9,Infección respiratoria aguda,2026-06-05
+D01209,64,M,I10,Hipertensión esencial,2026-05-09
+D01210,44,F,J06.9,Infección respiratoria aguda,2026-03-26
+D01211,49,F,C50.9,Tumor maligno de mama,2026-07-29
+D01212,40,F,J06.9,Infección respiratoria aguda,2026-06-15
+D01213,45,F,C50.9,Tumor maligno de mama,2026-08-11
+D01214,81,M,I10,Hipertensión esencial,2026-01-09
+D01215,48,M,J06.9,Infección respiratoria aguda,2026-08-23
+D01216,69,F,J06.9,Infección respiratoria aguda,2026-01-27
+D01217,30,F,K29.7,Gastritis,2026-04-20
+D01218,62,F,J06.9,Infección respiratoria aguda,2026-02-21
+D01219,47,F,M54.5,Lumbalgia,2026-01-04
+D01220,32,F,K29.7,Gastritis,2026-01-17
+D01221,65,M,I10,Hipertensión esencial,2026-05-08
+D01222,67,F,E11.9,Diabetes mellitus tipo 2,2026-01-24
+D01223,18,F,J06.9,Infección respiratoria aguda,2026-08-20
+D01224,53,F,J06.9,Infección respiratoria aguda,2026-03-31
+D01225,31,F,K29.7,Gastritis,2026-06-07
+D01226,52,M,E78.5,Dislipidemia,2026-06-22
+D01227,70,F,M54.5,Lumbalgia,2026-01-17
+D01228,54,F,E11.9,Diabetes mellitus tipo 2,2026-06-24
+D01229,44,M,M54.5,Lumbalgia,2026-05-12
+D01230,22,F,K29.7,Gastritis,2026-05-07
+D01231,63,M,E11.9,Diabetes mellitus tipo 2,2026-01-11
+D01232,59,F,J06.9,Infección respiratoria aguda,2026-02-08
+D01233,62,F,K29.7,Gastritis,2026-07-13
+D01234,65,M,J06.9,Infección respiratoria aguda,2026-06-24
+D01235,46,F,K29.7,Gastritis,2026-07-12
+D01236,85,M,M54.5,Lumbalgia,2026-05-29
+D01237,62,F,C53.9,Tumor maligno de cuello uterino,2026-02-25
+D01238,48,M,J06.9,Infección respiratoria aguda,2026-01-07
+D01239,25,M,J06.9,Infección respiratoria aguda,2026-05-12
+D01240,18,M,J06.9,Infección respiratoria aguda,2026-07-04
+D01241,42,F,K29.7,Gastritis,2026-06-02
+D01242,31,F,K29.7,Gastritis,2026-04-27
+D01243,56,M,M54.5,Lumbalgia,2026-02-01
+D01244,55,F,J06.9,Infección respiratoria aguda,2026-08-17
+D01245,38,F,J06.9,Infección respiratoria aguda,2026-06-13
+D01246,60,F,I10,Hipertensión esencial,2026-03-26
+D01247,37,F,M54.5,Lumbalgia,2026-07-18
+D01248,39,M,K29.7,Gastritis,2026-03-28
+D01249,38,F,I10,Hipertensión esencial,2026-08-08
+D01250,50,F,E11.9,Diabetes mellitus tipo 2,2026-03-13
+D01251,29,M,M54.5,Lumbalgia,2026-01-30
+D01252,51,M,J06.9,Infección respiratoria aguda,2026-07-20
+D01253,50,M,E11.9,Diabetes mellitus tipo 2,2026-01-10
+D01254,40,F,I10,Hipertensión esencial,2026-02-04
+D01255,38,M,J06.9,Infección respiratoria aguda,2026-08-22
+D01256,27,F,K29.7,Gastritis,2026-03-19
+D01257,45,F,J06.9,Infección respiratoria aguda,2026-03-02
+D01258,41,M,K29.7,Gastritis,2026-03-14
+D01259,46,F,M54.5,Lumbalgia,2026-04-21
+D01260,61,M,E11.9,Diabetes mellitus tipo 2,2026-03-07
+D01261,55,F,E11.9,Diabetes mellitus tipo 2,2026-02-10
+D01262,41,M,M54.5,Lumbalgia,2026-06-20
+D01263,52,F,I10,Hipertensión esencial,2026-04-15
+D01264,70,M,I10,Hipertensión esencial,2026-07-17
+D01265,54,F,K29.7,Gastritis,2026-05-29
+D01266,53,F,E78.5,Dislipidemia,2026-04-04
+D01267,75,F,E11.9,Diabetes mellitus tipo 2,2026-05-30
+D01268,57,M,J06.9,Infección respiratoria aguda,2026-07-26
+D01269,58,M,I10,Hipertensión esencial,2026-06-16
+D01270,23,M,K29.7,Gastritis,2026-06-08
+D01271,46,M,J06.9,Infección respiratoria aguda,2026-05-20
+D01272,41,M,J06.9,Infección respiratoria aguda,2026-05-13
+D01273,69,F,I10,Hipertensión esencial,2026-03-28
+D01274,57,F,J06.9,Infección respiratoria aguda,2026-06-09
+D01275,32,F,M54.5,Lumbalgia,2026-06-28
+D01276,24,M,M54.5,Lumbalgia,2026-02-17
+D01277,65,M,E11.9,Diabetes mellitus tipo 2,2026-03-11
+D01278,55,F,E78.5,Dislipidemia,2026-06-14
+D01279,45,M,K29.7,Gastritis,2026-03-28
+D01280,34,F,M54.5,Lumbalgia,2026-03-21
+D01281,77,M,M54.5,Lumbalgia,2026-03-13
+D01282,45,F,I10,Hipertensión esencial,2026-06-29
+D01283,57,F,K29.7,Gastritis,2026-01-29
+D01284,59,F,E78.5,Dislipidemia,2026-08-20
+D01285,46,F,J06.9,Infección respiratoria aguda,2026-01-10
+D01286,33,F,J06.9,Infección respiratoria aguda,2026-01-23
+D01287,64,M,J06.9,Infección respiratoria aguda,2026-08-21
+D01288,32,F,J06.9,Infección respiratoria aguda,2026-05-25
+D01289,34,F,I10,Hipertensión esencial,2026-06-26
+D01290,31,M,J06.9,Infección respiratoria aguda,2026-04-16
+D01291,48,F,K29.7,Gastritis,2026-07-16
+D01292,37,M,K29.7,Gastritis,2026-03-16
+D01293,43,M,E78.5,Dislipidemia,2026-04-18
+D01294,53,F,I10,Hipertensión esencial,2026-05-21
+D01295,47,M,I10,Hipertensión esencial,2026-04-06
+D01296,48,M,J06.9,Infección respiratoria aguda,2026-05-27
+D01297,35,M,M54.5,Lumbalgia,2026-03-23
+D01298,74,F,C18.9,Tumor maligno de colon,2026-06-25
+D01299,40,F,K29.7,Gastritis,2026-07-15
+D01300,64,M,K29.7,Gastritis,2026-04-01
+D01301,44,M,I10,Hipertensión esencial,2026-03-30
+D01302,55,F,K29.7,Gastritis,2026-03-07
+D01303,50,M,J06.9,Infección respiratoria aguda,2026-03-30
+D01304,36,F,K29.7,Gastritis,2026-08-02
+D01305,47,M,M54.5,Lumbalgia,2026-04-01
+D01306,57,M,I10,Hipertensión esencial,2026-04-29
+D01307,66,F,I10,Hipertensión esencial,2026-01-27
+D01308,40,F,K29.7,Gastritis,2026-05-03
+D01309,50,F,M54.5,Lumbalgia,2026-06-21
+D01310,44,M,I10,Hipertensión esencial,2026-07-10
+D01311,40,M,K29.7,Gastritis,2026-01-02
+D01312,51,F,J06.9,Infección respiratoria aguda,2026-01-14
+D01313,62,M,I10,Hipertensión esencial,2026-03-18
+D01314,66,F,J06.9,Infección respiratoria aguda,2026-02-25
+D01315,46,F,M54.5,Lumbalgia,2026-07-19
+D01316,35,F,J06.9,Infección respiratoria aguda,2026-02-09
+D01317,64,M,E11.9,Diabetes mellitus tipo 2,2026-07-14
+D01318,38,M,K29.7,Gastritis,2026-05-20
+D01319,51,F,E11.9,Diabetes mellitus tipo 2,2026-02-10
+D01320,42,M,J06.9,Infección respiratoria aguda,2026-07-26
+D01321,34,F,K29.7,Gastritis,2026-05-15
+D01322,18,M,J06.9,Infección respiratoria aguda,2026-03-05
+D01323,60,F,J06.9,Infección respiratoria aguda,2026-01-01
+D01324,39,M,I10,Hipertensión esencial,2026-06-29
+D01325,55,F,I10,Hipertensión esencial,2026-05-02
+D01326,44,M,K29.7,Gastritis,2026-01-03
+D01327,69,M,J06.9,Infección respiratoria aguda,2026-01-20
+D01328,38,M,M54.5,Lumbalgia,2026-03-02
+D01329,39,M,J06.9,Infección respiratoria aguda,2026-07-12
+D01330,40,F,J06.9,Infección respiratoria aguda,2026-02-12
+D01331,33,M,I10,Hipertensión esencial,2026-04-11
+D01332,50,M,I10,Hipertensión esencial,2026-05-23
+D01333,43,F,E78.5,Dislipidemia,2026-04-23
+D01334,42,M,I10,Hipertensión esencial,2026-01-15
+D01335,23,F,J06.9,Infección respiratoria aguda,2026-03-30
+D01336,31,F,J06.9,Infección respiratoria aguda,2026-08-23
+D01337,54,M,E78.5,Dislipidemia,2026-08-20
+D01338,49,M,M54.5,Lumbalgia,2026-05-06
+D01339,50,M,K29.7,Gastritis,2026-02-20
+D01340,39,F,M54.5,Lumbalgia,2026-01-17
+D01341,39,M,J06.9,Infección respiratoria aguda,2026-04-21
+D01342,28,F,J06.9,Infección respiratoria aguda,2026-06-07
+D01343,61,F,I10,Hipertensión esencial,2026-06-05
+D01344,40,M,J06.9,Infección respiratoria aguda,2026-03-15
+D01345,70,F,C50.9,Tumor maligno de mama,2026-06-04
+D01346,40,F,C50.9,Tumor maligno de mama,2026-04-15
+D01347,18,M,J06.9,Infección respiratoria aguda,2026-07-01
+D01348,53,M,M54.5,Lumbalgia,2026-05-31
+D01349,90,F,I10,Hipertensión esencial,2026-04-24
+D01350,76,F,C50.9,Tumor maligno de mama,2026-07-10
+D01351,47,F,M54.5,Lumbalgia,2026-04-24
+D01352,28,M,J06.9,Infección respiratoria aguda,2026-05-18
+D01353,48,M,I10,Hipertensión esencial,2026-05-18
+D01354,34,M,I10,Hipertensión esencial,2026-03-05
+D01355,64,F,M54.5,Lumbalgia,2026-06-30
+D01356,80,F,E78.5,Dislipidemia,2026-02-25
+D01357,30,F,J06.9,Infección respiratoria aguda,2026-07-31
+D01358,30,F,J06.9,Infección respiratoria aguda,2026-05-25
+D01359,41,F,M54.5,Lumbalgia,2026-01-29
+D01360,27,F,K29.7,Gastritis,2026-07-13
+D01361,52,F,J06.9,Infección respiratoria aguda,2026-08-10
+D01362,18,F,K29.7,Gastritis,2026-05-31
+D01363,56,M,K29.7,Gastritis,2026-02-24
+D01364,19,F,J06.9,Infección respiratoria aguda,2026-06-30
+D01365,55,M,E78.5,Dislipidemia,2026-03-02
+D01366,65,F,I10,Hipertensión esencial,2026-02-11
+D01367,70,M,I10,Hipertensión esencial,2026-07-21
+D01368,45,F,J06.9,Infección respiratoria aguda,2026-07-18
+D01369,51,M,J06.9,Infección respiratoria aguda,2026-05-10
+D01370,31,F,I10,Hipertensión esencial,2026-07-05
+D01371,72,F,E11.9,Diabetes mellitus tipo 2,2026-02-13
+D01372,29,F,J06.9,Infección respiratoria aguda,2026-05-13
+D01373,41,F,J06.9,Infección respiratoria aguda,2026-07-25
+D01374,48,M,K29.7,Gastritis,2026-07-21
+D01375,71,M,E78.5,Dislipidemia,2026-02-12
+D01376,62,M,E78.5,Dislipidemia,2026-02-28
+D01377,18,F,J06.9,Infección respiratoria aguda,2026-01-31
+D01378,48,F,C53.9,Tumor maligno de cuello uterino,2026-01-09
+D01379,47,F,I10,Hipertensión esencial,2026-04-04
+D01380,49,M,I10,Hipertensión esencial,2026-03-14
+D01381,42,F,K29.7,Gastritis,2026-01-06
+D01382,73,M,J06.9,Infección respiratoria aguda,2026-01-06
+D01383,64,F,J06.9,Infección respiratoria aguda,2026-03-03
+D01384,70,F,E11.9,Diabetes mellitus tipo 2,2026-07-17
+D01385,58,F,E78.5,Dislipidemia,2026-01-13
+D01386,61,M,J06.9,Infección respiratoria aguda,2026-08-15
+D01387,27,F,K29.7,Gastritis,2026-06-10
+D01388,54,F,E11.9,Diabetes mellitus tipo 2,2026-02-17
+D01389,63,F,I10,Hipertensión esencial,2026-04-24
+D01390,38,M,I10,Hipertensión esencial,2026-01-17
+D01391,58,M,I10,Hipertensión esencial,2026-06-02
+D01392,45,M,E11.9,Diabetes mellitus tipo 2,2026-01-24
+D01393,49,M,J06.9,Infección respiratoria aguda,2026-06-11
+D01394,43,M,J06.9,Infección respiratoria aguda,2026-08-01
+D01395,69,M,K29.7,Gastritis,2026-06-09
+D01396,26,M,M54.5,Lumbalgia,2026-08-16
+D01397,46,M,K29.7,Gastritis,2026-06-05
+D01398,18,F,J06.9,Infección respiratoria aguda,2026-03-04
+D01399,34,F,M54.5,Lumbalgia,2026-04-18
+D01400,60,F,E11.9,Diabetes mellitus tipo 2,2026-08-14
+D01401,47,M,J06.9,Infección respiratoria aguda,2026-02-02
+D01402,63,F,M54.5,Lumbalgia,2026-08-18
+D01403,18,M,K29.7,Gastritis,2026-03-23
+D01404,68,F,C18.9,Tumor maligno de colon,2026-05-07
+D01405,57,F,E78.5,Dislipidemia,2026-05-26
+D01406,18,F,K29.7,Gastritis,2026-02-05
+D01407,58,M,E11.9,Diabetes mellitus tipo 2,2026-05-12
+D01408,67,F,C18.9,Tumor maligno de colon,2026-06-21
+D01409,34,M,M54.5,Lumbalgia,2026-01-05
+D01410,62,M,K29.7,Gastritis,2026-06-13
+D01411,56,M,J06.9,Infección respiratoria aguda,2026-08-03
+D01412,40,F,J06.9,Infección respiratoria aguda,2026-08-07
+D01413,27,M,M54.5,Lumbalgia,2026-02-21
+D01414,48,F,J06.9,Infección respiratoria aguda,2026-03-02
+D01415,39,F,I10,Hipertensión esencial,2026-06-16
+D01416,43,M,K29.7,Gastritis,2026-03-06
+D01417,53,F,C50.9,Tumor maligno de mama,2026-06-10
+D01418,56,M,E11.9,Diabetes mellitus tipo 2,2026-07-31
+D01419,42,M,E11.9,Diabetes mellitus tipo 2,2026-01-11
+D01420,49,M,I10,Hipertensión esencial,2026-08-18
+D01421,39,M,M54.5,Lumbalgia,2026-04-24
+D01422,46,F,K29.7,Gastritis,2026-04-19
+D01423,34,F,I10,Hipertensión esencial,2026-01-01
+D01424,34,F,J06.9,Infección respiratoria aguda,2026-03-21
+D01425,55,M,I10,Hipertensión esencial,2026-02-26
+D01426,30,F,M54.5,Lumbalgia,2026-02-27
+D01427,88,M,I10,Hipertensión esencial,2026-05-20
+D01428,57,F,K29.7,Gastritis,2026-08-04
+D01429,49,M,E78.5,Dislipidemia,2026-08-19
+D01430,50,M,I10,Hipertensión esencial,2026-02-02
+D01431,78,M,E78.5,Dislipidemia,2026-06-08
+D01432,18,M,K29.7,Gastritis,2026-02-06
+D01433,49,F,K29.7,Gastritis,2026-01-18
+D01434,44,M,J06.9,Infección respiratoria aguda,2026-08-21
+D01435,44,M,J06.9,Infección respiratoria aguda,2026-06-28
+D01436,48,M,J06.9,Infección respiratoria aguda,2026-04-17
+D01437,59,M,K29.7,Gastritis,2026-01-05
+D01438,35,F,K29.7,Gastritis,2026-07-08
+D01439,44,F,C50.9,Tumor maligno de mama,2026-07-22
+D01440,38,M,J06.9,Infección respiratoria aguda,2026-07-03
+D01441,44,F,I10,Hipertensión esencial,2026-03-08
+D01442,48,F,M54.5,Lumbalgia,2026-04-25
+D01443,44,F,M54.5,Lumbalgia,2026-05-10
+D01444,45,M,E11.9,Diabetes mellitus tipo 2,2026-06-02
+D01445,42,F,K29.7,Gastritis,2026-02-27
+D01446,56,M,E11.9,Diabetes mellitus tipo 2,2026-01-16
+D01447,42,F,K29.7,Gastritis,2026-05-06
+D01448,60,F,K29.7,Gastritis,2026-05-10
+D01449,53,M,M54.5,Lumbalgia,2026-03-17
+D01450,49,M,K29.7,Gastritis,2026-03-15
+D01451,59,F,E11.9,Diabetes mellitus tipo 2,2026-06-22
+D01452,59,M,C61,Tumor maligno de próstata,2026-08-04
+D01453,54,M,J06.9,Infección respiratoria aguda,2026-06-24
+D01454,60,M,E11.9,Diabetes mellitus tipo 2,2026-03-05
+D01455,63,F,I10,Hipertensión esencial,2026-05-31
+D01456,57,F,E11.9,Diabetes mellitus tipo 2,2026-03-01
+D01457,24,M,M54.5,Lumbalgia,2026-07-26
+D01458,58,F,J06.9,Infección respiratoria aguda,2026-08-23
+D01459,55,M,K29.7,Gastritis,2026-04-25
+D01460,63,M,E11.9,Diabetes mellitus tipo 2,2026-02-22
+D01461,34,M,I10,Hipertensión esencial,2026-07-10
+D01462,72,M,I10,Hipertensión esencial,2026-08-28
+D01463,18,F,J06.9,Infección respiratoria aguda,2026-06-19
+D01464,60,F,J06.9,Infección respiratoria aguda,2026-07-14
+D01465,18,M,K29.7,Gastritis,2026-01-10
+D01466,51,F,I10,Hipertensión esencial,2026-08-09
+D01467,75,M,E78.5,Dislipidemia,2026-08-29
+D01468,43,F,E11.9,Diabetes mellitus tipo 2,2026-04-10
+D01469,25,F,M54.5,Lumbalgia,2026-08-03
+D01470,64,F,E78.5,Dislipidemia,2026-07-26
+D01471,34,M,K29.7,Gastritis,2026-08-20
+D01472,49,M,E11.9,Diabetes mellitus tipo 2,2026-02-27
+D01473,55,F,I10,Hipertensión esencial,2026-06-19
+D01474,49,F,I10,Hipertensión esencial,2026-06-11
+D01475,55,M,E11.9,Diabetes mellitus tipo 2,2026-04-29
+D01476,33,M,M54.5,Lumbalgia,2026-04-24
+D01477,44,F,J06.9,Infección respiratoria aguda,2026-03-18
+D01478,18,F,J06.9,Infección respiratoria aguda,2026-04-06
+D01479,34,M,J06.9,Infección respiratoria aguda,2026-07-18
+D01480,37,M,J06.9,Infección respiratoria aguda,2026-05-15
+D01481,56,F,K29.7,Gastritis,2026-06-01
+D01482,59,F,K29.7,Gastritis,2026-02-13
+D01483,58,M,J06.9,Infección respiratoria aguda,2026-05-16
+D01484,57,M,E11.9,Diabetes mellitus tipo 2,2026-07-31
+D01485,43,M,K29.7,Gastritis,2026-04-06
+D01486,54,M,E11.9,Diabetes mellitus tipo 2,2026-08-10
+D01487,61,M,E11.9,Diabetes mellitus tipo 2,2026-02-24
+D01488,49,F,J06.9,Infección respiratoria aguda,2026-05-20
+D01489,61,M,J06.9,Infección respiratoria aguda,2026-05-05
+D01490,50,F,J06.9,Infección respiratoria aguda,2026-04-26
+D01491,52,M,E78.5,Dislipidemia,2026-08-20
+D01492,31,M,M54.5,Lumbalgia,2026-04-07
+D01493,59,F,C50.9,Tumor maligno de mama,2026-08-02
+D01494,68,M,E78.5,Dislipidemia,2026-07-27
+D01495,48,M,M54.5,Lumbalgia,2026-03-08
+D01496,48,F,C50.9,Tumor maligno de mama,2026-01-24
+D01497,41,F,M54.5,Lumbalgia,2026-04-07
+D01498,44,M,M54.5,Lumbalgia,2026-03-06
+D01499,34,M,J06.9,Infección respiratoria aguda,2026-03-29
+D01500,52,M,M54.5,Lumbalgia,2026-08-24
+D01501,90,F,J06.9,Infección respiratoria aguda,2026-03-30
+D01502,70,M,E78.5,Dislipidemia,2026-05-16
+D01503,42,M,I10,Hipertensión esencial,2026-05-18
+D01504,52,M,E11.9,Diabetes mellitus tipo 2,2026-03-10
+D01505,45,M,E78.5,Dislipidemia,2026-06-11
+D01506,37,M,K29.7,Gastritis,2026-02-28
+D01507,49,F,C50.9,Tumor maligno de mama,2026-04-05
+D01508,37,M,J06.9,Infección respiratoria aguda,2026-05-06
+D01509,42,F,E78.5,Dislipidemia,2026-08-28
+D01510,30,M,J06.9,Infección respiratoria aguda,2026-04-25
+D01511,43,M,J06.9,Infección respiratoria aguda,2026-08-18
+D01512,54,F,I10,Hipertensión esencial,2026-03-29
+D01513,35,F,J06.9,Infección respiratoria aguda,2026-07-16
+D01514,44,M,E78.5,Dislipidemia,2026-01-19
+D01515,53,F,K29.7,Gastritis,2026-03-25
+D01516,36,F,C53.9,Tumor maligno de cuello uterino,2026-05-21
+D01517,50,F,E78.5,Dislipidemia,2026-08-03
+D01518,65,F,C50.9,Tumor maligno de mama,2026-01-10
+D01519,69,F,E11.9,Diabetes mellitus tipo 2,2026-04-21
+D01520,60,M,J06.9,Infección respiratoria aguda,2026-03-24
+D01521,47,M,J06.9,Infección respiratoria aguda,2026-07-22
+D01522,67,F,E11.9,Diabetes mellitus tipo 2,2026-04-18
+D01523,62,M,I10,Hipertensión esencial,2026-07-21
+D01524,32,F,J06.9,Infección respiratoria aguda,2026-04-04
+D01525,38,M,M54.5,Lumbalgia,2026-07-22
+D01526,36,M,M54.5,Lumbalgia,2026-07-02
+D01527,40,F,K29.7,Gastritis,2026-04-14
+D01528,25,M,M54.5,Lumbalgia,2026-08-27
+D01529,35,M,K29.7,Gastritis,2026-08-21
+D01530,46,M,I10,Hipertensión esencial,2026-04-18
+D01531,55,M,E78.5,Dislipidemia,2026-03-27
+D01532,44,M,J06.9,Infección respiratoria aguda,2026-07-21
+D01533,41,F,I10,Hipertensión esencial,2026-08-26
+D01534,64,M,I10,Hipertensión esencial,2026-08-27
+D01535,18,M,J06.9,Infección respiratoria aguda,2026-08-27
+D01536,79,F,I10,Hipertensión esencial,2026-04-18
+D01537,29,F,J06.9,Infección respiratoria aguda,2026-06-14
+D01538,65,M,C61,Tumor maligno de próstata,2026-08-13
+D01539,83,F,E11.9,Diabetes mellitus tipo 2,2026-07-07
+D01540,66,M,K29.7,Gastritis,2026-04-28
+D01541,58,M,K29.7,Gastritis,2026-05-28
+D01542,18,M,J06.9,Infección respiratoria aguda,2026-01-24
+D01543,52,F,J06.9,Infección respiratoria aguda,2026-05-09
+D01544,41,F,J06.9,Infección respiratoria aguda,2026-06-12
+D01545,52,F,M54.5,Lumbalgia,2026-04-18
+D01546,29,F,M54.5,Lumbalgia,2026-05-11
+D01547,73,F,M54.5,Lumbalgia,2026-08-24
+D01548,66,F,K29.7,Gastritis,2026-04-13
+D01549,59,F,I10,Hipertensión esencial,2026-02-17
+D01550,41,M,E11.9,Diabetes mellitus tipo 2,2026-02-12
+D01551,46,M,J06.9,Infección respiratoria aguda,2026-05-27
+D01552,23,M,J06.9,Infección respiratoria aguda,2026-06-06
+D01553,52,M,I10,Hipertensión esencial,2026-02-03
+D01554,56,M,E78.5,Dislipidemia,2026-01-19
+D01555,66,F,C18.9,Tumor maligno de colon,2026-06-17
+D01556,30,M,J06.9,Infección respiratoria aguda,2026-03-02
+D01557,41,F,C50.9,Tumor maligno de mama,2026-08-05
+D01558,42,M,M54.5,Lumbalgia,2026-02-24
+D01559,66,M,C61,Tumor maligno de próstata,2026-05-13
+D01560,74,M,K29.7,Gastritis,2026-04-02
+D01561,38,M,J06.9,Infección respiratoria aguda,2026-07-08
+D01562,49,F,I10,Hipertensión esencial,2026-08-26
+D01563,58,M,E78.5,Dislipidemia,2026-01-07
+D01564,90,F,E78.5,Dislipidemia,2026-04-16
+D01565,42,M,M54.5,Lumbalgia,2026-05-07
+D01566,61,F,E78.5,Dislipidemia,2026-07-07
+D01567,56,M,I10,Hipertensión esencial,2026-07-20
+D01568,46,M,M54.5,Lumbalgia,2026-05-11
+D01569,52,F,C50.9,Tumor maligno de mama,2026-01-25
+D01570,26,M,K29.7,Gastritis,2026-05-14
+D01571,44,F,I10,Hipertensión esencial,2026-01-10
+D01572,65,M,I10,Hipertensión esencial,2026-03-11
+D01573,65,M,I10,Hipertensión esencial,2026-02-09
+D01574,31,F,K29.7,Gastritis,2026-08-15
+D01575,34,F,J06.9,Infección respiratoria aguda,2026-02-01
+D01576,79,M,C61,Tumor maligno de próstata,2026-05-21
+D01577,50,F,I10,Hipertensión esencial,2026-02-22
+D01578,18,M,J06.9,Infección respiratoria aguda,2026-04-06
+D01579,39,F,M54.5,Lumbalgia,2026-07-07
+D01580,65,F,M54.5,Lumbalgia,2026-03-19
+D01581,38,F,K29.7,Gastritis,2026-03-04
+D01582,49,F,C53.9,Tumor maligno de cuello uterino,2026-07-11
+D01583,44,F,K29.7,Gastritis,2026-05-04
+D01584,18,F,K29.7,Gastritis,2026-06-11
+D01585,53,F,E78.5,Dislipidemia,2026-05-06
+D01586,52,F,J06.9,Infección respiratoria aguda,2026-02-11
+D01587,63,M,I10,Hipertensión esencial,2026-07-24
+D01588,42,M,J06.9,Infección respiratoria aguda,2026-08-16
+D01589,49,M,E11.9,Diabetes mellitus tipo 2,2026-08-24
+D01590,33,M,M54.5,Lumbalgia,2026-06-30
+D01591,33,M,J06.9,Infección respiratoria aguda,2026-04-13
+D01592,51,F,E11.9,Diabetes mellitus tipo 2,2026-06-17
+D01593,64,M,K29.7,Gastritis,2026-01-28
+D01594,88,F,K29.7,Gastritis,2026-03-29
+D01595,31,F,K29.7,Gastritis,2026-07-24
+D01596,56,F,E11.9,Diabetes mellitus tipo 2,2026-02-22
+D01597,36,M,J06.9,Infección respiratoria aguda,2026-06-15
+D01598,64,M,K29.7,Gastritis,2026-04-03
+D01599,45,F,E11.9,Diabetes mellitus tipo 2,2026-04-24
+D01600,90,F,I10,Hipertensión esencial,2026-06-18
+D01601,62,M,J06.9,Infección respiratoria aguda,2026-01-31
+D01602,29,M,J06.9,Infección respiratoria aguda,2026-07-21
+D01603,34,M,M54.5,Lumbalgia,2026-05-08
+D01604,38,M,J06.9,Infección respiratoria aguda,2026-02-28
+D01605,46,F,C50.9,Tumor maligno de mama,2026-01-15
+D01606,68,M,K29.7,Gastritis,2026-07-24
+D01607,51,F,E11.9,Diabetes mellitus tipo 2,2026-03-14
+D01608,64,M,I10,Hipertensión esencial,2026-06-07
+D01609,45,M,J06.9,Infección respiratoria aguda,2026-02-02
+D01610,65,M,K29.7,Gastritis,2026-06-28
+D01611,53,M,K29.7,Gastritis,2026-02-10
+D01612,47,F,M54.5,Lumbalgia,2026-02-06
+D01613,55,F,I10,Hipertensión esencial,2026-02-23
+D01614,62,F,E78.5,Dislipidemia,2026-01-25
+D01615,46,F,K29.7,Gastritis,2026-08-12
+D01616,18,M,J06.9,Infección respiratoria aguda,2026-07-20
+D01617,76,F,E11.9,Diabetes mellitus tipo 2,2026-05-08
+D01618,71,M,J06.9,Infección respiratoria aguda,2026-04-17
+D01619,71,M,E78.5,Dislipidemia,2026-02-10
+D01620,61,F,E11.9,Diabetes mellitus tipo 2,2026-03-10
+D01621,44,M,M54.5,Lumbalgia,2026-06-03
+D01622,54,F,J06.9,Infección respiratoria aguda,2026-03-27
+D01623,24,F,J06.9,Infección respiratoria aguda,2026-07-11
+D01624,34,F,J06.9,Infección respiratoria aguda,2026-02-06
+D01625,43,M,K29.7,Gastritis,2026-06-03
+D01626,18,M,J06.9,Infección respiratoria aguda,2026-06-12
+D01627,87,F,E11.9,Diabetes mellitus tipo 2,2026-08-04
+D01628,45,M,J06.9,Infección respiratoria aguda,2026-05-19
+D01629,36,F,I10,Hipertensión esencial,2026-02-27
+D01630,18,F,J06.9,Infección respiratoria aguda,2026-01-25
+D01631,54,M,E11.9,Diabetes mellitus tipo 2,2026-05-08
+D01632,18,F,J06.9,Infección respiratoria aguda,2026-07-12
+D01633,38,F,E11.9,Diabetes mellitus tipo 2,2026-08-27
+D01634,55,M,C18.9,Tumor maligno de colon,2026-01-20
+D01635,39,F,J06.9,Infección respiratoria aguda,2026-01-23
+D01636,38,M,M54.5,Lumbalgia,2026-03-12
+D01637,51,F,J06.9,Infección respiratoria aguda,2026-04-04
+D01638,74,F,I10,Hipertensión esencial,2026-05-03
+D01639,28,F,M54.5,Lumbalgia,2026-01-02
+D01640,40,M,M54.5,Lumbalgia,2026-04-08
+D01641,62,M,E78.5,Dislipidemia,2026-07-21
+D01642,61,M,K29.7,Gastritis,2026-08-22
+D01643,62,M,I10,Hipertensión esencial,2026-04-19
+D01644,18,M,J06.9,Infección respiratoria aguda,2026-08-14
+D01645,55,F,J06.9,Infección respiratoria aguda,2026-06-12
+D01646,55,F,I10,Hipertensión esencial,2026-02-21
+D01647,45,M,J06.9,Infección respiratoria aguda,2026-05-07
+D01648,31,M,J06.9,Infección respiratoria aguda,2026-01-22
+D01649,23,F,J06.9,Infección respiratoria aguda,2026-02-10
+D01650,49,F,C50.9,Tumor maligno de mama,2026-02-10
+D01651,36,M,M54.5,Lumbalgia,2026-07-16
+D01652,21,M,M54.5,Lumbalgia,2026-06-18
+D01653,62,F,K29.7,Gastritis,2026-06-07
+D01654,52,F,K29.7,Gastritis,2026-04-24
+D01655,49,F,J06.9,Infección respiratoria aguda,2026-05-30
+D01656,48,F,E11.9,Diabetes mellitus tipo 2,2026-02-16
+D01657,62,M,M54.5,Lumbalgia,2026-08-29
+D01658,31,M,J06.9,Infección respiratoria aguda,2026-05-19
+D01659,61,F,J06.9,Infección respiratoria aguda,2026-01-01
+D01660,28,F,J06.9,Infección respiratoria aguda,2026-03-24
+D01661,36,F,K29.7,Gastritis,2026-02-03
+D01662,31,M,J06.9,Infección respiratoria aguda,2026-02-13
+D01663,52,F,J06.9,Infección respiratoria aguda,2026-04-03
+D01664,43,M,M54.5,Lumbalgia,2026-01-10
+D01665,41,F,C50.9,Tumor maligno de mama,2026-07-24
+D01666,43,F,M54.5,Lumbalgia,2026-03-04
+D01667,21,F,J06.9,Infección respiratoria aguda,2026-03-09
+D01668,49,M,E78.5,Dislipidemia,2026-04-26
+D01669,62,M,K29.7,Gastritis,2026-02-15
+D01670,34,F,J06.9,Infección respiratoria aguda,2026-02-16
+D01671,39,F,M54.5,Lumbalgia,2026-02-27
+D01672,41,M,E78.5,Dislipidemia,2026-07-06
+D01673,46,F,M54.5,Lumbalgia,2026-08-02
+D01674,54,F,E78.5,Dislipidemia,2026-06-13
+D01675,22,F,J06.9,Infección respiratoria aguda,2026-03-06
+D01676,59,F,M54.5,Lumbalgia,2026-01-15
+D01677,28,F,M54.5,Lumbalgia,2026-06-12
+D01678,59,F,I10,Hipertensión esencial,2026-04-04
+D01679,57,F,C18.9,Tumor maligno de colon,2026-08-12
+D01680,38,F,J06.9,Infección respiratoria aguda,2026-04-10
+D01681,46,M,I10,Hipertensión esencial,2026-02-16
+D01682,66,M,E11.9,Diabetes mellitus tipo 2,2026-08-26
+D01683,65,F,J06.9,Infección respiratoria aguda,2026-07-31
+D01684,70,M,E78.5,Dislipidemia,2026-06-12
+D01685,66,F,J06.9,Infección respiratoria aguda,2026-02-06
+D01686,50,F,J06.9,Infección respiratoria aguda,2026-04-19
+D01687,71,M,M54.5,Lumbalgia,2026-04-05
+D01688,41,M,J06.9,Infección respiratoria aguda,2026-07-13
+D01689,18,F,K29.7,Gastritis,2026-07-09
+D01690,80,F,M54.5,Lumbalgia,2026-03-22
+D01691,30,M,M54.5,Lumbalgia,2026-06-19
+D01692,74,F,E78.5,Dislipidemia,2026-02-14
+D01693,41,F,J06.9,Infección respiratoria aguda,2026-01-09
+D01694,61,M,E78.5,Dislipidemia,2026-08-28
+D01695,57,M,J06.9,Infección respiratoria aguda,2026-08-04
+D01696,26,M,J06.9,Infección respiratoria aguda,2026-02-07
+D01697,52,F,K29.7,Gastritis,2026-07-27
+D01698,53,F,M54.5,Lumbalgia,2026-08-20
+D01699,18,M,M54.5,Lumbalgia,2026-07-07
+D01700,25,F,K29.7,Gastritis,2026-04-30
+D01701,50,M,M54.5,Lumbalgia,2026-04-03
+D01702,39,F,E11.9,Diabetes mellitus tipo 2,2026-02-26
+D01703,51,M,K29.7,Gastritis,2026-01-08
+D01704,47,F,E11.9,Diabetes mellitus tipo 2,2026-04-12
+D01705,32,F,J06.9,Infección respiratoria aguda,2026-06-24
+D01706,22,M,K29.7,Gastritis,2026-04-28
+D01707,61,M,J06.9,Infección respiratoria aguda,2026-08-17
+D01708,56,F,K29.7,Gastritis,2026-06-17
+D01709,50,M,E11.9,Diabetes mellitus tipo 2,2026-03-05
+D01710,39,F,E11.9,Diabetes mellitus tipo 2,2026-06-13
+D01711,54,M,J06.9,Infección respiratoria aguda,2026-05-21
+D01712,48,F,I10,Hipertensión esencial,2026-08-10
+D01713,27,F,M54.5,Lumbalgia,2026-05-17
+D01714,53,M,E11.9,Diabetes mellitus tipo 2,2026-07-02
+D01715,34,M,J06.9,Infección respiratoria aguda,2026-02-23
+D01716,56,F,C18.9,Tumor maligno de colon,2026-05-02
+D01717,63,F,E11.9,Diabetes mellitus tipo 2,2026-01-20
+D01718,26,F,J06.9,Infección respiratoria aguda,2026-04-28
+D01719,57,M,I10,Hipertensión esencial,2026-01-02
+D01720,46,F,J06.9,Infección respiratoria aguda,2026-07-24
+D01721,50,F,C50.9,Tumor maligno de mama,2026-01-10
+D01722,44,M,I10,Hipertensión esencial,2026-07-08
+D01723,38,M,J06.9,Infección respiratoria aguda,2026-08-23
+D01724,34,F,J06.9,Infección respiratoria aguda,2026-08-22
+D01725,48,M,I10,Hipertensión esencial,2026-08-28
+D01726,27,M,K29.7,Gastritis,2026-01-28
+D01727,37,F,M54.5,Lumbalgia,2026-07-08
+D01728,55,M,E11.9,Diabetes mellitus tipo 2,2026-08-01
+D01729,58,M,E11.9,Diabetes mellitus tipo 2,2026-07-30
+D01730,44,M,E78.5,Dislipidemia,2026-08-12
+D01731,35,F,K29.7,Gastritis,2026-04-06
+D01732,54,F,C50.9,Tumor maligno de mama,2026-07-23
+D01733,57,F,I10,Hipertensión esencial,2026-01-31
+D01734,59,M,I10,Hipertensión esencial,2026-01-01
+D01735,43,F,K29.7,Gastritis,2026-08-25
+D01736,43,M,J06.9,Infección respiratoria aguda,2026-04-11
+D01737,42,M,J06.9,Infección respiratoria aguda,2026-01-14
+D01738,67,F,M54.5,Lumbalgia,2026-03-11
+D01739,39,M,K29.7,Gastritis,2026-04-03
+D01740,36,F,K29.7,Gastritis,2026-06-04
+D01741,46,M,M54.5,Lumbalgia,2026-02-13
+D01742,53,F,E11.9,Diabetes mellitus tipo 2,2026-05-14
+D01743,21,F,J06.9,Infección respiratoria aguda,2026-03-17
+D01744,48,F,I10,Hipertensión esencial,2026-04-20
+D01745,59,F,E11.9,Diabetes mellitus tipo 2,2026-02-22
+D01746,61,M,E78.5,Dislipidemia,2026-06-29
+D01747,46,F,J06.9,Infección respiratoria aguda,2026-01-27
+D01748,28,F,K29.7,Gastritis,2026-02-11
+D01749,23,F,M54.5,Lumbalgia,2026-08-13
+D01750,50,M,M54.5,Lumbalgia,2026-05-02
+D01751,25,F,K29.7,Gastritis,2026-04-01
+D01752,26,M,K29.7,Gastritis,2026-02-05
+D01753,46,M,E78.5,Dislipidemia,2026-07-22
+D01754,64,M,I10,Hipertensión esencial,2026-05-15
+D01755,38,F,J06.9,Infección respiratoria aguda,2026-05-19
+D01756,37,M,J06.9,Infección respiratoria aguda,2026-03-30
+D01757,42,F,M54.5,Lumbalgia,2026-08-26
+D01758,70,M,E11.9,Diabetes mellitus tipo 2,2026-02-07
+D01759,42,M,I10,Hipertensión esencial,2026-04-29
+D01760,30,F,J06.9,Infección respiratoria aguda,2026-01-20
+D01761,59,F,J06.9,Infección respiratoria aguda,2026-08-17
+D01762,31,M,J06.9,Infección respiratoria aguda,2026-01-01
+D01763,55,M,C61,Tumor maligno de próstata,2026-07-16
+D01764,47,M,E11.9,Diabetes mellitus tipo 2,2026-08-11
+D01765,43,F,M54.5,Lumbalgia,2026-06-18
+D01766,64,M,K29.7,Gastritis,2026-04-06
+D01767,52,M,E78.5,Dislipidemia,2026-07-28
+D01768,38,F,M54.5,Lumbalgia,2026-08-15
+D01769,53,M,I10,Hipertensión esencial,2026-04-29
+D01770,64,F,I10,Hipertensión esencial,2026-07-27
+D01771,77,F,K29.7,Gastritis,2026-06-07
+D01772,69,M,E78.5,Dislipidemia,2026-08-23
+D01773,50,F,C18.9,Tumor maligno de colon,2026-06-16
+D01774,53,F,K29.7,Gastritis,2026-03-03
+D01775,55,M,I10,Hipertensión esencial,2026-07-25
+D01776,59,M,E78.5,Dislipidemia,2026-01-28
+D01777,42,F,J06.9,Infección respiratoria aguda,2026-03-23
+D01778,71,F,J06.9,Infección respiratoria aguda,2026-02-12
+D01779,67,F,E78.5,Dislipidemia,2026-05-14
+D01780,41,M,M54.5,Lumbalgia,2026-06-25
+D01781,61,F,I10,Hipertensión esencial,2026-08-04
+D01782,42,F,J06.9,Infección respiratoria aguda,2026-08-10
+D01783,46,F,J06.9,Infección respiratoria aguda,2026-05-27
+D01784,47,M,J06.9,Infección respiratoria aguda,2026-03-09
+D01785,34,M,J06.9,Infección respiratoria aguda,2026-06-21
+D01786,68,M,J06.9,Infección respiratoria aguda,2026-06-19
+D01787,49,M,I10,Hipertensión esencial,2026-03-15
+D01788,18,F,J06.9,Infección respiratoria aguda,2026-08-07
+D01789,24,M,J06.9,Infección respiratoria aguda,2026-01-21
+D01790,32,M,M54.5,Lumbalgia,2026-04-08
+D01791,44,F,E11.9,Diabetes mellitus tipo 2,2026-07-01
+D01792,65,F,K29.7,Gastritis,2026-01-07
+D01793,47,F,J06.9,Infección respiratoria aguda,2026-06-15
+D01794,58,M,E78.5,Dislipidemia,2026-07-06
+D01795,47,M,E11.9,Diabetes mellitus tipo 2,2026-02-07
+D01796,48,F,K29.7,Gastritis,2026-06-19
+D01797,43,F,I10,Hipertensión esencial,2026-04-09
+D01798,49,F,M54.5,Lumbalgia,2026-04-30
+D01799,31,F,J06.9,Infección respiratoria aguda,2026-01-13
+D01800,26,M,K29.7,Gastritis,2026-06-18
