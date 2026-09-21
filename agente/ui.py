@@ -72,6 +72,9 @@ html, body, [class*="st-"]{ font-family:var(--sans); }
 h1,h2,h3,h4{ font-family:var(--serif) !important; letter-spacing:-.008em; color:var(--ink); }
 .stApp p, .stApp li, .stApp label{ color:var(--ink-2); }
 .stApp a{ color:var(--marca); }
+/* Streamlit pinta TODO <p> con el color de texto general y eso pisa el claro
+   que se hereda dentro de los bloques oscuros. Hay que devolvérselo. */
+.stApp .v-piloto p, .stApp .v-carnet p, .stApp .v-memb p{ color:#EAF5F8; }
 
 [data-testid="stSidebar"]{ background:var(--surface); border-right:1px solid var(--line); }
 [data-testid="stSidebar"] h2{ font-size:1.15rem; }
