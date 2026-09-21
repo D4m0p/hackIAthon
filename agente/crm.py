@@ -170,6 +170,14 @@ class CRM:
     def ids_premiados(self) -> set[str]:
         return {_leer(p["properties"]["ID hospital"]) for p in self._consultar("chequeos")}
 
+    def historial(self) -> list[dict]:
+        """Chequeos premiados como {poliza, tipo}. Se leen del título «POL-0001 · TIPO»."""
+        salida = []
+        for p in self._consultar("chequeos"):
+            poliza, _, tipo = _leer(p["properties"]["Registro"]).partition(" · ")
+            salida.append({"poliza": poliza, "tipo": tipo})
+        return salida
+
     def registrar_chequeo(self, id_hospital, poliza, tipo, fecha, asegurado_id, campana_id, puntos):
         self._crear("chequeos", {
             "Registro": _titulo(f"{poliza} · {tipo}"), "ID hospital": _texto(id_hospital),
@@ -230,6 +238,9 @@ class CRMLocal:
 
     def ids_premiados(self):
         return {c["id_hospital"] for c in self._chequeos}
+
+    def historial(self):
+        return [{"poliza": c["poliza"], "tipo": c["tipo"]} for c in self._chequeos]
 
     def registrar_chequeo(self, id_hospital, poliza, tipo, fecha, asegurado_id, campana_id, puntos):
         self._chequeos.append({"id_hospital": id_hospital, "poliza": poliza, "tipo": tipo, "fecha": fecha, "puntos": puntos})

@@ -113,6 +113,10 @@ CSS = f"""
 .seccion.campanas {{ border-left: 5px solid #2F6BFF; }}
 .seccion.premios  {{ border-left: 5px solid #7B5CFF; }}
 .seccion.crm      {{ border-left: 5px solid #5E8BFF; }}
+.seccion.miembro .icono {{ background: linear-gradient(135deg, #F2B233, #7B5CFF); }}
+.seccion.economia .icono {{ background: linear-gradient(135deg, #0B2533, #0FB5C4); }}
+.seccion.miembro {{ border-left: 5px solid #F2B233; }}
+.seccion.economia {{ border-left: 5px solid #0B2533; }}
 
 @media (prefers-reduced-motion: reduce) {{
   .stTabs [role="tabpanel"], .grilla > *, [data-testid="stMetric"], .seccion .icono {{ animation: none; }}
@@ -283,6 +287,135 @@ button:focus-visible {{ outline: 3px solid #7B5CFF !important; outline-offset: 2
   .contador, .carnet .antes, .carnet .ahorro, .puesto, .barra i, .notif, .evento {{ animation: none; }}
 }}
 
+/* Piloto automático: el botón que ejecuta todo el agente */
+.st-key-piloto button {{
+  width: 100%; min-height: 3.6rem; border: 0; border-radius: 1.2rem; color: #fff; font-size: 1.1rem; font-weight: 700;
+  background: linear-gradient(110deg, #0B2533 0%, #16425A 45%, #0B2533 100%); background-size: 220% 100%;
+  box-shadow: 0 14px 34px -14px rgba(11,37,51,.8), inset 0 0 0 1px rgba(94,230,224,.45);
+  animation: latido 2.8s ease-in-out infinite, barrido 5s linear infinite;
+}}
+.st-key-piloto button:hover {{ color: #5EE6E0; filter: brightness(1.15); }}
+.st-key-piloto button p {{ font-size: 1.08rem; font-weight: 700; }}
+@keyframes latido {{
+  0%, 100% {{ box-shadow: 0 14px 34px -14px rgba(11,37,51,.8), inset 0 0 0 1px rgba(94,230,224,.45), 0 0 0 0 rgba(15,181,196,.45); }}
+  50% {{ box-shadow: 0 14px 34px -14px rgba(11,37,51,.8), inset 0 0 0 1px rgba(94,230,224,.8), 0 0 0 10px rgba(15,181,196,0); }}
+}}
+@keyframes barrido {{ from {{ background-position: 0% 0; }} to {{ background-position: -220% 0; }} }}
+.resumen-piloto {{
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: .8rem; margin: .8rem 0 .2rem;
+}}
+.resumen-piloto div {{
+  border-radius: 1rem; padding: .85rem 1rem; background: rgba(255,255,255,.85); border: 1px solid #D5ECEF;
+  animation: entrar .6s cubic-bezier(.22,1,.36,1) both;
+}}
+.resumen-piloto div:nth-child(2) {{ animation-delay: .1s; }} .resumen-piloto div:nth-child(3) {{ animation-delay: .2s; }}
+.resumen-piloto div:nth-child(4) {{ animation-delay: .3s; }}
+.resumen-piloto b {{ display: block; font-family: 'Bricolage Grotesque', sans-serif; font-size: 1.7rem; line-height: 1.1;
+  background: {GRADIENTE}; -webkit-background-clip: text; background-clip: text; color: transparent; }}
+.resumen-piloto span {{ font-size: .85rem; color: #466373; }}
+@media (max-width: 720px) {{ .resumen-piloto {{ grid-template-columns: 1fr 1fr; }} }}
+
+/* Perfil: tarjeta de membresía holográfica */
+.membresia {{
+  position: relative; aspect-ratio: 1.586; border-radius: 1.4rem; padding: 1.4rem 1.5rem; color: #fff; overflow: hidden;
+  display: flex; flex-direction: column; justify-content: space-between;
+  box-shadow: 0 30px 60px -28px rgba(47,107,255,.9); transform: perspective(900px) rotateX(4deg) rotateY(-7deg);
+  transition: transform .6s cubic-bezier(.22,1,.36,1); animation: voltear .9s cubic-bezier(.22,1,.36,1) both;
+}}
+.membresia:hover {{ transform: perspective(900px) rotateX(0) rotateY(0) scale(1.02); }}
+@keyframes voltear {{ from {{ transform: perspective(900px) rotateY(-70deg) translateX(-30px); opacity: 0; }} }}
+.membresia.Bronce {{ background: linear-gradient(135deg, #8A5A3B, #C98B5E 45%, #7B4E33); }}
+.membresia.Plata {{ background: linear-gradient(135deg, #5D7285, #C7D3DC 48%, #6F8597); }}
+.membresia.Oro {{ background: linear-gradient(135deg, #9C6B12, #F2C14E 45%, #B07A10); }}
+.membresia::before {{
+  content: ""; position: absolute; inset: -60%; pointer-events: none; mix-blend-mode: overlay; opacity: .75;
+  background: conic-gradient(from 0deg, #0FB5C4, #7B5CFF, #FF7AD9, #F2B233, #5EE6E0, #0FB5C4);
+  animation: holograma 8s linear infinite; filter: blur(18px);
+}}
+.membresia::after {{
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(115deg, transparent 35%, rgba(255,255,255,.55) 48%, transparent 60%);
+  background-size: 250% 100%; animation: reflejo 4.5s ease-in-out infinite;
+}}
+@keyframes holograma {{ to {{ transform: rotate(360deg); }} }}
+@keyframes reflejo {{ 0% {{ background-position: 130% 0; }} 60%, 100% {{ background-position: -60% 0; }} }}
+.membresia > * {{ position: relative; z-index: 1; text-shadow: 0 1px 8px rgba(0,0,0,.25); }}
+.membresia .arriba {{ display: flex; justify-content: space-between; align-items: flex-start; }}
+.membresia .marca {{ font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 1.05rem; letter-spacing: .02em; }}
+.membresia .chip {{ width: 2.6rem; height: 2rem; border-radius: .45rem; background: linear-gradient(135deg, #F6E3A1, #C9A441);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.2); }}
+.membresia .numero {{ font-family: 'Bricolage Grotesque', sans-serif; font-size: 1.35rem; letter-spacing: .18em; }}
+.membresia .abajo {{ display: flex; justify-content: space-between; align-items: flex-end; gap: 1rem; }}
+.membresia .titular {{ font-size: .72rem; opacity: .85; }}
+.membresia .nombre-t {{ font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 1.25rem; }}
+.membresia .nivel-t {{ font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 1.6rem; text-align: right; line-height: 1; }}
+.membresia .nivel-t small {{ display: block; font-size: .72rem; font-weight: 600; opacity: .9; }}
+
+.anillo-caja {{ display: flex; align-items: center; gap: 1.1rem; background: rgba(255,255,255,.85); border: 1px solid #D5ECEF;
+  border-radius: 1.2rem; padding: 1rem 1.2rem; margin-bottom: 1rem; }}
+@property --a {{ syntax: '<number>'; inherits: false; initial-value: 0; }}
+.anillo {{
+  --a: var(--meta); flex: none; width: 6.4rem; height: 6.4rem; border-radius: 50%; display: grid; place-items: center;
+  background: conic-gradient(#0FB5C4, #2F6BFF calc(var(--a) * 0.5%), #7B5CFF calc(var(--a) * 1%), #E1EEF1 0);
+  animation: cargar 1.4s .3s cubic-bezier(.22,1,.36,1) both;
+}}
+@keyframes cargar {{ from {{ --a: 0; }} }}
+.anillo div {{ width: 4.9rem; height: 4.9rem; border-radius: 50%; background: #fff; display: grid; place-items: center; text-align: center; }}
+.anillo b {{ font-family: 'Bricolage Grotesque', sans-serif; font-size: 1.45rem; line-height: 1; display: block; }}
+.anillo span {{ font-size: .7rem; color: #5B7784; }}
+.anillo-caja h4 {{ font-family: 'Bricolage Grotesque', sans-serif; margin: 0 0 .2rem; padding: 0; font-size: 1.1rem; }}
+.anillo-caja p {{ margin: 0; font-size: .9rem; color: #466373; }}
+
+.insignias {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: .7rem; margin: .4rem 0 1rem; }}
+.insignia {{ text-align: center; border-radius: 1rem; padding: .8rem .5rem; background: rgba(255,255,255,.85); border: 1px solid #D5ECEF;
+  animation: aparecer .6s cubic-bezier(.34,1.56,.64,1) both; }}
+.insignia .emoji {{ font-size: 2rem; line-height: 1.1; }}
+.insignia b {{ display: block; font-size: .84rem; margin-top: .3rem; }}
+.insignia span {{ font-size: .72rem; color: #5B7784; }}
+.insignia.ganada {{ border-color: transparent; background: linear-gradient(#fff, #fff) padding-box, {GRADIENTE} border-box; border: 2px solid transparent;
+  box-shadow: 0 10px 24px -14px rgba(47,107,255,.8); }}
+.insignia.bloqueada {{ opacity: .55; }}
+.insignia.bloqueada .emoji {{ filter: grayscale(1); opacity: .5; }}
+.insignias .insignia:nth-child(2) {{ animation-delay: .06s; }} .insignias .insignia:nth-child(3) {{ animation-delay: .12s; }}
+.insignias .insignia:nth-child(4) {{ animation-delay: .18s; }} .insignias .insignia:nth-child(5) {{ animation-delay: .24s; }}
+.insignias .insignia:nth-child(6) {{ animation-delay: .3s; }} .insignias .insignia:nth-child(7) {{ animation-delay: .36s; }}
+
+.reco {{ display: flex; align-items: center; gap: .9rem; border-radius: 1rem; padding: .8rem 1rem; margin-bottom: .6rem;
+  background: rgba(255,255,255,.88); border: 1px solid #D5ECEF; animation: entrar .6s cubic-bezier(.22,1,.36,1) both; }}
+.reco .ico {{ font-size: 1.6rem; }}
+.reco b {{ display: block; }}
+.reco span {{ font-size: .85rem; color: #466373; }}
+.reco .gana {{ margin-left: auto; text-align: right; white-space: nowrap; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800;
+  background: {GRADIENTE}; -webkit-background-clip: text; background-clip: text; color: transparent; font-size: 1.2rem; }}
+.reco .gana small {{ display: block; font-family: 'Public Sans', sans-serif; font-size: .75rem; font-weight: 700; color: #0B7A57; -webkit-text-fill-color: #0B7A57; }}
+
+/* Impacto económico: cifra protagonista */
+.impacto {{
+  position: relative; overflow: hidden; border-radius: 1.6rem; padding: 1.8rem 2rem; color: #fff; margin-bottom: 1.2rem;
+  background: linear-gradient(125deg, #0B2533 0%, #0E4A5E 45%, #2F2A7A 100%);
+  box-shadow: 0 24px 50px -26px rgba(11,37,51,.9);
+}}
+.impacto::after {{ content: ""; position: absolute; right: -8rem; top: -10rem; width: 26rem; height: 26rem; border-radius: 50%;
+  background: radial-gradient(circle, rgba(15,181,196,.45), transparent 65%); pointer-events: none; }}
+.impacto .etiqueta {{ font-size: .95rem; opacity: .85; }}
+@property --v {{ syntax: '<integer>'; inherits: false; initial-value: 0; }}
+.cifra {{ --v: var(--meta); counter-reset: v var(--v); animation: contar 1.8s .2s cubic-bezier(.16,1,.3,1) both; }}
+.cifra::after {{ content: counter(v); }}
+@keyframes contar {{ from {{ --v: 0; }} }}
+.impacto .grande {{ font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: clamp(2.6rem, 6vw, 4.4rem); line-height: 1;
+  margin: .3rem 0 .4rem; background: linear-gradient(90deg, #5EE6E0, #FFFFFF 55%, #B9A8FF); -webkit-background-clip: text; background-clip: text; color: transparent; }}
+.impacto .grande .cifra::after {{ -webkit-text-fill-color: transparent; }}
+.impacto .sub {{ opacity: .85; max-width: 46rem; }}
+.impacto .kpis {{ display: grid; grid-template-columns: repeat(4, 1fr); gap: .8rem; margin-top: 1.3rem; position: relative; z-index: 1; }}
+.impacto .kpis div {{ border-radius: 1rem; padding: .8rem 1rem; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18); }}
+.impacto .kpis b {{ display: block; font-family: 'Bricolage Grotesque', sans-serif; font-size: 1.5rem; }}
+.impacto .kpis span {{ font-size: .8rem; opacity: .8; }}
+@media (max-width: 720px) {{ .impacto .kpis {{ grid-template-columns: 1fr 1fr; }} .impacto {{ padding: 1.3rem 1.2rem; }} }}
+
+@media (prefers-reduced-motion: reduce) {{
+  .st-key-piloto button, .membresia, .membresia::before, .membresia::after, .anillo, .insignia, .reco, .cifra, .resumen-piloto div {{ animation: none; }}
+}}
+
 /* Nota de privacidad */
 .privacidad {{
   border-radius: 1rem; padding: 1rem 1.2rem; margin-top: 1rem; background: rgba(255,255,255,.8);
@@ -440,6 +573,80 @@ def linea_hospital(feed: list[dict], asegurados: list[dict], decisiones: list | 
             f'<span class="estado {clase.get(estado, "nuevo")}">{estado}</span></div>'
         )
     return f'<div class="linea">{"".join(eventos)}</div>'
+
+
+def resumen_piloto(r: dict) -> str:
+    datos = [(r["campanas"], "campañas lanzadas"), (r["premiados"], "chequeos premiados"),
+             (r["suben"], "asegurados subieron de nivel"), (f'${r["ahorro"]:.2f}', "menos al mes en primas")]
+    return '<div class="resumen-piloto">' + "".join(f"<div><b>{v}</b><span>{t}</span></div>" for v, t in datos) + "</div>"
+
+
+def membresia(a: dict) -> str:
+    numero = a["poliza"].replace("POL-", "")
+    return (
+        f'<div class="membresia {a["nivel"]}"><div class="arriba"><div class="marca">Bienestar Preventivo</div>'
+        f'<div class="chip"></div></div><div class="numero">•••• •••• {escape(numero)}</div>'
+        f'<div class="abajo"><div><div class="titular">Titular</div><div class="nombre-t">{escape(a["nombre"])}</div></div>'
+        f'<div class="nivel-t"><small>Miembro</small>{a["nivel"]}</div></div></div>'
+    )
+
+
+def anillo(a: dict) -> str:
+    from agente.gamificacion import siguiente_nivel
+
+    sig = siguiente_nivel(a["puntos"])
+    if sig:
+        nivel, faltan, avance = sig
+        titulo, texto = f"Rumbo a {nivel}", f"Le faltan <b>{faltan} puntos</b> para subir de nivel."
+    else:
+        avance, titulo, texto = 1.0, "Nivel máximo", "Tiene el mayor descuento disponible: 10 % en su prima."
+    ahorro = a["prima_base"] - a["prima_final"]
+    extra = f" Hoy ahorra <b>${ahorro:.2f} al mes</b>." if ahorro > 0 else ""
+    return (
+        f'<div class="anillo-caja"><div class="anillo" style="--meta:{avance * 100:.0f}"><div><div><b>{a["puntos"]}</b>'
+        f'<span>puntos</span></div></div></div><div><h4>{titulo}</h4><p>{texto}{extra}</p></div></div>'
+    )
+
+
+def insignias(lista: list[dict]) -> str:
+    return '<div class="insignias">' + "".join(
+        f'<div class="insignia {"ganada" if i["ganada"] else "bloqueada"}" title="{escape(i["como"])}">'
+        f'<div class="emoji">{i["icono"]}</div><b>{i["nombre"]}</b><span>{"Ganada" if i["ganada"] else escape(i["como"])}</span></div>'
+        for i in lista
+    ) + "</div>"
+
+
+def recomendaciones(lista: list[dict]) -> str:
+    if not lista:
+        return ('<div class="reco"><div class="ico">✨</div><div><b>Está al día</b>'
+                "<span>No tiene chequeos pendientes en las campañas activas.</span></div></div>")
+    filas = []
+    for r in lista:
+        c = r["campana"]
+        extra = f"<small>sube a {r['nivel_nuevo']} · −${r['ahorro_extra']:.2f}/mes</small>" if r["sube"] else ""
+        filas.append(
+            f'<div class="reco"><div class="ico">{ICONO_CHEQUEO.get(c["tipo_chequeo"], "🩺")}</div>'
+            f'<div><b>{escape(c["nombre"])}</b><span>{escape(CHEQUEOS.get(c["tipo_chequeo"], ""))}</span></div>'
+            f'<div class="gana">+{r["puntos"]} pts{extra}</div></div>'
+        )
+    return "".join(filas)
+
+
+def impacto(r: dict, asegurados: int, participacion: float) -> str:
+    neto = max(r["neto"], 0)
+    kpis = [
+        (f'{r["roi"]:.1f}×', "retorno por cada dólar invertido"),
+        (f'{r["casos"]:,.0f}', "casos detectados a tiempo"),
+        (f'${r["chequeos"] / 1000:,.0f} mil', "costo de los chequeos"),
+        (f'${r["descuentos"] / 1000:,.0f} mil', "descuentos pagados en primas"),
+    ]
+    return (
+        f'<div class="impacto"><div class="etiqueta">Ahorro neto estimado para la aseguradora, por año</div>'
+        f'<div class="grande" role="img" aria-label="${neto:,.0f}">$<span class="cifra" style="--meta:{round(neto / 1000)}"></span> mil</div>'
+        f'<div class="sub">Con {asegurados:,} asegurados y {participacion * 100:.0f} % de participación, después de pagar '
+        f'los chequeos y los descuentos en primas.</div><div class="kpis">'
+        + "".join(f"<div><b>{v}</b><span>{t}</span></div>" for v, t in kpis) + "</div></div>"
+    )
 
 
 def seccion(clase: str, icono: str, titulo: str, texto: str) -> str:
