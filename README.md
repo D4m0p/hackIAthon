@@ -4,7 +4,7 @@ Agente que analiza de forma **anónima** los diagnósticos más frecuentes del h
 diseña campañas de prevención con IA y, cuando el asegurado cumple su chequeo,
 le otorga **puntos, nivel y descuento en la prima** de forma automática en el CRM de Notion.
 
-**Demo pública:** <https://bienestar-preventivo.streamlit.app/> · **CRM en Notion (solo lectura):** _(se agrega al publicar)_
+**Demo pública:** <https://bienestar-preventivo.streamlit.app/> · **CRM en Notion (solo lectura):** <https://luminous-conifer-53c.notion.site/CRM-Aseguradora-Bienestar-Preventivo-3e2cc66afc378176b55ad1f76376368a>
 
 > Todos los datos son ficticios y fueron generados para esta demostración.
 

@@ -51,4 +51,11 @@ No lo envíe hasta que el equipo confirme que todo está listo.
 
 ## Persona 2: CRM en Notion
 
-Pendiente: crear las bases según la sección 2 de [`CONTRATO.md`](CONTRATO.md) y enviar **por privado** a la Persona 1 el token, los 3 IDs de las bases y el enlace público de la página.
+Hecho:
+
+- [x] Página `CRM Aseguradora — Bienestar Preventivo` con las 3 bases (`Asegurados`, `Campañas`, `Chequeos`) creadas según la sección 2 de [`CONTRATO.md`](CONTRATO.md). Los nombres, tipos y opciones se revisaron contra `agente/crm.py`.
+- [x] Integración `Agente Bienestar` creada y conectada a la página.
+- [x] Página publicada en solo lectura: <https://luminous-conifer-53c.notion.site/CRM-Aseguradora-Bienestar-Preventivo-3e2cc66afc378176b55ad1f76376368a>
+- [x] Token, 3 IDs de las bases y enlace público enviados **por privado** a la Persona 1.
+
+Pendiente de la Persona 1: cargar el token y los 3 IDs en los secretos (`.streamlit/secrets.toml` y Streamlit Cloud → Settings → Secrets), y comprobar que el botón de asegurados de prueba escribe en `Asegurados`.
