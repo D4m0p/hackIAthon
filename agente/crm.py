@@ -186,3 +186,55 @@ class CRM:
                 self._archivar(p["id"])
         for a in asegurados:
             self.crear_asegurado(a)
+
+
+class CRMLocal:
+    """Misma interfaz que CRM, en memoria. Para probar sin Notion o si Notion falla."""
+
+    def __init__(self):
+        self._asegurados, self._campanas, self._chequeos = {}, {}, []
+        self._n = 0
+
+    def _id(self):
+        self._n += 1
+        return f"local-{self._n}"
+
+    def verificar(self):
+        return []
+
+    def asegurados(self):
+        return sorted((dict(a) for a in self._asegurados.values()), key=lambda a: a["poliza"])
+
+    def crear_asegurado(self, a):
+        i = self._id()
+        self._asegurados[i] = {
+            "id": i, "poliza": a["poliza"], "nombre": a["nombre"], "sexo": a["sexo"], "edad": int(a["edad"]),
+            "prima_base": float(a["prima_base"]), "puntos": 0, "nivel": "Bronce", "descuento": 0,
+            "prima_final": float(a["prima_base"]),
+        }
+
+    def actualizar_asegurado(self, page_id, puntos, nivel, descuento, prima_final):
+        self._asegurados[page_id].update(puntos=puntos, nivel=nivel, descuento=descuento, prima_final=prima_final)
+
+    def campanas(self, solo_activas=False):
+        return [dict(c) for c in self._campanas.values() if not solo_activas or c["estado"] == "Activa"]
+
+    def cerrar_campanas_activas(self):
+        for c in self._campanas.values():
+            c["estado"] = "Cerrada"
+
+    def crear_campana(self, c):
+        i = self._id()
+        self._campanas[i] = {**{k: c[k] for k in ("nombre", "tipo_chequeo", "diagnostico", "sexo", "edad_min",
+                                                   "edad_max", "puntos", "mensaje")}, "id": i, "estado": "Activa"}
+
+    def ids_premiados(self):
+        return {c["id_hospital"] for c in self._chequeos}
+
+    def registrar_chequeo(self, id_hospital, poliza, tipo, fecha, asegurado_id, campana_id, puntos):
+        self._chequeos.append({"id_hospital": id_hospital, "poliza": poliza, "tipo": tipo, "fecha": fecha, "puntos": puntos})
+
+    def reiniciar(self, asegurados):
+        self.__init__()
+        for a in asegurados:
+            self.crear_asegurado(a)
