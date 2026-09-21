@@ -64,3 +64,5 @@ Regenerar los datos ficticios: `python scripts/generar_datos.py`
 ## Equipo
 
 Las instrucciones de trabajo del equipo están en [`CONTRATO.md`](CONTRATO.md). **Léanlo antes de hacer cualquier cambio.**
+
+Las tareas pendientes de cada persona están en [`TAREAS.md`](TAREAS.md).
