@@ -8,6 +8,7 @@ Todo texto que venga de fuera (nombres y mensajes que propone la IA, datos
 del CRM) pasa por `escape` antes de entrar al HTML.
 """
 
+import textwrap
 from html import escape
 
 from agente.catalogo import CHEQUEOS
@@ -42,6 +43,18 @@ def _poblacion(c: dict) -> str:
     return f"{quien} de {int(c['edad_min'])} a {int(c['edad_max'])} años"
 
 
+def etiqueta(texto: str, ancho: int = 24) -> str:
+    """Parte una etiqueta larga de un gráfico en varias líneas, para que quepa en pantallas angostas."""
+    return textwrap.fill(str(texto), ancho)
+
+
+def leyenda(items: list[tuple[str, str]]) -> str:
+    """Leyenda de gráfico en HTML: (color, texto). Se acomoda sola en pantallas angostas."""
+    return '<div class="v-leyenda">' + "".join(
+        f'<span><i style="background:{escape(color)}"></i>{escape(texto)}</span>' for color, texto in items
+    ) + '</div>'
+
+
 CSS = """<style>
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap');
 
@@ -64,7 +77,10 @@ CSS = """<style>
 
 /* ── chrome de Streamlit ─────────────────────────────────────────────── */
 .stApp{ background:var(--ground); }
-html, body, [class*="st-"]{ font-family:var(--sans); }
+/* Los íconos de Streamlit son una fuente de ligaduras: si se les cambia la
+   familia tipográfica, el nombre del ícono (p. ej. "keyboard_arrow_right")
+   se ve como texto encima de la etiqueta. Por eso quedan excluidos. */
+html, body, [class*="st-"]:not([data-testid="stIconMaterial"]){ font-family:var(--sans); }
 .block-container{ padding-top:2.1rem; padding-bottom:4rem; max-width:1180px; }
 #MainMenu, footer{ visibility:hidden; }
 [data-testid="stHeader"]{ background:transparent; }
@@ -75,6 +91,9 @@ h1,h2,h3,h4{ font-family:var(--serif) !important; letter-spacing:-.008em; color:
 /* Streamlit pinta TODO <p> con el color de texto general y eso pisa el claro
    que se hereda dentro de los bloques oscuros. Hay que devolvérselo. */
 .stApp .v-piloto p, .stApp .v-carnet p, .stApp .v-memb p{ color:#EAF5F8; }
+/* Lo mismo pasa con la etiqueta de los botones: el <p> de dentro tomaba el gris
+   del texto general y en los botones turquesa no se leía. Hereda el color del botón. */
+.stApp .stButton button p, .stApp .stFormSubmitButton button p, .stApp .stLinkButton a p{ color:inherit; }
 
 [data-testid="stSidebar"]{ background:var(--surface); border-right:1px solid var(--line); }
 [data-testid="stSidebar"] h2{ font-size:1.15rem; }
@@ -117,6 +136,8 @@ h1,h2,h3,h4{ font-family:var(--serif) !important; letter-spacing:-.008em; color:
   font-size:.78rem !important; text-transform:uppercase; letter-spacing:.1em;
   font-weight:600; color:var(--ink-3) !important;
 }
+[data-testid="stMetricLabel"], [data-testid="stMetricLabel"] *{ white-space:normal !important; overflow-wrap:anywhere; }
+[data-testid="stMetricLabel"]{ overflow:visible !important; text-overflow:clip !important; }
 [data-testid="stMetricValue"]{
   font-family:var(--serif); font-weight:700; color:var(--marca); letter-spacing:-.02em;
 }
@@ -182,7 +203,7 @@ hr{ border-color:var(--line); }
 .v-piloto span{ font-size:.85rem; opacity:.82; display:block; margin-top:2px; }
 
 /* ── tarjetas de campaña ─────────────────────────────────────────────── */
-.v-camps{ display:grid; grid-template-columns:repeat(auto-fit,minmax(272px,1fr)); gap:16px; }
+.v-camps{ display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,272px),1fr)); gap:16px; }
 .v-camp{
   background:var(--surface); border:1px solid var(--line); border-radius:14px;
   overflow:hidden; display:flex; flex-direction:column; box-shadow:var(--sombra);
@@ -198,7 +219,7 @@ hr{ border-color:var(--line); }
   border-left:3px solid var(--line-2); padding-left:13px;
 }
 .v-camp .datos{
-  display:flex; justify-content:space-between; gap:12px; font-size:.88rem;
+  display:flex; justify-content:space-between; gap:4px 12px; flex-wrap:wrap; font-size:.88rem;
   border-top:1px solid var(--line); padding-top:11px; margin-top:auto;
 }
 .v-camp .datos span{ color:var(--ink-3); }
@@ -223,7 +244,7 @@ hr{ border-color:var(--line); }
 .v-fono p{ font-size:.79rem; color:var(--ink-2); margin:0; line-height:1.5; }
 
 /* ── carnets de premiados ────────────────────────────────────────────── */
-.v-carnets{ display:grid; grid-template-columns:repeat(auto-fit,minmax(286px,1fr)); gap:16px; }
+.v-carnets{ display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,286px),1fr)); gap:16px; }
 .v-carnet{
   border-radius:16px; padding:20px 22px; color:#EAF5F8; position:relative; overflow:hidden;
   background:linear-gradient(142deg,#17697C,#0C3B49); box-shadow:var(--sombra);
@@ -268,10 +289,10 @@ hr{ border-color:var(--line); }
   border:1px solid var(--line); border-left:4px solid var(--rojo); border-radius:11px; padding:14px 16px;
 }
 .v-rech .item.dup{ border-left-color:var(--ambar); }
-.v-rech .quien{ min-width:190px; }
+.v-rech .quien{ flex:0 1 210px; min-width:0; }
 .v-rech .quien b{ display:block; color:var(--ink); font-size:.95rem; }
 .v-rech .quien span{ font-size:.79rem; color:var(--ink-3); letter-spacing:.05em; }
-.v-rech .motivo{ font-size:.89rem; color:var(--ink-2); line-height:1.55; }
+.v-rech .motivo{ flex:1 1 0; min-width:0; font-size:.89rem; color:var(--ink-2); line-height:1.55; }
 .v-rech .etiqueta{
   font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em;
   color:var(--rojo); background:var(--rojo-suave); border-radius:20px; padding:3px 11px;
@@ -293,6 +314,7 @@ hr{ border-color:var(--line); }
 .v-linea .ev.ok .punto{ background:var(--verde); box-shadow:0 0 0 3px var(--verde-suave); }
 .v-linea .ev.no .punto{ background:var(--rojo); box-shadow:0 0 0 3px var(--rojo-suave); }
 .v-linea .ev.dup .punto{ background:var(--ambar); box-shadow:0 0 0 3px var(--ambar-suave); }
+.v-linea .txt{ flex:1 1 0; min-width:0; }
 .v-linea .txt b{ color:var(--ink); font-size:.95rem; }
 .v-linea .txt span{ display:block; font-size:.85rem; color:var(--ink-3); margin-top:2px; }
 .v-linea .fecha{ margin-left:auto; font-size:.8rem; color:var(--ink-3); white-space:nowrap; font-variant-numeric:tabular-nums; }
@@ -304,7 +326,13 @@ hr{ border-color:var(--line); }
   padding:18px 16px; text-align:center; box-shadow:var(--sombra);
 }
 .v-podio .p.uno{ border-color:var(--oro); box-shadow:0 0 0 3px var(--oro-suave), var(--sombra); }
-.v-podio .medalla{ font-size:1.5rem; line-height:1; }
+.v-podio .medalla{
+  width:34px; height:34px; border-radius:50%; margin:0 auto; display:flex; align-items:center;
+  justify-content:center; font-family:var(--serif); font-weight:700; font-size:1rem; line-height:1;
+  color:#fff; background:var(--plata);
+}
+.v-podio .p.uno .medalla{ background:var(--oro); }
+.v-podio .p.tres .medalla{ background:var(--bronce); }
 .v-podio h5{ font-family:var(--serif); font-size:1rem; margin:9px 0 2px; color:var(--ink); font-weight:600; }
 .v-podio .pts{ font-family:var(--serif); font-size:1.5rem; font-weight:700; color:var(--marca); font-variant-numeric:tabular-nums; }
 .v-podio .det{ font-size:.78rem; color:var(--ink-3); }
@@ -360,8 +388,10 @@ hr{ border-color:var(--line); }
 
 .v-anillo{
   background:var(--surface); border:1px solid var(--line); border-radius:14px;
-  padding:20px 22px; display:flex; align-items:center; gap:22px; box-shadow:var(--sombra);
+  padding:20px 22px; display:flex; align-items:center; gap:22px; flex-wrap:wrap; box-shadow:var(--sombra);
 }
+.v-anillo svg{ flex:none; }
+.v-anillo .txt{ flex:1 1 200px; min-width:0; }
 .v-anillo .txt b{ display:block; font-family:var(--serif); font-size:1.08rem; color:var(--ink); }
 .v-anillo .txt span{ font-size:.88rem; color:var(--ink-2); line-height:1.55; display:block; margin-top:4px; }
 
@@ -384,7 +414,7 @@ hr{ border-color:var(--line); }
   font-size:.92rem; color:var(--ink-2); line-height:1.6;
 }
 
-.v-insig{ display:grid; grid-template-columns:repeat(auto-fit,minmax(154px,1fr)); gap:12px; }
+.v-insig{ display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,140px),1fr)); gap:12px; }
 .v-ins{
   background:var(--surface); border:1px solid var(--line); border-radius:12px;
   padding:15px 14px; text-align:center;
@@ -395,7 +425,7 @@ hr{ border-color:var(--line); }
 .v-ins span{ display:block; font-size:.75rem; color:var(--ink-3); margin-top:3px; line-height:1.45; }
 
 /* ── impacto ─────────────────────────────────────────────────────────── */
-.v-imp{ display:grid; grid-template-columns:repeat(auto-fit,minmax(168px,1fr)); gap:14px; }
+.v-imp{ display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,168px),1fr)); gap:14px; }
 .v-imp .t{
   background:var(--surface); border:1px solid var(--line); border-radius:13px;
   padding:17px 18px; box-shadow:var(--sombra);
@@ -420,16 +450,66 @@ hr{ border-color:var(--line); }
   display:flex; gap:14px; background:var(--verde-suave); border-radius:13px;
   padding:17px 19px; margin-top:16px;
 }
-.v-priv .ic{ font-size:1.2rem; line-height:1.3; }
+.v-priv .ic{ flex:none; width:22px; height:22px; margin-top:2px; color:var(--verde); }
+.v-priv .ic svg{ display:block; width:100%; height:100%; }
+.v-priv > div{ min-width:0; }
+
+/* leyenda de los gráficos: en HTML para que se acomode sola en pantallas angostas */
+.v-leyenda{ display:flex; flex-wrap:wrap; gap:6px 20px; margin:2px 0 6px; font-size:.86rem; color:var(--ink-2); }
+.v-leyenda span{ display:inline-flex; align-items:center; gap:8px; }
+.v-leyenda i{ width:12px; height:12px; border-radius:3px; flex:none; }
 .v-priv b{ display:block; color:var(--ink); font-size:.98rem; margin-bottom:4px; font-weight:600; }
 .v-priv p{ font-size:.9rem; color:var(--ink-2); margin:0; line-height:1.6; }
+
+/* ── pantallas angostas ──────────────────────────────────────────────── */
+.v-hero, .v-piloto, .v-carnet, .v-memb, .v-camp, .v-fila, .v-rech .item{ overflow-wrap:anywhere; }
 
 @media (max-width: 820px){
   .v-hero{ padding:28px 22px; }
   .v-hero h1{ font-size:1.85rem; }
+  .v-trust{ gap:22px 34px; }
+  .v-podio{ gap:10px; }
+  .v-podio .p{ padding:14px 8px; }
+  .v-fila{ grid-template-columns:26px minmax(0,1fr) auto; gap:12px; }
+  .v-fila .prog{ display:none; }
+}
+
+@media (max-width: 640px){
+  .block-container{ padding-left:1rem; padding-right:1rem; padding-top:1.2rem; padding-bottom:3rem; }
+  .stTabs [data-baseweb="tab"]{ padding:9px 12px; white-space:nowrap; }
+  .v-hero{ padding:24px 18px 22px; border-radius:16px; }
+  .v-hero h1{ font-size:1.6rem; max-width:none; }
+  .v-hero .sub{ font-size:.98rem; margin-top:12px; }
+  .v-trust{ margin-top:22px; padding-top:18px; gap:18px 20px; }
+  .v-trust > div{ flex:1 1 40%; min-width:0; }
+  .v-trust b{ font-size:1.55rem; }
+  .v-sec h2{ font-size:1.3rem; }
+  .v-piloto{ padding:22px 20px; }
+  .v-piloto .fila{ display:grid; grid-template-columns:1fr 1fr; gap:18px 14px; }
+  .v-piloto b{ font-size:1.6rem; }
+  .v-carnet{ padding:18px 18px; }
+  .v-memb{ padding:22px 20px; }
+  .v-memb .rejilla{ gap:3px 14px; }
+  .v-memb .rejilla b{ font-size:1.2rem; }
+  .v-rech .item{ flex-direction:column; gap:8px; }
+  .v-rech .quien{ flex:none; }
+  .v-rech .etiqueta{ margin-left:0; order:-1; align-self:flex-start; }
+  .v-linea .ev{ gap:12px; }
+  .v-linea .fecha{ display:none; }
+  .v-linea .txt span{ overflow-wrap:anywhere; }
+  .v-podio .pts{ font-size:1.25rem; }
+  .v-podio h5{ font-size:.9rem; }
+  .v-anillo{ padding:18px; gap:16px; }
+  .v-priv{ padding:15px 16px; }
+  [data-testid="stForm"]{ padding:16px; }
+}
+
+@media (max-width: 460px){
+  .v-imp{ grid-template-columns:1fr; }
   .v-podio{ grid-template-columns:1fr; }
-  .v-fila{ grid-template-columns:26px 1fr; }
-  .v-fila .barra, .v-fila .barra + small{ display:none; }
+  .v-podio .p{ display:flex; align-items:center; gap:14px; text-align:left; padding:12px 14px; }
+  .v-podio .medalla{ margin:0; flex:none; }
+  .v-podio .p .txt{ min-width:0; }
 }
 @media (prefers-reduced-motion: reduce){ *{ transition:none !important; animation:none !important; } }
 </style>"""
@@ -453,9 +533,8 @@ def hero(n_campanas: int, n_con_descuento: int, ahorro: float) -> str:
     )
 
 
-def seccion(clave: str, emoji: str, titulo: str, subtitulo: str) -> str:
-    """Encabezado de sección. `emoji` se recibe por compatibilidad y no se usa:
-    la identidad institucional no lleva emojis como marcadores."""
+def seccion(clave: str, titulo: str, subtitulo: str) -> str:
+    """Encabezado de sección. Sin emojis: la identidad institucional no los usa como marcadores."""
     return (
         f'<div class="v-sec" id="{escape(str(clave))}">'
         f'<h2>{escape(titulo)}</h2>'
@@ -486,7 +565,10 @@ def resumen_piloto(r: dict) -> str:
 def privacidad(minimo: int) -> str:
     return (
         '<div class="v-priv">'
-        '<span class="ic">🔒</span><div>'
+        '<span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" '
+        'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+        '<rect x="4.5" y="10.5" width="15" height="10" rx="2.2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/>'
+        '</svg></span><div>'
         '<b>Por qué esto no identifica a nadie</b>'
         '<p>Los diagnósticos llegan sin nombre y sin número de póliza. Los grupos de sexo y edad '
         f'con menos de {int(minimo)} casos se ocultan, porque en un grupo tan pequeño decir el '
@@ -626,16 +708,17 @@ def _chip_nivel(nivel: str) -> str:
 
 def ranking(asegurados: list[dict]) -> str:
     orden = sorted(asegurados, key=lambda a: (-a.get("puntos", 0), a.get("nombre", "")))
-    medallas = ["🥇", "🥈", "🥉"]
+    lugar = ["uno", "dos", "tres"]
     podio = []
     for i, a in enumerate(orden[:3]):
         podio.append(
-            f'<div class="p{" uno" if i == 0 else ""}">'
-            f'<div class="medalla">{medallas[i]}</div>'
+            f'<div class="p {lugar[i]}">'
+            f'<div class="medalla">{i + 1}</div>'
+            '<div class="txt">'
             f'<h5>{escape(str(a.get("nombre", "")))}</h5>'
             f'<div class="pts">{_pts(a.get("puntos"))}</div>'
             f'<div class="det">puntos · {escape(str(a.get("nivel", "Bronce")))}</div>'
-            '</div>'
+            '</div></div>'
         )
 
     filas = []
@@ -655,7 +738,7 @@ def ranking(asegurados: list[dict]) -> str:
             f'<b>{escape(str(a.get("nombre", "")))} {_chip_nivel(str(a.get("nivel", "Bronce")))}</b>'
             f'<span>{escape(str(a.get("poliza", "")))}</span>'
             '</div>'
-            f'<div><div class="barra"><i style="width:{avance}%"></i></div><small>{escape(falta)}</small></div>'
+            f'<div class="prog"><div class="barra"><i style="width:{avance}%"></i></div><small>{escape(falta)}</small></div>'
             f'<div class="cifra"><b>{_pts(puntos)}</b>{linea_ahorro}</div>'
             '</div>'
         )

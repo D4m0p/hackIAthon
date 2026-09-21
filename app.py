@@ -15,7 +15,7 @@ from agente.crm import CRM, CRMLocal, ErrorCRM
 
 DATA = Path(__file__).parent / "data"
 
-st.set_page_config(page_title="Agente de Bienestar Preventivo", page_icon="🩺", layout="wide")
+st.set_page_config(page_title="Agente de Bienestar Preventivo", page_icon=":material/health_and_safety:", layout="wide")
 st.markdown(ui.CSS, unsafe_allow_html=True)
 
 
@@ -112,31 +112,31 @@ if not lista_asegurados:
     st.stop()
 
 if aviso := st.session_state.pop("aviso", None):
-    st.toast(aviso, icon="✅")
+    st.toast(aviso, icon=":material/check_circle:")
 
 # --- Piloto automático: el agente completo con un solo botón --------------------
 
-if st.button("▶  Ejecutar el agente completo", key="piloto", width="stretch",
+if st.button("Ejecutar el agente completo", key="piloto", width="stretch", icon=":material/play_arrow:",
              help="Analiza, diseña las campañas con IA, las publica y premia los chequeos, sin intervención."):
     with st.status("El agente está trabajando de forma autónoma...", expanded=True) as estado:
         resumen_auto = analisis.resumen_para_ia(df, 5)
-        st.write(f"🔬 **Analizando** {len(df):,} diagnósticos anónimos del hospital...")
+        st.write(f"**Analizando** {len(df):,} diagnósticos anónimos del hospital...")
         time.sleep(.5)
-        st.write("🎯 Diagnósticos prevenibles más frecuentes: "
+        st.write("Diagnósticos prevenibles más frecuentes: "
                  + ", ".join(r["diagnostico"].lower() for r in resumen_auto) + ".")
         time.sleep(.5)
-        st.write("🤖 **Diseñando** una campaña por diagnóstico con IA..." if groq_key
-                 else "📄 **Diseñando** campañas con plantillas (sin clave de IA)...")
+        st.write("**Diseñando** una campaña por diagnóstico con IA..." if groq_key
+                 else "**Diseñando** campañas con plantillas (sin clave de IA)...")
         nuevas, _ = campanas.disenar(resumen_auto, groq_key, groq_modelo)
-        st.write("🩺 Validando cada campaña con reglas clínicas.")
-        st.write(f"📤 **Publicando** {len(nuevas)} campañas en el CRM...")
+        st.write("Validando cada campaña con reglas clínicas.")
+        st.write(f"**Publicando** {len(nuevas)} campañas en el CRM...")
         crm.cerrar_campanas_activas()
         for c in nuevas:
             crm.crear_campana(c)
-        st.write(f"🏥 **Verificando** {len(st.session_state.feed)} chequeos reportados por el hospital...")
+        st.write(f"**Verificando** {len(st.session_state.feed)} chequeos reportados por el hospital...")
         decisiones_auto = premios.aplicar(crm, st.session_state.feed)
         premiados_auto = [d for d in decisiones_auto if d.estado == "Premiado"]
-        st.write(f"🏆 **Premiando**: {len(premiados_auto)} chequeos cumplidos, primas recalculadas en el CRM.")
+        st.write(f"**Premiando**: {len(premiados_auto)} chequeos cumplidos, primas recalculadas en el CRM.")
         time.sleep(.4)
         estado.update(label="El agente terminó su ciclo completo", state="complete", expanded=False)
     st.session_state.decisiones = decisiones_auto
@@ -160,7 +160,7 @@ paso1, paso2, paso3, tab_crm, tab_perfil, tab_impacto = st.tabs(
 # --- Paso 1 ---------------------------------------------------------------------
 
 with paso1:
-    st.markdown(ui.seccion("analisis", "🔬", "Análisis anónimo", "Qué diagnósticos se repiten más entre los asegurados, sin ver a ninguna persona."), unsafe_allow_html=True)
+    st.markdown(ui.seccion("analisis", "Análisis anónimo", "Qué diagnósticos se repiten más entre los asegurados, sin ver a ninguna persona."), unsafe_allow_html=True)
     c1, c2, c3 = st.columns(3)
     c1.metric("Registros analizados", f"{len(df):,}")
     c2.metric("Diagnósticos distintos", len(tabla))
@@ -168,15 +168,19 @@ with paso1:
     c3.metric("Casos prevenibles con un chequeo", f"{prev['casos'].sum() / len(df) * 100:.0f} %")
 
     st.subheader("Diagnósticos más frecuentes")
-    grafico = tabla.assign(tipo=tabla["chequeo_preventivo"].map(lambda x: "Prevenible con chequeo" if isinstance(x, str) else "Otro"))
+    grafico = tabla.assign(
+        tipo=tabla["chequeo_preventivo"].map(lambda x: "Prevenible con chequeo" if isinstance(x, str) else "Otro"),
+        etiqueta=tabla["diagnostico"].map(ui.etiqueta),
+    )
+    st.markdown(ui.leyenda([("#00719B", "Prevenible con chequeo"), ("#C3D3D8", "Otro")]), unsafe_allow_html=True)
     barras = alt.Chart(grafico).mark_bar(cornerRadiusEnd=6, height=22).encode(
         x=alt.X("casos:Q", title="Casos"),
-        y=alt.Y("diagnostico:N", sort="-x", title=None, axis=alt.Axis(labelLimit=320, labelFontSize=13)),
-        color=alt.Color("tipo:N", title=None, legend=alt.Legend(orient="top"),
+        y=alt.Y("etiqueta:N", sort="-x", title=None, axis=alt.Axis(labelLimit=200, labelFontSize=12)),
+        color=alt.Color("tipo:N", title=None, legend=None,
                         scale=alt.Scale(domain=["Prevenible con chequeo", "Otro"], range=["#00719B", "#C3D3D8"])),
         tooltip=[alt.Tooltip("diagnostico", title="Diagnóstico"), alt.Tooltip("casos", title="Casos"),
                  alt.Tooltip("porcentaje", title="% del total")],
-    ).properties(height=400)
+    ).properties(height=440)
     st.altair_chart(barras, width="stretch")
     with st.expander("Ver la tabla completa"):
         st.dataframe(
@@ -188,15 +192,17 @@ with paso1:
     st.subheader("Mapa de riesgo")
     st.caption("Dónde se concentra cada enfermedad prevenible según sexo y edad. De aquí salen las poblaciones "
                f"objetivo de las campañas. Las celdas con menos de {analisis.MINIMO_POR_GRUPO} casos se ocultan por privacidad.")
-    matriz = analisis.matriz_riesgo(df)
+    matriz = analisis.matriz_riesgo(df).assign(etiqueta_diag=lambda d: d["diagnostico"].map(ui.etiqueta))
     orden_diag = (matriz.groupby("diagnostico")["casos"].sum().sort_values(ascending=False).index.tolist())
+    orden_etiquetas = [ui.etiqueta(d) for d in orden_diag]
     tope = matriz["casos"].max()
     columnas_mapa = st.columns(2, gap="medium")
     for col, sexo in zip(columnas_mapa, ["Mujeres", "Hombres"]):
         datos = matriz[matriz["sexo"] == sexo].assign(valor=lambda d: d["casos"].fillna(0))
         base = alt.Chart(datos).encode(
-            x=alt.X("rango_edad:N", title="Edad", sort=analisis.ETIQUETAS, axis=alt.Axis(labelAngle=0, orient="top", labelOverlap=False, labelFontSize=10)),
-            y=alt.Y("diagnostico:N", title=None, sort=orden_diag, axis=alt.Axis(labelLimit=220)),
+            x=alt.X("rango_edad:N", title="Edad", sort=analisis.ETIQUETAS,
+                    axis=alt.Axis(labelAngle=-90, labelAlign="left", labelBaseline="middle", orient="top", labelOverlap=False, labelFontSize=10)),
+            y=alt.Y("etiqueta_diag:N", title=None, sort=orden_etiquetas, axis=alt.Axis(labelLimit=150, labelFontSize=11)),
         )
         celdas = base.mark_rect(cornerRadius=7, stroke="#FFFFFF", strokeWidth=3).encode(
             color=alt.condition(
@@ -219,22 +225,24 @@ with paso1:
 # --- Paso 2 ---------------------------------------------------------------------
 
 with paso2:
-    st.markdown(ui.seccion("campanas", "📣", "Campañas de prevención", "La IA propone una campaña por cada diagnóstico prevenible y usted las publica en el CRM."), unsafe_allow_html=True)
-    top = st.slider("¿Cuántos diagnósticos prevenibles atacar?", 3, 7, 5)
+    st.markdown(ui.seccion("campanas", "Campañas de prevención", "La IA propone una campaña por cada diagnóstico prevenible y usted las publica en el CRM."), unsafe_allow_html=True)
+    col_top, col_disenar = st.columns([3, 2], gap="large", vertical_alignment="bottom")
+    top = col_top.slider("¿Cuántos diagnósticos prevenibles atacar?", 3, 7, 5)
     resumen = analisis.resumen_para_ia(df, top)
+    disenar = col_disenar.button("Diseñar campañas con IA", type="primary", icon=":material/campaign:", width="stretch")
     with st.expander("Ver exactamente lo que recibe la IA (datos agregados, sin identidades)"):
         st.json(resumen)
 
-    if st.button("Diseñar campañas con IA", type="primary", icon="✨"):
+    if disenar:
         with st.status("El agente está diseñando las campañas...", expanded=True) as estado:
-            st.write(f"🔒 Leyendo el resumen anónimo: {len(resumen)} diagnósticos prevenibles, sin nombres ni pólizas.")
+            st.write(f"Leyendo el resumen anónimo: {len(resumen)} diagnósticos prevenibles, sin nombres ni pólizas.")
             time.sleep(.4)
-            st.write("🎯 Buscando los grupos de sexo y edad más afectados en cada diagnóstico.")
+            st.write("Buscando los grupos de sexo y edad más afectados en cada diagnóstico.")
             time.sleep(.4)
-            st.write("🤖 Pidiendo al modelo de IA una campaña por diagnóstico..." if groq_key
-                     else "📄 Sin clave de IA: usando campañas de plantilla.")
+            st.write("Pidiendo al modelo de IA una campaña por diagnóstico..." if groq_key
+                     else "Sin clave de IA: usando campañas de plantilla.")
             resultado = campanas.disenar(resumen, groq_key, groq_modelo)
-            st.write("🩺 Validando cada propuesta con reglas clínicas: sexo, rango de edad y puntos.")
+            st.write("Validando cada propuesta con reglas clínicas: sexo, rango de edad y puntos.")
             time.sleep(.4)
             st.session_state.propuestas = resultado
             estado.update(label=f"{len(resultado[0])} campañas listas para revisar", state="complete", expanded=False)
@@ -246,7 +254,7 @@ with paso2:
         izq, der = st.columns([3, 2], gap="large")
         izq.markdown(ui.campanas(propuestas, CHEQUEOS), unsafe_allow_html=True)
         der.markdown(ui.telefono(propuestas), unsafe_allow_html=True)
-        if st.button("Publicar campañas en el CRM", type="primary", icon="📤"):
+        if st.button("Publicar campañas en el CRM", type="primary", icon=":material/upload:"):
             with st.spinner("Publicando en el CRM..."):
                 crm.cerrar_campanas_activas()
                 for c in propuestas:
@@ -264,7 +272,7 @@ with paso2:
 # --- Paso 3 ---------------------------------------------------------------------
 
 with paso3:
-    st.markdown(ui.seccion("premios", "🏆", "Chequeos y premios", "El hospital reporta los chequeos realizados y el agente premia a quien cumple."), unsafe_allow_html=True)
+    st.markdown(ui.seccion("premios", "Chequeos y premios", "El hospital reporta los chequeos realizados y el agente premia a quien cumple."), unsafe_allow_html=True)
     if "decisiones" in st.session_state:
         decisiones = st.session_state.decisiones
         premiados = [d for d in decisiones if d.estado == "Premiado"]
@@ -301,13 +309,13 @@ with paso3:
 
     st.caption("El CRM es compartido: si los chequeos aparecen como «Ya premiado», otra persona ya los "
                "procesó. Use **Reiniciar demostración** en la barra lateral para empezar de cero.")
-    if st.button("Procesar chequeos y premiar", type="primary", icon="🏆"):
+    if st.button("Procesar chequeos y premiar", type="primary", icon=":material/verified:"):
         with st.status("El agente está verificando los chequeos...", expanded=True) as estado:
-            st.write(f"🏥 Leyendo {len(st.session_state.feed)} chequeos reportados por el hospital.")
+            st.write(f"Leyendo {len(st.session_state.feed)} chequeos reportados por el hospital.")
             time.sleep(.4)
-            st.write("🔗 Cruzando cada póliza con el CRM y con las campañas activas.")
+            st.write("Cruzando cada póliza con el CRM y con las campañas activas.")
             time.sleep(.4)
-            st.write("🧮 Sumando puntos, subiendo niveles y recalculando primas en el CRM.")
+            st.write("Sumando puntos, subiendo niveles y recalculando primas en el CRM.")
             st.session_state.decisiones = premios.aplicar(crm, st.session_state.feed)
             estado.update(label="Chequeos procesados", state="complete", expanded=False)
         st.session_state.globos = any(d.subio_de_nivel for d in st.session_state.decisiones)
@@ -316,14 +324,12 @@ with paso3:
 # --- CRM ------------------------------------------------------------------------
 
 with tab_crm:
-    st.markdown(ui.seccion("crm", "🗂️", "CRM de asegurados", "Puntos, nivel y prima de cada asegurado, tal como quedan en Notion."), unsafe_allow_html=True)
+    st.markdown(ui.seccion("crm", "CRM de asegurados", "Puntos, nivel y prima de cada asegurado, tal como quedan en Notion."), unsafe_allow_html=True)
     if not any(a["puntos"] for a in lista_asegurados):
-        st.info("Todavía nadie ha sumado puntos. Procese los chequeos en la pestaña anterior para ver el podio.", icon="🏁")
+        st.info("Todavía nadie ha sumado puntos. Procese los chequeos en la pestaña anterior para ver el podio.")
     st.markdown(ui.ranking(lista_asegurados), unsafe_allow_html=True)
     st.write("")
     tabla_crm = pd.DataFrame(lista_asegurados).drop(columns=["id"])
-    medalla = {"Bronce": "🥉 Bronce", "Plata": "🥈 Plata", "Oro": "🥇 Oro"}
-    tabla_crm["nivel"] = tabla_crm["nivel"].map(medalla)
     with st.expander("Ver la tabla completa del CRM"):
         st.dataframe(
             tabla_crm.rename(columns={"poliza": "Póliza", "nombre": "Nombre", "sexo": "Sexo", "edad": "Edad",
@@ -334,13 +340,13 @@ with tab_crm:
                            "Prima final": st.column_config.NumberColumn(format="$%.2f"),
                            "Puntos": st.column_config.ProgressColumn(min_value=0, max_value=300, format="%d")},
         )
-    st.caption("Niveles: 🥉 Bronce de 0 a 99 puntos, sin descuento. 🥈 Plata de 100 a 199 puntos, 5 % de descuento. "
-               "🥇 Oro desde 200 puntos, 10 % de descuento en la prima.")
+    st.caption("Niveles: **Bronce** de 0 a 99 puntos, sin descuento. **Plata** de 100 a 199 puntos, 5 % de descuento. "
+               "**Oro** desde 200 puntos, 10 % de descuento en la prima.")
 
 # --- Perfil del asegurado ----------------------------------------------------------
 
 with tab_perfil:
-    st.markdown(ui.seccion("miembro", "💳", "Perfil del asegurado",
+    st.markdown(ui.seccion("miembro", "Perfil del asegurado",
                            "Su tarjeta, sus logros y lo que el agente le recomienda hacer a continuación."), unsafe_allow_html=True)
     orden = sorted(lista_asegurados, key=lambda a: (-a["puntos"], a["nombre"]))
     etiquetas = {f"{a['nombre']} · {a['poliza']}": a for a in orden}
@@ -360,7 +366,7 @@ with tab_perfil:
 # --- Impacto económico ---------------------------------------------------------------
 
 with tab_impacto:
-    st.markdown(ui.seccion("economia", "📈", "Impacto económico",
+    st.markdown(ui.seccion("economia", "Impacto económico",
                            "Por qué a la aseguradora le conviene pagar por la prevención."), unsafe_allow_html=True)
     base_campanas = activas or campanas.disenar(analisis.resumen_para_ia(df, 5), None)[0]
     c1, c2 = st.columns(2)
@@ -376,14 +382,18 @@ with tab_impacto:
     if not res["detalle"].empty:
         largo = res["detalle"].melt(id_vars=["Campaña"], value_vars=["Ahorro en tratamientos", "Costo de los chequeos"],
                                     var_name="Concepto", value_name="USD")
+        largo["Etiqueta"] = largo["Campaña"].map(ui.etiqueta)
+        st.markdown(ui.leyenda([("#00719B", "Ahorro en tratamientos"), ("#C3D3D8", "Costo de los chequeos")]),
+                    unsafe_allow_html=True)
         st.altair_chart(alt.Chart(largo).mark_bar(cornerRadiusEnd=5, height=14).encode(
-            x=alt.X("USD:Q", title="USD por año", axis=alt.Axis(format="$,.0f")),
-            y=alt.Y("Campaña:N", title=None, axis=alt.Axis(labelLimit=260)),
+            x=alt.X("USD:Q", title="USD por año", axis=alt.Axis(format="$,.0f", tickCount=4)),
+            y=alt.Y("Etiqueta:N", title=None, axis=alt.Axis(labelLimit=180, labelFontSize=12)),
             yOffset="Concepto:N",
-            color=alt.Color("Concepto:N", title=None, legend=alt.Legend(orient="top"),
-                            scale=alt.Scale(range=["#00719B", "#C3D3D8"])),
+            color=alt.Color("Concepto:N", title=None, legend=None,
+                            scale=alt.Scale(domain=["Ahorro en tratamientos", "Costo de los chequeos"],
+                                            range=["#00719B", "#C3D3D8"])),
             tooltip=["Campaña", "Concepto", alt.Tooltip("USD:Q", format="$,.0f")],
-        ).properties(height=320), width="stretch")
+        ).properties(height=340), width="stretch")
     st.caption("Estimación ilustrativa para la demostración: los costos y tasas de hallazgo son referenciales y se pueden "
                "ajustar en los supuestos. La población objetivo sale de la distribución de edad y sexo del hospital. "
                f"Descuento promedio considerado: 5 % sobre una prima de ${prima_prom:.2f} al mes.")
