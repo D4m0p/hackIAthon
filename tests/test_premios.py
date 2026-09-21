@@ -52,3 +52,14 @@ def test_mismo_id_repetido_en_el_lote():
     decisiones, finales = evaluar(ch, _asegurados(), CAMPANAS, set())
     assert [d.estado for d in decisiones] == ["Premiado", "Ya premiado"]
     assert finales["POL-0001"]["puntos"] == 150
+
+
+def test_etiqueta_de_ahorro_en_el_carnet():
+    from agente.ui import _etiqueta_ahorro
+    campanas = _campanas("GLUCOSA")
+    campanas[0]["puntos"] = 90  # no alcanza Plata
+    decisiones, _ = evaluar([{"id_chequeo": "X1", "poliza": "POL-0005", "tipo_chequeo": "GLUCOSA", "fecha": "2026-09-21"}],
+                            _asegurados(), campanas, set())
+    assert _etiqueta_ahorro(decisiones[0]) == "Le faltan 10 pts para Plata"
+    decisiones, _ = evaluar(_chequeos()[:1], _asegurados(), CAMPANAS, set())
+    assert _etiqueta_ahorro(decisiones[0]) == "−$7.25 al mes"

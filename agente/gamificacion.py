@@ -19,6 +19,16 @@ def nivel_para(puntos: int) -> tuple[str, int]:
     return "Bronce", 0
 
 
+def siguiente_nivel(puntos: int) -> tuple[str, int, float] | None:
+    """(nivel siguiente, puntos que faltan, avance 0-1 dentro del tramo). None si ya está en el máximo."""
+    tramos = sorted((minimo, nivel) for minimo, nivel, _ in NIVELES)
+    for i, (minimo, nivel) in enumerate(tramos):
+        if puntos < minimo:
+            desde = tramos[i - 1][0]
+            return nivel, minimo - puntos, (puntos - desde) / (minimo - desde)
+    return None
+
+
 def prima_final(prima_base: float, descuento: int) -> float:
     return round(prima_base * (1 - descuento / 100), 2)
 

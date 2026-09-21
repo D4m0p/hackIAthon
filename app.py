@@ -1,6 +1,7 @@
 """Panel del Agente de Bienestar Preventivo.  Ejecutar:  streamlit run app.py"""
 
 import os
+import time
 import uuid
 from pathlib import Path
 
@@ -154,14 +155,26 @@ with paso2:
         st.json(resumen)
 
     if st.button("Diseñar campañas con IA", type="primary", icon="✨"):
-        with st.spinner("El agente está diseñando las campañas..."):
-            st.session_state.propuestas = campanas.disenar(resumen, groq_key, groq_modelo)
+        with st.status("El agente está diseñando las campañas...", expanded=True) as estado:
+            st.write(f"🔒 Leyendo el resumen anónimo: {len(resumen)} diagnósticos prevenibles, sin nombres ni pólizas.")
+            time.sleep(.4)
+            st.write("🎯 Buscando los grupos de sexo y edad más afectados en cada diagnóstico.")
+            time.sleep(.4)
+            st.write("🤖 Pidiendo al modelo de IA una campaña por diagnóstico..." if groq_key
+                     else "📄 Sin clave de IA: usando campañas de plantilla.")
+            resultado = campanas.disenar(resumen, groq_key, groq_modelo)
+            st.write("🩺 Validando cada propuesta con reglas clínicas: sexo, rango de edad y puntos.")
+            time.sleep(.4)
+            st.session_state.propuestas = resultado
+            estado.update(label=f"{len(resultado[0])} campañas listas para revisar", state="complete", expanded=False)
 
     if "propuestas" in st.session_state:
         propuestas, origen = st.session_state.propuestas
         st.caption("Diseñadas por la IA (Groq) y validadas con reglas clínicas." if origen == "ia"
                    else f"Generadas con {origen}.")
-        st.markdown(ui.campanas(propuestas, CHEQUEOS), unsafe_allow_html=True)
+        izq, der = st.columns([3, 2], gap="large")
+        izq.markdown(ui.campanas(propuestas, CHEQUEOS), unsafe_allow_html=True)
+        der.markdown(ui.telefono(propuestas), unsafe_allow_html=True)
         if st.button("Publicar campañas en el CRM", type="primary", icon="📤"):
             with st.spinner("Publicando en el CRM..."):
                 crm.cerrar_campanas_activas()
@@ -198,9 +211,8 @@ with paso3:
         st.divider()
 
     st.subheader("Chequeos reportados por el hospital")
-    st.dataframe(pd.DataFrame(st.session_state.feed).rename(columns={
-        "id_chequeo": "Chequeo", "poliza": "Póliza", "tipo_chequeo": "Tipo", "fecha": "Fecha"}),
-        hide_index=True, width="stretch")
+    st.markdown(ui.linea_hospital(st.session_state.feed, lista_asegurados, st.session_state.get("decisiones")),
+                unsafe_allow_html=True)
 
     with st.form("simular"):
         st.markdown("**Simular un chequeo nuevo**, como si el hospital lo reportara ahora")
@@ -219,8 +231,14 @@ with paso3:
     st.caption("El CRM es compartido: si los chequeos aparecen como «Ya premiado», otra persona ya los "
                "procesó. Use **Reiniciar demostración** en la barra lateral para empezar de cero.")
     if st.button("Procesar chequeos y premiar", type="primary", icon="🏆"):
-        with st.spinner("Verificando chequeos y actualizando primas..."):
+        with st.status("El agente está verificando los chequeos...", expanded=True) as estado:
+            st.write(f"🏥 Leyendo {len(st.session_state.feed)} chequeos reportados por el hospital.")
+            time.sleep(.4)
+            st.write("🔗 Cruzando cada póliza con el CRM y con las campañas activas.")
+            time.sleep(.4)
+            st.write("🧮 Sumando puntos, subiendo niveles y recalculando primas en el CRM.")
             st.session_state.decisiones = premios.aplicar(crm, st.session_state.feed)
+            estado.update(label="Chequeos procesados", state="complete", expanded=False)
         st.session_state.globos = any(d.subio_de_nivel for d in st.session_state.decisiones)
         st.rerun()
 
@@ -228,17 +246,22 @@ with paso3:
 
 with tab_crm:
     st.markdown(ui.seccion("crm", "🗂️", "CRM de asegurados", "Puntos, nivel y prima de cada asegurado, tal como quedan en Notion."), unsafe_allow_html=True)
+    if not any(a["puntos"] for a in lista_asegurados):
+        st.info("Todavía nadie ha sumado puntos. Procese los chequeos en la pestaña anterior para ver el podio.", icon="🏁")
+    st.markdown(ui.ranking(lista_asegurados), unsafe_allow_html=True)
+    st.write("")
     tabla_crm = pd.DataFrame(lista_asegurados).drop(columns=["id"])
     medalla = {"Bronce": "🥉 Bronce", "Plata": "🥈 Plata", "Oro": "🥇 Oro"}
     tabla_crm["nivel"] = tabla_crm["nivel"].map(medalla)
-    st.dataframe(
-        tabla_crm.rename(columns={"poliza": "Póliza", "nombre": "Nombre", "sexo": "Sexo", "edad": "Edad",
-                                  "prima_base": "Prima base", "puntos": "Puntos", "nivel": "Nivel",
-                                  "descuento": "Descuento %", "prima_final": "Prima final"}),
-        hide_index=True, width="stretch", height=565,
-        column_config={"Prima base": st.column_config.NumberColumn(format="$%.2f"),
-                       "Prima final": st.column_config.NumberColumn(format="$%.2f"),
-                       "Puntos": st.column_config.ProgressColumn(min_value=0, max_value=300, format="%d")},
-    )
+    with st.expander("Ver la tabla completa del CRM"):
+        st.dataframe(
+            tabla_crm.rename(columns={"poliza": "Póliza", "nombre": "Nombre", "sexo": "Sexo", "edad": "Edad",
+                                      "prima_base": "Prima base", "puntos": "Puntos", "nivel": "Nivel",
+                                      "descuento": "Descuento %", "prima_final": "Prima final"}),
+            hide_index=True, width="stretch", height=565,
+            column_config={"Prima base": st.column_config.NumberColumn(format="$%.2f"),
+                           "Prima final": st.column_config.NumberColumn(format="$%.2f"),
+                           "Puntos": st.column_config.ProgressColumn(min_value=0, max_value=300, format="%d")},
+        )
     st.caption("Niveles: 🥉 Bronce de 0 a 99 puntos, sin descuento. 🥈 Plata de 100 a 199 puntos, 5 % de descuento. "
                "🥇 Oro desde 200 puntos, 10 % de descuento en la prima.")

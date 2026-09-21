@@ -37,3 +37,11 @@ def test_aplica_a_poblacion_objetivo():
     assert not aplica_a(CAMPANA, "F", 50)
     assert not aplica_a({**CAMPANA, "estado": "Cerrada"}, "M", 50)
     assert aplica_a({**CAMPANA, "sexo": "Todos"}, "F", 50)
+
+
+def test_siguiente_nivel():
+    from agente.gamificacion import siguiente_nivel
+    assert siguiente_nivel(0) == ("Plata", 100, 0.0)
+    assert siguiente_nivel(50) == ("Plata", 50, 0.5)
+    assert siguiente_nivel(150) == ("Oro", 50, 0.5)
+    assert siguiente_nivel(200) is None

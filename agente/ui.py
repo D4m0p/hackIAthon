@@ -172,9 +172,9 @@ button:focus-visible {{ outline: 3px solid #7B5CFF !important; outline-offset: 2
 .medalla.Plata {{ background: #DDE6EC; }}
 .medalla.Bronce {{ background: #E0A477; }}
 .carnet .motivo {{ font-size: .88rem; opacity: .92; margin: .6rem 0 .8rem; position: relative; z-index: 1; }}
-.carnet .prima {{ display: flex; align-items: baseline; gap: .7rem; position: relative; z-index: 1; }}
+.carnet .prima {{ display: flex; flex-wrap: wrap; align-items: baseline; gap: .3rem .7rem; position: relative; z-index: 1; }}
 .carnet .antes {{ text-decoration: line-through; opacity: .75; font-size: 1rem; }}
-.carnet .despues {{ font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 2.1rem; line-height: 1; }}
+.carnet .despues {{ white-space: nowrap; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 2.1rem; line-height: 1; }}
 .carnet .despues small {{ font-size: .85rem; font-weight: 600; opacity: .85; }}
 .carnet .sube {{ margin-top: .6rem; font-size: .84rem; font-weight: 600; position: relative; z-index: 1; }}
 
@@ -184,6 +184,104 @@ button:focus-visible {{ outline: 3px solid #7B5CFF !important; outline-offset: 2
 .rechazo:last-child {{ border-bottom: 0; }}
 .rechazo .x {{ color: #E5484D; font-weight: 700; }}
 .rechazo .id {{ color: #5B7784; min-width: 7.5rem; }}
+
+/* Prima que baja en vivo: se anima un entero (centavos) y se muestra con contadores CSS */
+@property --c {{ syntax: '<integer>'; inherits: false; initial-value: 0; }}
+@property --d {{ syntax: '<integer>'; inherits: false; initial-value: 0; }}
+.contador {{
+  --c: var(--hasta); --d: calc((var(--c) - 50) / 100);
+  counter-reset: dol var(--d) cen calc(var(--c) - var(--d) * 100);
+  animation: bajar 1.8s .45s cubic-bezier(.16,1,.3,1) both;
+}}
+.contador::before {{ content: "$" counter(dol) "." counter(cen, decimal-leading-zero); }}
+@keyframes bajar {{ from {{ --c: var(--desde); }} to {{ --c: var(--hasta); }} }}
+.carnet .antes {{ animation: tachar .5s .3s ease-out both; }}
+@keyframes tachar {{ from {{ text-decoration-color: transparent; opacity: 1; }} to {{ text-decoration-color: currentColor; opacity: .75; }} }}
+.carnet .ahorro {{
+  display: inline-block; margin-left: auto; padding: .15rem .55rem; border-radius: 999px; font-size: .78rem; font-weight: 700; white-space: nowrap;
+  background: rgba(255,255,255,.22); animation: entrar .6s 1.9s cubic-bezier(.22,1,.36,1) both;
+}}
+
+/* Ranking de asegurados */
+.podio {{ display: grid; grid-template-columns: 1fr 1.15fr 1fr; align-items: end; gap: .9rem; margin: .4rem 0 1.4rem; }}
+.puesto {{
+  text-align: center; border-radius: 1.3rem 1.3rem .8rem .8rem; padding: 1.1rem .8rem 1rem; color: #fff; position: relative;
+  box-shadow: 0 16px 34px -18px rgba(47,107,255,.7); animation: subir .8s cubic-bezier(.34,1.4,.64,1) both;
+}}
+.puesto.p1 {{ background: linear-gradient(160deg, #F2B233, #E58A1F); min-height: 13.5rem; animation-delay: .25s; }}
+.puesto.p2 {{ background: linear-gradient(160deg, #0FB5C4, #2F6BFF); min-height: 11.5rem; animation-delay: .1s; }}
+.puesto.p3 {{ background: linear-gradient(160deg, #7B5CFF, #2F6BFF); min-height: 10rem; animation-delay: .4s; }}
+@keyframes subir {{ from {{ transform: translateY(40px) scale(.96); opacity: 0; }} to {{ transform: none; opacity: 1; }} }}
+.puesto .lugar {{ font-size: 2.1rem; line-height: 1; }}
+.puesto .quien {{ font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 1.1rem; margin-top: .4rem; }}
+.puesto .dato {{ font-size: .85rem; opacity: .92; }}
+.puesto .puntaje {{ font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 1.9rem; margin-top: .3rem; }}
+.ranking {{ border-radius: 1.2rem; background: rgba(255,255,255,.85); border: 1px solid #D5ECEF; padding: .3rem 1.1rem; }}
+.fila-r {{ display: grid; grid-template-columns: 2rem 1fr 11rem 6.5rem; align-items: center; gap: .9rem; padding: .7rem 0; border-bottom: 1px solid #E4F1F3; }}
+.fila-r:last-child {{ border-bottom: 0; }}
+.fila-r .pos {{ font-weight: 700; color: #7C98A4; text-align: center; }}
+.fila-r .nom b {{ display: block; }}
+.fila-r .nom span {{ font-size: .82rem; color: #5B7784; }}
+.barra {{ height: .55rem; border-radius: 999px; background: #E1EEF1; overflow: hidden; }}
+.barra i {{ display: block; height: 100%; border-radius: inherit; background: {GRADIENTE}; transform-origin: left;
+  animation: llenar 1s .3s cubic-bezier(.22,1,.36,1) both; }}
+@keyframes llenar {{ from {{ transform: scaleX(0); }} }}
+.meta {{ font-size: .78rem; color: #5B7784; margin-top: .25rem; }}
+.fila-r .prima {{ text-align: right; font-weight: 700; }}
+.fila-r .prima s {{ display: block; font-weight: 400; font-size: .8rem; color: #8AA2AD; }}
+@media (max-width: 720px) {{
+  .podio {{ gap: .5rem; }} .puesto {{ padding: .8rem .4rem; }} .puesto .quien {{ font-size: .92rem; }}
+  .fila-r {{ grid-template-columns: 1.4rem 1fr 5.5rem; }} .fila-r .avance {{ display: none; }}
+}}
+
+/* Vista previa en el celular */
+.telefono {{
+  margin: .6rem auto 0; max-width: 330px; border-radius: 2.6rem; padding: .8rem; background: #0B2533;
+  box-shadow: 0 30px 60px -25px rgba(11,37,51,.6), inset 0 0 0 2px #24475a; position: sticky; top: 4.5rem;
+}}
+.pantalla {{
+  border-radius: 2rem; min-height: 34rem; padding: 2.6rem .75rem 1rem; position: relative; overflow: hidden;
+  background: linear-gradient(170deg, #0FB5C4 0%, #2F6BFF 55%, #7B5CFF 100%);
+}}
+.pantalla::before {{ content: ""; position: absolute; top: .6rem; left: 50%; width: 5.5rem; height: 1.4rem; border-radius: 1rem;
+  background: #0B2533; transform: translateX(-50%); }}
+.pantalla .hora {{ text-align: center; color: #fff; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 2.6rem; line-height: 1; }}
+.pantalla .fecha {{ text-align: center; color: rgba(255,255,255,.85); font-size: .85rem; margin: .2rem 0 1.1rem; }}
+.notif {{
+  background: rgba(255,255,255,.9); backdrop-filter: blur(10px); border-radius: 1.1rem; padding: .65rem .75rem; margin-bottom: .55rem;
+  animation: notificar .6s cubic-bezier(.34,1.4,.64,1) both;
+}}
+.notif:nth-child(2) {{ animation-delay: .35s; }} .notif:nth-child(3) {{ animation-delay: .7s; }}
+.notif:nth-child(4) {{ animation-delay: 1.05s; }} .notif:nth-child(n+5) {{ animation-delay: 1.4s; }}
+@keyframes notificar {{ from {{ transform: translateY(-16px) scale(.94); opacity: 0; }} to {{ transform: none; opacity: 1; }} }}
+.notif .app {{ display: flex; align-items: center; gap: .4rem; font-size: .72rem; color: #5B7784; }}
+.notif .app i {{ width: 1.1rem; height: 1.1rem; border-radius: .35rem; background: {GRADIENTE}; display: inline-block; }}
+.notif .app em {{ margin-left: auto; font-style: normal; }}
+.notif b {{ display: block; font-size: .86rem; margin: .2rem 0 .1rem; color: #0B2533; }}
+.notif p {{ margin: 0; font-size: .8rem; line-height: 1.35; color: #29485A; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }}
+
+/* Hospital en vivo: línea de tiempo */
+.linea {{ position: relative; margin: .4rem 0 1rem; padding: .2rem .4rem .2rem 1.6rem; max-height: 27rem; overflow-y: auto; }}
+.linea::before {{ content: ""; position: absolute; left: .55rem; top: .4rem; bottom: .4rem; width: 3px; border-radius: 3px; background: linear-gradient(#0FB5C4, #7B5CFF); }}
+.evento {{
+  position: relative; display: grid; grid-template-columns: 2.6rem 1fr auto; gap: .8rem; align-items: center;
+  background: rgba(255,255,255,.88); border: 1px solid #D5ECEF; border-radius: 1rem; padding: .65rem .9rem; margin-bottom: .6rem;
+  animation: entrar .5s cubic-bezier(.22,1,.36,1) both;
+}}
+.evento::before {{ content: ""; position: absolute; left: -1.33rem; top: 50%; width: .8rem; height: .8rem; border-radius: 50%;
+  transform: translateY(-50%); background: #fff; border: 3px solid #0FB5C4; }}
+.evento .ico {{ display: grid; place-items: center; width: 2.6rem; height: 2.6rem; border-radius: .8rem; font-size: 1.3rem; background: rgba(15,181,196,.12); }}
+.evento b {{ display: block; font-size: .95rem; }}
+.evento span {{ font-size: .82rem; color: #5B7784; }}
+.estado {{ padding: .2rem .65rem; border-radius: 999px; font-size: .76rem; font-weight: 700; white-space: nowrap; }}
+.estado.nuevo {{ background: rgba(47,107,255,.12); color: #2F6BFF; }}
+.estado.premiado {{ background: rgba(16,185,129,.14); color: #0B7A57; }}
+.estado.rechazado {{ background: rgba(229,72,77,.12); color: #C0353A; }}
+.estado.repetido {{ background: #EEF3F5; color: #5B7784; }}
+
+@media (prefers-reduced-motion: reduce) {{
+  .contador, .carnet .antes, .carnet .ahorro, .puesto, .barra i, .notif, .evento {{ animation: none; }}
+}}
 
 /* Nota de privacidad */
 .privacidad {{
@@ -229,6 +327,17 @@ def campanas(lista: list[dict], nombres_chequeo: dict) -> str:
     return f'<div class="grilla">{"".join(fichas)}</div>'
 
 
+def _etiqueta_ahorro(d) -> str:
+    """Ahorro logrado, o cuánto falta para el siguiente nivel si el premio aún no baja la prima."""
+    from agente.gamificacion import siguiente_nivel
+
+    ahorro = d.prima_antes - d.prima_despues
+    if ahorro > 0:
+        return f"−${ahorro:.2f} al mes"
+    sig = siguiente_nivel(d.asegurado["puntos"] + d.puntos)
+    return f"Le faltan {sig[1]} pts para {sig[0]}" if sig else "Nivel máximo"
+
+
 def carnets(premiados: list) -> str:
     tarjetas = []
     for d in premiados:
@@ -240,7 +349,10 @@ def carnets(premiados: list) -> str:
             f'<span class="medalla {d.nivel_nuevo}">{d.nivel_nuevo}</span></div>'
             f'<div class="motivo">{escape(d.motivo)}</div>'
             f'<div class="prima"><span class="antes">${d.prima_antes:.2f}</span>'
-            f'<span class="despues">${d.prima_despues:.2f}<small> /mes</small></span></div>{sube}</div>'
+            f'<span class="despues"><span class="contador" role="img" aria-label="${d.prima_despues:.2f}" '
+            f'style="--desde:{round(d.prima_antes * 100)};--hasta:{round(d.prima_despues * 100)}"></span>'
+            f'<small> /mes</small></span>'
+            f'<span class="ahorro">{_etiqueta_ahorro(d)}</span></div>{sube}</div>'
         )
     return f'<div class="grilla">{"".join(tarjetas)}</div>'
 
@@ -252,6 +364,82 @@ def rechazos(lista: list) -> str:
         for d in lista
     )
     return f'<div class="rechazos">{filas}</div>'
+
+
+MEDALLA = {"Oro": "🥇", "Plata": "🥈", "Bronce": "🥉"}
+ICONO_CHEQUEO = {"PROSTATA": "🧬", "MAMOGRAFIA": "🎗️", "PAPANICOLAOU": "🌸", "GLUCOSA": "🩸",
+                 "PRESION": "🫀", "COLESTEROL": "🧪", "COLONOSCOPIA": "🔬"}
+
+
+def ranking(asegurados: list[dict]) -> str:
+    """Podio de los 3 con más puntos y tabla de posiciones con el avance al siguiente nivel."""
+    from agente.gamificacion import siguiente_nivel
+
+    orden = sorted(asegurados, key=lambda a: (-a["puntos"], a["prima_final"] - a["prima_base"], a["nombre"]))
+    podio = ""
+    if orden and orden[0]["puntos"] > 0:
+        puestos = []
+        tres = orden[:3] + [None] * (3 - len(orden[:3]))
+        for clase, lugar, a in (("p2", "🥈", tres[1]), ("p1", "🏆", tres[0]), ("p3", "🥉", tres[2])):
+            if a is None or a["puntos"] <= 0:
+                puestos.append("<div></div>")
+                continue
+            ahorro = a["prima_base"] - a["prima_final"]
+            puestos.append(
+                f'<div class="puesto {clase}"><div class="lugar">{lugar}</div><div class="quien">{escape(a["nombre"])}</div>'
+                f'<div class="puntaje">{a["puntos"]} pts</div><div class="dato">Nivel {a["nivel"]} · ahorra ${ahorro:.2f}/mes</div></div>'
+            )
+        podio = f'<div class="podio">{"".join(puestos)}</div>'
+
+    filas = []
+    for i, a in enumerate(orden, 1):
+        sig = siguiente_nivel(a["puntos"])
+        if sig:
+            nivel, faltan, avance = sig
+            meta = f"Le faltan {faltan} pts para {nivel}"
+        else:
+            avance, meta = 1.0, "Nivel máximo alcanzado"
+        prima = (f'<s>${a["prima_base"]:.2f}</s>${a["prima_final"]:.2f}' if a["prima_final"] < a["prima_base"]
+                 else f'${a["prima_final"]:.2f}')
+        filas.append(
+            f'<div class="fila-r"><div class="pos">{i}</div>'
+            f'<div class="nom"><b>{MEDALLA.get(a["nivel"], "")} {escape(a["nombre"])}</b>'
+            f'<span>{escape(a["poliza"])} · {a["puntos"]} pts · nivel {a["nivel"]}</span></div>'
+            f'<div class="avance"><div class="barra"><i style="width:{max(avance, .02) * 100:.0f}%"></i></div>'
+            f'<div class="meta">{meta}</div></div><div class="prima">{prima}</div></div>'
+        )
+    return f'{podio}<div class="ranking">{"".join(filas)}</div>'
+
+
+def telefono(campanas: list[dict]) -> str:
+    """Las campañas como notificaciones en la pantalla del celular del asegurado."""
+    notifs = "".join(
+        f'<div class="notif"><div class="app"><i></i>Mi Seguro de Salud<em>ahora</em></div>'
+        f'<b>{ICONO_CHEQUEO.get(c["tipo_chequeo"], "💙")} {escape(c["nombre"])}</b><p>{escape(c["mensaje"])}</p></div>'
+        for c in campanas[:4]
+    )
+    return (f'<div class="telefono"><div class="pantalla"><div class="hora">9:41</div>'
+            f'<div class="fecha">Así lo recibe el asegurado</div>{notifs}</div></div>')
+
+
+def linea_hospital(feed: list[dict], asegurados: list[dict], decisiones: list | None) -> str:
+    """Los chequeos que reporta el hospital como una línea de tiempo, con su resultado si ya se procesaron."""
+    por_poliza = {a["poliza"]: a for a in asegurados}
+    resultado = {d.id_chequeo: d.estado for d in (decisiones or [])}
+    clase = {"Premiado": "premiado", "Rechazado": "rechazado", "Ya premiado": "repetido"}
+    eventos = []
+    for i, ch in enumerate(reversed(feed)):
+        a = por_poliza.get(ch["poliza"])
+        quien = escape(a["nombre"]) if a else "Póliza no registrada"
+        estado = resultado.get(ch["id_chequeo"], "Nuevo")
+        eventos.append(
+            f'<div class="evento" style="animation-delay:{min(i, 8) * .05:.2f}s">'
+            f'<div class="ico">{ICONO_CHEQUEO.get(ch["tipo_chequeo"], "🩺")}</div>'
+            f'<div><b>{quien}</b><span>{escape(CHEQUEOS.get(ch["tipo_chequeo"], ch["tipo_chequeo"]))} · '
+            f'{escape(ch["poliza"])} · {escape(str(ch["fecha"]))}</span></div>'
+            f'<span class="estado {clase.get(estado, "nuevo")}">{estado}</span></div>'
+        )
+    return f'<div class="linea">{"".join(eventos)}</div>'
 
 
 def seccion(clase: str, icono: str, titulo: str, texto: str) -> str:
