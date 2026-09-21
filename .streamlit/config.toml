@@ -1,0 +1,13 @@
+[theme]
+base = "light"
+primaryColor = "#0FB5C4"
+backgroundColor = "#F3FAFB"
+secondaryBackgroundColor = "#E4F4F6"
+textColor = "#0B2533"
+font = "'Public Sans':https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap"
+headingFont = "'Bricolage Grotesque':https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&display=swap"
+baseRadius = "0.9rem"
+chartCategoricalColors = ["#B7CBD3", "#0FB5C4", "#2F6BFF", "#7B5CFF"]
+
+[theme.sidebar]
+backgroundColor = "#E4F4F6"

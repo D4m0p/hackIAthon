@@ -10,6 +10,17 @@ CHEQUEOS = {
     "COLONOSCOPIA": "Colonoscopía / sangre oculta",
 }
 
+# Nombres de campaña para cuando no hay IA disponible.
+NOMBRES_CAMPANA = {
+    "PROSTATA": "Hombres que se chequean a tiempo",
+    "MAMOGRAFIA": "Mamografía a tiempo",
+    "PAPANICOLAOU": "Un Papanicolaou al año",
+    "GLUCOSA": "Glucosa bajo control",
+    "PRESION": "Presión en su punto",
+    "COLESTEROL": "Corazón sin colesterol",
+    "COLONOSCOPIA": "Colon sano después de los 45",
+}
+
 # Prefijo CIE-10 del diagnóstico -> chequeo que lo previene o detecta a tiempo.
 CIE10_A_CHEQUEO = {
     "C61": "PROSTATA",

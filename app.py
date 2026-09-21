@@ -4,16 +4,18 @@ import os
 import uuid
 from pathlib import Path
 
+import altair as alt
 import pandas as pd
 import streamlit as st
 
-from agente import analisis, campanas, premios
+from agente import analisis, campanas, premios, ui
 from agente.catalogo import CHEQUEOS
 from agente.crm import CRM, CRMLocal, ErrorCRM
 
 DATA = Path(__file__).parent / "data"
 
 st.set_page_config(page_title="Agente de Bienestar Preventivo", page_icon="🩺", layout="wide")
+st.markdown(ui.CSS, unsafe_allow_html=True)
 
 
 def secreto(clave):
@@ -85,19 +87,17 @@ with st.sidebar:
 
 # --- Encabezado -----------------------------------------------------------------
 
-st.title("🩺 Agente de Bienestar Preventivo")
-st.markdown(
-    "Analiza de forma **anónima** los diagnósticos del hospital, diseña campañas de prevención con IA "
-    "y, cuando el asegurado cumple su chequeo, **le baja la prima automáticamente** en el CRM."
-)
-st.info("**Recorrido sugerido:** 1 → analice los diagnósticos · 2 → diseñe y publique las campañas · "
-        "3 → procese los chequeos del hospital y vea cómo baja la prima.", icon="👉")
-
 try:
     lista_asegurados = crm.asegurados()
+    activas = crm.campanas(solo_activas=True)
 except ErrorCRM as e:
     st.error(f"No se pudo leer el CRM: {e}")
     st.stop()
+
+con_descuento = [a for a in lista_asegurados if a["descuento"] > 0]
+ahorro_total = sum(a["prima_base"] - a["prima_final"] for a in con_descuento)
+st.markdown(ui.hero(len(activas), len(con_descuento), ahorro_total), unsafe_allow_html=True)
+st.write("")
 
 if not lista_asegurados:
     st.warning("El CRM no tiene asegurados todavía.")
@@ -107,7 +107,10 @@ if not lista_asegurados:
         st.rerun()
     st.stop()
 
-paso1, paso2, paso3, tab_crm = st.tabs(["1 · Análisis anónimo", "2 · Campañas", "3 · Chequeos y premios", "CRM: asegurados"])
+if aviso := st.session_state.pop("aviso", None):
+    st.toast(aviso, icon="✅")
+
+paso1, paso2, paso3, tab_crm = st.tabs(["Análisis anónimo", "Campañas", "Chequeos y premios", "CRM de asegurados"])
 
 # --- Paso 1 ---------------------------------------------------------------------
 
@@ -119,20 +122,26 @@ with paso1:
     c1.metric("Registros analizados", f"{len(df):,}")
     c2.metric("Diagnósticos distintos", len(tabla))
     prev = tabla.dropna(subset=["chequeo_preventivo"])
-    c3.metric("Casos prevenibles con chequeo", f"{prev['casos'].sum() / len(df) * 100:.0f} %")
+    c3.metric("Casos prevenibles con un chequeo", f"{prev['casos'].sum() / len(df) * 100:.0f} %")
 
     st.subheader("Diagnósticos más frecuentes")
     grafico = tabla.assign(tipo=tabla["chequeo_preventivo"].map(lambda x: "Prevenible con chequeo" if isinstance(x, str) else "Otro"))
-    st.bar_chart(grafico, x="diagnostico", y="casos", color="tipo", horizontal=True, sort="-casos", height=380)
-    st.dataframe(
-        tabla.rename(columns={"codigo_cie10": "CIE-10", "diagnostico": "Diagnóstico", "casos": "Casos",
-                              "porcentaje": "%", "chequeo_preventivo": "Chequeo preventivo"}),
-        hide_index=True, width="stretch",
-    )
-    with st.container(border=True):
-        st.markdown("🔒 **Privacidad desde el diseño.** Los registros del hospital llegan sin nombre ni póliza. "
-                    "Al modelo de IA solo se le envían **conteos agregados**, y los grupos con menos de "
-                    f"{analisis.MINIMO_POR_GRUPO} casos se suprimen para que nadie pueda ser identificado.")
+    barras = alt.Chart(grafico).mark_bar(cornerRadiusEnd=6, height=22).encode(
+        x=alt.X("casos:Q", title="Casos"),
+        y=alt.Y("diagnostico:N", sort="-x", title=None, axis=alt.Axis(labelLimit=320, labelFontSize=13)),
+        color=alt.Color("tipo:N", title=None, legend=alt.Legend(orient="top"),
+                        scale=alt.Scale(domain=["Prevenible con chequeo", "Otro"], range=["#0FB5C4", "#B7CBD3"])),
+        tooltip=[alt.Tooltip("diagnostico", title="Diagnóstico"), alt.Tooltip("casos", title="Casos"),
+                 alt.Tooltip("porcentaje", title="% del total")],
+    ).properties(height=400)
+    st.altair_chart(barras, width="stretch")
+    with st.expander("Ver la tabla completa"):
+        st.dataframe(
+            tabla.rename(columns={"codigo_cie10": "CIE-10", "diagnostico": "Diagnóstico", "casos": "Casos",
+                                  "porcentaje": "%", "chequeo_preventivo": "Chequeo preventivo"}),
+            hide_index=True, width="stretch",
+        )
+    st.markdown(ui.privacidad(analisis.MINIMO_POR_GRUPO), unsafe_allow_html=True)
 
 # --- Paso 2 ---------------------------------------------------------------------
 
@@ -142,47 +151,56 @@ with paso2:
     with st.expander("Ver exactamente lo que recibe la IA (datos agregados, sin identidades)"):
         st.json(resumen)
 
-    if st.button("🤖 Diseñar campañas con IA", type="primary"):
+    if st.button("Diseñar campañas con IA", type="primary", icon="✨"):
         with st.spinner("El agente está diseñando las campañas..."):
             st.session_state.propuestas = campanas.disenar(resumen, groq_key, groq_modelo)
 
     if "propuestas" in st.session_state:
         propuestas, origen = st.session_state.propuestas
-        st.caption("Diseñadas por la IA (Groq) y validadas por reglas clínicas." if origen == "ia"
+        st.caption("Diseñadas por la IA (Groq) y validadas con reglas clínicas." if origen == "ia"
                    else f"Generadas con {origen}.")
-        for c in propuestas:
-            with st.container(border=True):
-                a, b = st.columns([3, 1])
-                a.markdown(f"**{c['nombre']}**  \n{CHEQUEOS[c['tipo_chequeo']]} · motivada por *{c['diagnostico']}*")
-                publico = {"M": "Hombres", "F": "Mujeres", "Todos": "Todos"}[c["sexo"]]
-                b.markdown(f"**+{c['puntos']} pts**  \n{publico}, {c['edad_min']}-{c['edad_max']} años")
-                st.write(f"💬 {c['mensaje']}")
-                if c.get("justificacion"):
-                    st.caption(f"Por qué: {c['justificacion']}")
-        if st.button("📤 Publicar campañas en el CRM"):
+        st.markdown(ui.campanas(propuestas, CHEQUEOS), unsafe_allow_html=True)
+        if st.button("Publicar campañas en el CRM", type="primary", icon="📤"):
             with st.spinner("Publicando en el CRM..."):
                 crm.cerrar_campanas_activas()
                 for c in propuestas:
                     crm.crear_campana(c)
             del st.session_state.propuestas
-            st.success(f"{len(propuestas)} campañas activas en el CRM. Las anteriores quedaron cerradas.")
+            st.session_state.aviso = f"{len(propuestas)} campañas publicadas. Las anteriores quedaron cerradas."
+            st.rerun()
 
-    activas = crm.campanas(solo_activas=True)
     st.subheader(f"Campañas activas en el CRM ({len(activas)})")
     if activas:
-        st.dataframe(pd.DataFrame(activas)[["nombre", "tipo_chequeo", "sexo", "edad_min", "edad_max", "puntos"]],
-                     hide_index=True, width="stretch")
+        st.markdown(ui.campanas(activas, CHEQUEOS), unsafe_allow_html=True)
     else:
-        st.caption("Todavía no hay campañas activas.")
+        st.caption("Todavía no hay campañas activas. Diséñelas con el botón de arriba y publíquelas.")
 
 # --- Paso 3 ---------------------------------------------------------------------
 
 with paso3:
+    if "decisiones" in st.session_state:
+        decisiones = st.session_state.decisiones
+        premiados = [d for d in decisiones if d.estado == "Premiado"]
+        otros = [d for d in decisiones if d.estado != "Premiado"]
+        if premiados:
+            st.subheader(f"Premiados: {len(premiados)}")
+            st.markdown(ui.carnets(premiados), unsafe_allow_html=True)
+        else:
+            st.info("Ningún chequeo nuevo para premiar.")
+        if otros:
+            st.subheader(f"No premiados: {len(otros)}")
+            st.markdown(ui.rechazos(otros), unsafe_allow_html=True)
+        if st.session_state.pop("globos", False):
+            st.balloons()
+        st.divider()
+
     st.subheader("Chequeos reportados por el hospital")
-    st.dataframe(pd.DataFrame(st.session_state.feed), hide_index=True, width="stretch")
+    st.dataframe(pd.DataFrame(st.session_state.feed).rename(columns={
+        "id_chequeo": "Chequeo", "poliza": "Póliza", "tipo_chequeo": "Tipo", "fecha": "Fecha"}),
+        hide_index=True, width="stretch")
 
     with st.form("simular"):
-        st.markdown("**Simular un chequeo nuevo** (como si el hospital lo reportara ahora)")
+        st.markdown("**Simular un chequeo nuevo**, como si el hospital lo reportara ahora")
         s1, s2 = st.columns(2)
         opciones = {f"{a['poliza']} · {a['nombre']} ({a['sexo']}, {a['edad']})": a["poliza"] for a in lista_asegurados}
         quien = s1.selectbox("Asegurado", list(opciones))
@@ -197,38 +215,26 @@ with paso3:
 
     st.caption("El CRM es compartido: si los chequeos aparecen como «Ya premiado», otra persona ya los "
                "procesó. Use **Reiniciar demostración** en la barra lateral para empezar de cero.")
-    if st.button("🏆 Procesar chequeos y premiar", type="primary"):
+    if st.button("Procesar chequeos y premiar", type="primary", icon="🏆"):
         with st.spinner("Verificando chequeos y actualizando primas..."):
             st.session_state.decisiones = premios.aplicar(crm, st.session_state.feed)
-
-    if "decisiones" in st.session_state:
-        decisiones = st.session_state.decisiones
-        premiados = [d for d in decisiones if d.estado == "Premiado"]
-        m1, m2, m3 = st.columns(3)
-        m1.metric("Premiados ahora", len(premiados))
-        m2.metric("Rechazados", sum(d.estado == "Rechazado" for d in decisiones))
-        m3.metric("Ahorro mensual otorgado", f"${sum(d.prima_antes - d.prima_despues for d in premiados):.2f}")
-        icono = {"Premiado": "✅", "Rechazado": "❌", "Ya premiado": "↩️"}
-        st.dataframe(pd.DataFrame([{
-            "": icono[d.estado], "Chequeo": d.id_chequeo, "Póliza": d.poliza, "Tipo": d.tipo, "Resultado": d.estado,
-            "Detalle": d.motivo + (f" Sube a {d.nivel_nuevo}." if d.subio_de_nivel else ""),
-            "Prima": f"${d.prima_antes:.2f} → ${d.prima_despues:.2f}" if d.estado == "Premiado" else "",
-        } for d in decisiones]), hide_index=True, width="stretch")
-        if any(d.subio_de_nivel for d in premiados):
-            st.balloons()
+        st.session_state.globos = any(d.subio_de_nivel for d in st.session_state.decisiones)
+        st.rerun()
 
 # --- CRM ------------------------------------------------------------------------
 
 with tab_crm:
-    tabla_crm = pd.DataFrame(crm.asegurados()).drop(columns=["id"])
+    tabla_crm = pd.DataFrame(lista_asegurados).drop(columns=["id"])
     medalla = {"Bronce": "🥉 Bronce", "Plata": "🥈 Plata", "Oro": "🥇 Oro"}
     tabla_crm["nivel"] = tabla_crm["nivel"].map(medalla)
     st.dataframe(
         tabla_crm.rename(columns={"poliza": "Póliza", "nombre": "Nombre", "sexo": "Sexo", "edad": "Edad",
                                   "prima_base": "Prima base", "puntos": "Puntos", "nivel": "Nivel",
                                   "descuento": "Descuento %", "prima_final": "Prima final"}),
-        hide_index=True, width="stretch",
+        hide_index=True, width="stretch", height=565,
         column_config={"Prima base": st.column_config.NumberColumn(format="$%.2f"),
-                       "Prima final": st.column_config.NumberColumn(format="$%.2f")},
+                       "Prima final": st.column_config.NumberColumn(format="$%.2f"),
+                       "Puntos": st.column_config.ProgressColumn(min_value=0, max_value=300, format="%d")},
     )
-    st.caption("Niveles: 🥉 Bronce 0-99 pts (0 %) · 🥈 Plata 100-199 pts (5 %) · 🥇 Oro 200+ pts (10 % de descuento en la prima).")
+    st.caption("Niveles: 🥉 Bronce de 0 a 99 puntos, sin descuento. 🥈 Plata de 100 a 199 puntos, 5 % de descuento. "
+               "🥇 Oro desde 200 puntos, 10 % de descuento en la prima.")

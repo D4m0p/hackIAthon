@@ -8,7 +8,7 @@ import json
 
 import requests
 
-from agente.catalogo import CHEQUEOS, POBLACION_BASE, SEXO_OBLIGATORIO
+from agente.catalogo import CHEQUEOS, NOMBRES_CAMPANA, POBLACION_BASE, SEXO_OBLIGATORIO
 
 URL_GROQ = "https://api.groq.com/openai/v1/chat/completions"
 MODELO_POR_DEFECTO = "llama-3.3-70b-versatile"
@@ -36,7 +36,7 @@ def _plantilla(item: dict) -> dict:
     tipo = item["chequeo_preventivo"]
     base = POBLACION_BASE[tipo]
     return {
-        "nombre": f"Campaña {CHEQUEOS[tipo]}",
+        "nombre": NOMBRES_CAMPANA[tipo],
         "tipo_chequeo": tipo,
         "diagnostico": item["diagnostico"],
         **base,
@@ -64,7 +64,7 @@ def _validar(c: dict, item: dict) -> dict:
     except (KeyError, TypeError, ValueError):
         puntos = 100
     return {
-        "nombre": str(c.get("nombre") or f"Campaña {CHEQUEOS[tipo]}")[:100],
+        "nombre": str(c.get("nombre") or NOMBRES_CAMPANA[tipo])[:100],
         "tipo_chequeo": tipo,
         "diagnostico": item["diagnostico"],
         "sexo": sexo,
