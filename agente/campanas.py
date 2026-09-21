@@ -11,7 +11,7 @@ import requests
 from agente.catalogo import CHEQUEOS, NOMBRES_CAMPANA, POBLACION_BASE, SEXO_OBLIGATORIO
 
 URL_GROQ = "https://api.groq.com/openai/v1/chat/completions"
-MODELO_POR_DEFECTO = "llama-3.3-70b-versatile"
+MODELO_POR_DEFECTO = "qwen/qwen3.8-27b"
 
 INSTRUCCIONES = f"""Eres el agente de bienestar preventivo de una aseguradora de salud en Latinoamérica.
 Recibes estadísticas ANÓNIMAS y agregadas de los diagnósticos más frecuentes del hospital.
