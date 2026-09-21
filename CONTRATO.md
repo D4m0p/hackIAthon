@@ -31,6 +31,17 @@ del producto (diseña las campañas), no porque haya ayudado a escribir el códi
 **Si su asistente o editor tiene una opción de "atribución" o "co-autor" en commits
 o PRs, desactívela en su configuración** antes de empezar.
 
+**Si usa Claude Code:** antes de hacer cualquier commit, abra `~/.claude/settings.json`
+y agregue esto (si el archivo ya tiene contenido, agregue solo estas dos líneas dentro
+de las llaves `{ }`):
+
+```json
+{
+  "attribution": { "commit": "", "pr": "" },
+  "includeCoAuthoredBy": false
+}
+```
+
 **Antes de hacer `git push`**, verifique que no quede nada. Este comando no debe mostrar
 ninguna línea:
 
