@@ -28,3 +28,12 @@ def test_impacto_positivo_y_coherente():
     assert r["neto"] == r["ahorro"] - r["chequeos"] - r["descuentos"]
     assert set(r["detalle"]["tipo"]) == {"MAMOGRAFIA", "PROSTATA"}
     assert r["personas"] <= 10000
+
+
+def test_matriz_riesgo_suprime_grupos_pequenos():
+    from agente.analisis import MINIMO_POR_GRUPO, cargar, matriz_riesgo
+    m = matriz_riesgo(cargar("data/diagnosticos.csv"))
+    assert m.loc[m["suprimido"], "casos"].isna().all()
+    assert (m.loc[~m["suprimido"], "casos"] >= MINIMO_POR_GRUPO).all()
+    assert not ((m["diagnostico"] == "Tumor maligno de próstata") & (m["sexo"] == "Mujeres")).any()
+    assert "Infección respiratoria aguda" not in set(m["diagnostico"])  # solo prevenibles

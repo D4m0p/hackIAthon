@@ -184,6 +184,36 @@ with paso1:
                                   "porcentaje": "%", "chequeo_preventivo": "Chequeo preventivo"}),
             hide_index=True, width="stretch",
         )
+
+    st.subheader("Mapa de riesgo")
+    st.caption("Dónde se concentra cada enfermedad prevenible según sexo y edad. De aquí salen las poblaciones "
+               f"objetivo de las campañas. Las celdas con menos de {analisis.MINIMO_POR_GRUPO} casos se ocultan por privacidad.")
+    matriz = analisis.matriz_riesgo(df)
+    orden_diag = (matriz.groupby("diagnostico")["casos"].sum().sort_values(ascending=False).index.tolist())
+    tope = matriz["casos"].max()
+    columnas_mapa = st.columns(2, gap="medium")
+    for col, sexo in zip(columnas_mapa, ["Mujeres", "Hombres"]):
+        datos = matriz[matriz["sexo"] == sexo].assign(valor=lambda d: d["casos"].fillna(0))
+        base = alt.Chart(datos).encode(
+            x=alt.X("rango_edad:N", title="Edad", sort=analisis.ETIQUETAS, axis=alt.Axis(labelAngle=0, orient="top", labelOverlap=False, labelFontSize=10)),
+            y=alt.Y("diagnostico:N", title=None, sort=orden_diag, axis=alt.Axis(labelLimit=220)),
+        )
+        celdas = base.mark_rect(cornerRadius=7, stroke="#F3FAFB", strokeWidth=3).encode(
+            color=alt.condition(
+                "datum.suprimido", alt.value("#DDE7EB"),
+                alt.Color("valor:Q", legend=None, scale=alt.Scale(
+                    domain=[0, tope * .35, tope * .7, tope], range=["#D8F6F4", "#0FB5C4", "#2F6BFF", "#7B5CFF"]))),
+            tooltip=[alt.Tooltip("diagnostico", title="Diagnóstico"), alt.Tooltip("rango_edad", title="Edad"),
+                     alt.Tooltip("etiqueta", title="Casos")],
+        )
+        numeros = base.mark_text(fontSize=12, fontWeight=600).encode(
+            text="etiqueta:N",
+            color=alt.condition(f"datum.valor > {tope * .45}", alt.value("#FFFFFF"), alt.value("#29485A")),
+        )
+        col.markdown(f"**{sexo}**")
+        col.altair_chart((celdas + numeros).properties(height=46 * datos["diagnostico"].nunique() + 40)
+                         .configure_view(stroke=None).configure(background="transparent"), width="stretch")
+
     st.markdown(ui.privacidad(analisis.MINIMO_POR_GRUPO), unsafe_allow_html=True)
 
 # --- Paso 2 ---------------------------------------------------------------------

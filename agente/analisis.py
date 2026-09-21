@@ -57,3 +57,22 @@ def resumen_para_ia(df: pd.DataFrame, top: int = 5) -> list[dict]:
             ],
         })
     return resumen
+
+
+def matriz_riesgo(df: pd.DataFrame) -> pd.DataFrame:
+    """Casos de cada diagnóstico prevenible por sexo y rango de edad, para el mapa de calor.
+
+    Las celdas con menos de MINIMO_POR_GRUPO casos se marcan como suprimidas y pierden su valor.
+    """
+    prev = df[df["codigo_cie10"].map(chequeo_para_cie10).notna()].copy()
+    prev["rango_edad"] = pd.cut(prev["edad"], bins=RANGOS, labels=ETIQUETAS, right=False)
+    g = prev.groupby(["diagnostico", "sexo", "rango_edad"], observed=False).size().reset_index(name="casos")
+    # Combinaciones imposibles (p. ej. próstata en mujeres) no se dibujan.
+    posibles = prev.groupby(["diagnostico", "sexo"]).size().reset_index()[["diagnostico", "sexo"]]
+    g = g.merge(posibles, on=["diagnostico", "sexo"])
+    g["suprimido"] = g["casos"] < MINIMO_POR_GRUPO
+    g["etiqueta"] = g.apply(lambda r: f"<{MINIMO_POR_GRUPO}" if r["suprimido"] else str(r["casos"]), axis=1)
+    g.loc[g["suprimido"], "casos"] = None
+    g["sexo"] = g["sexo"].map({"M": "Hombres", "F": "Mujeres"})
+    g["rango_edad"] = g["rango_edad"].astype(str)
+    return g
