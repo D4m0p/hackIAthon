@@ -173,7 +173,7 @@ with paso1:
         x=alt.X("casos:Q", title="Casos"),
         y=alt.Y("diagnostico:N", sort="-x", title=None, axis=alt.Axis(labelLimit=320, labelFontSize=13)),
         color=alt.Color("tipo:N", title=None, legend=alt.Legend(orient="top"),
-                        scale=alt.Scale(domain=["Prevenible con chequeo", "Otro"], range=["#0FB5C4", "#B7CBD3"])),
+                        scale=alt.Scale(domain=["Prevenible con chequeo", "Otro"], range=["#00719B", "#C3D3D8"])),
         tooltip=[alt.Tooltip("diagnostico", title="Diagnóstico"), alt.Tooltip("casos", title="Casos"),
                  alt.Tooltip("porcentaje", title="% del total")],
     ).properties(height=400)
@@ -198,17 +198,17 @@ with paso1:
             x=alt.X("rango_edad:N", title="Edad", sort=analisis.ETIQUETAS, axis=alt.Axis(labelAngle=0, orient="top", labelOverlap=False, labelFontSize=10)),
             y=alt.Y("diagnostico:N", title=None, sort=orden_diag, axis=alt.Axis(labelLimit=220)),
         )
-        celdas = base.mark_rect(cornerRadius=7, stroke="#F3FAFB", strokeWidth=3).encode(
+        celdas = base.mark_rect(cornerRadius=7, stroke="#FFFFFF", strokeWidth=3).encode(
             color=alt.condition(
-                "datum.suprimido", alt.value("#DDE7EB"),
+                "datum.suprimido", alt.value("#E4EDEF"),
                 alt.Color("valor:Q", legend=None, scale=alt.Scale(
-                    domain=[0, tope * .35, tope * .7, tope], range=["#D8F6F4", "#0FB5C4", "#2F6BFF", "#7B5CFF"]))),
+                    domain=[0, tope * .35, tope * .7, tope], range=["#E4EFF4", "#9AC7DA", "#3689AC", "#0C4A64"]))),
             tooltip=[alt.Tooltip("diagnostico", title="Diagnóstico"), alt.Tooltip("rango_edad", title="Edad"),
                      alt.Tooltip("etiqueta", title="Casos")],
         )
         numeros = base.mark_text(fontSize=12, fontWeight=600).encode(
             text="etiqueta:N",
-            color=alt.condition(f"datum.valor > {tope * .45}", alt.value("#FFFFFF"), alt.value("#29485A")),
+            color=alt.condition(f"datum.valor > {tope * .45}", alt.value("#FFFFFF"), alt.value("#16262C")),
         )
         col.markdown(f"**{sexo}**")
         col.altair_chart((celdas + numeros).properties(height=46 * datos["diagnostico"].nunique() + 40)
@@ -381,7 +381,7 @@ with tab_impacto:
             y=alt.Y("Campaña:N", title=None, axis=alt.Axis(labelLimit=260)),
             yOffset="Concepto:N",
             color=alt.Color("Concepto:N", title=None, legend=alt.Legend(orient="top"),
-                            scale=alt.Scale(range=["#0FB5C4", "#B7CBD3"])),
+                            scale=alt.Scale(range=["#00719B", "#C3D3D8"])),
             tooltip=["Campaña", "Concepto", alt.Tooltip("USD:Q", format="$,.0f")],
         ).properties(height=320), width="stretch")
     st.caption("Estimación ilustrativa para la demostración: los costos y tasas de hallazgo son referenciales y se pueden "
