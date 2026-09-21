@@ -1,662 +1,784 @@
-"""Capa visual del panel: estilos y piezas HTML. No contiene lógica del agente."""
+"""Capa visual del panel: CSS e HTML. Sin lógica de negocio.
+
+Identidad institucional de aseguradora de salud: serif cálida para los
+títulos, sans humanista para el texto, azul petróleo de marca y verde para
+todo lo que significa beneficio para el asegurado.
+
+Todo texto que venga de fuera (nombres y mensajes que propone la IA, datos
+del CRM) pasa por `escape` antes de entrar al HTML.
+"""
 
 from html import escape
 
 from agente.catalogo import CHEQUEOS
 
-GRADIENTE = "linear-gradient(125deg, #0FB5C4 0%, #2F6BFF 55%, #7B5CFF 100%)"
+# ── paleta ──────────────────────────────────────────────────────────────
+# Los dos colores de serie de los gráficos (AZUL y CALIDO) están validados
+# para daltonismo y contraste; no los cambie sin volver a comprobarlos.
+AZUL = "#00719B"
+CALIDO = "#BE6B26"
+MARCA = "#12566A"
+MARCA_HONDA = "#0C3F4E"
+VERDE = "#35915F"
+ROJO = "#8F2620"
+AMBAR = "#A87515"
+TINTA = "#16262C"
 
-CSS = f"""
-<style>
-/* Fondo tipo aurora: manchas de color muy suaves y fijas */
-.stApp {{
-  background:
-    radial-gradient(40rem 28rem at 8% -6%, rgba(15,181,196,.20), transparent 70%),
-    radial-gradient(36rem 26rem at 96% 4%, rgba(123,92,255,.16), transparent 70%),
-    radial-gradient(44rem 30rem at 60% 110%, rgba(47,107,255,.10), transparent 70%),
-    #F3FAFB;
-  background-attachment: fixed;
-}}
-.block-container {{ padding-top: 4.2rem; max-width: 1200px; }}
-
-/* Encabezado protagonista */
-.hero {{
-  position: relative; overflow: hidden; border-radius: 1.6rem; padding: 2.1rem 2.2rem 1.6rem;
-  color: #fff; background: {GRADIENTE}; background-size: 180% 180%;
-  animation: aurora 14s ease-in-out infinite alternate;
-  box-shadow: 0 18px 50px -18px rgba(47,107,255,.55);
-}}
-.hero::after {{
-  content: ""; position: absolute; inset: -40% -10% auto auto; width: 32rem; height: 32rem;
-  background: radial-gradient(circle, rgba(94,230,224,.55), transparent 62%); pointer-events: none;
-}}
-@keyframes aurora {{ from {{ background-position: 0% 40%; }} to {{ background-position: 100% 60%; }} }}
-@media (prefers-reduced-motion: reduce) {{ .hero {{ animation: none; }} }}
-.hero h1 {{
-  font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: clamp(2rem, 4vw, 3.1rem);
-  line-height: 1.02; letter-spacing: -.02em; margin: 0 0 .6rem; color: #fff; padding: 0;
-}}
-.hero p {{ max-width: 44rem; font-size: 1.05rem; line-height: 1.5; opacity: .93; margin: 0; }}
-.pasos {{ display: grid; grid-template-columns: repeat(3, 1fr); gap: .8rem; margin-top: 1.6rem; position: relative; z-index: 1; }}
-.paso {{
-  border-radius: 1rem; padding: .85rem 1rem; background: rgba(255,255,255,.14);
-  border: 1px solid rgba(255,255,255,.28); backdrop-filter: blur(6px);
-}}
-.paso.hecho {{ background: rgba(255,255,255,.26); border-color: rgba(255,255,255,.6); }}
-.paso b {{ display: block; font-size: 1rem; }}
-.paso span {{ font-size: .88rem; opacity: .9; }}
-.paso .num {{
-  display: inline-grid; place-items: center; width: 1.6rem; height: 1.6rem; border-radius: 50%;
-  margin-right: .45rem; font-weight: 700; font-size: .85rem; background: rgba(255,255,255,.25);
-}}
-.paso.hecho .num {{ background: #fff; color: #2F6BFF; }}
-@media (max-width: 720px) {{ .pasos {{ grid-template-columns: 1fr; }} .hero {{ padding: 1.5rem 1.2rem; }} }}
-
-/* Pestañas en forma de píldora */
-.stTabs [role="tablist"] {{
-  gap: .3rem; background: rgba(255,255,255,.75); padding: .35rem; border-radius: 999px;
-  width: fit-content; max-width: 100%; border: 1px solid #D5ECEF; box-shadow: none;
-}}
-.stTabs [data-testid="stTab"] {{ border-radius: 999px; padding: .5rem 1.15rem; height: auto; transition: background .2s; }}
-.stTabs [data-testid="stTab"]:hover {{ background: rgba(15,181,196,.10); }}
-.stTabs [data-testid="stTab"][aria-selected="true"] {{ background: {GRADIENTE}; }}
-.stTabs [data-testid="stTab"][aria-selected="true"] p {{ color: #fff; font-weight: 600; }}
-.stTabs .react-aria-SelectionIndicator {{ display: none; }}
-.stTabs [data-testid="stTab"]:focus-visible {{ outline: 3px solid #7B5CFF; outline-offset: 2px; }}
-
-/* Transición al cambiar de sección: Streamlit monta el panel de nuevo en cada cambio */
-.stTabs [data-testid="stTab"] {{
-  transition: background .35s ease, box-shadow .35s ease, transform .25s ease;
-}}
-.stTabs [data-testid="stTab"][aria-selected="true"] {{
-  box-shadow: 0 6px 18px -6px rgba(47,107,255,.65), 0 0 0 3px rgba(15,181,196,.14);
-  transform: translateY(-1px);
-}}
-.stTabs [role="tabpanel"] {{ animation: entrar .6s cubic-bezier(.22,1,.36,1) both; }}
-@keyframes entrar {{
-  from {{ opacity: 0; transform: translateY(18px); filter: blur(6px); }}
-  to   {{ opacity: 1; transform: none; filter: none; }}
-}}
-.grilla > *, [data-testid="stMetric"] {{ animation: entrar .7s cubic-bezier(.22,1,.36,1) both; }}
-.grilla > :nth-child(2) {{ animation-delay: .07s; }}
-.grilla > :nth-child(3) {{ animation-delay: .14s; }}
-.grilla > :nth-child(4) {{ animation-delay: .21s; }}
-.grilla > :nth-child(5) {{ animation-delay: .28s; }}
-.grilla > :nth-child(n+6) {{ animation-delay: .35s; }}
-[data-testid="stColumn"]:nth-child(2) [data-testid="stMetric"] {{ animation-delay: .08s; }}
-[data-testid="stColumn"]:nth-child(3) [data-testid="stMetric"] {{ animation-delay: .16s; }}
-
-/* Encabezado de cada sección, con su propio degradado */
-.seccion {{
-  display: flex; align-items: center; gap: 1rem; margin: .6rem 0 1.3rem; padding: 1rem 1.2rem;
-  border-radius: 1.2rem; background: rgba(255,255,255,.8); border: 1px solid #D5ECEF; position: relative; overflow: hidden;
-}}
-.seccion::after {{
-  content: ""; position: absolute; inset: 0; pointer-events: none;
-  background: linear-gradient(100deg, transparent 30%, rgba(255,255,255,.55) 50%, transparent 70%);
-  transform: translateX(-100%); animation: brillo 1.1s .25s ease-out both;
-}}
-@keyframes brillo {{ to {{ transform: translateX(100%); }} }}
-.seccion .icono {{
-  flex: none; display: grid; place-items: center; width: 3.1rem; height: 3.1rem; border-radius: 1rem;
-  font-size: 1.5rem; box-shadow: 0 10px 22px -10px rgba(47,107,255,.7);
-  animation: aparecer .7s cubic-bezier(.34,1.56,.64,1) both;
-}}
-@keyframes aparecer {{ from {{ transform: scale(.4) rotate(-12deg); opacity: 0; }} to {{ transform: none; opacity: 1; }} }}
-.seccion h3 {{ font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 1.35rem; margin: 0; padding: 0; line-height: 1.15; }}
-.seccion p {{ margin: .15rem 0 0; color: #466373; font-size: .95rem; }}
-.seccion.analisis .icono {{ background: linear-gradient(135deg, #5EE6E0, #0FB5C4); }}
-.seccion.campanas .icono {{ background: linear-gradient(135deg, #0FB5C4, #2F6BFF); }}
-.seccion.premios  .icono {{ background: linear-gradient(135deg, #2F6BFF, #7B5CFF); }}
-.seccion.crm      .icono {{ background: linear-gradient(135deg, #7B5CFF, #0FB5C4); }}
-.seccion.analisis {{ border-left: 5px solid #0FB5C4; }}
-.seccion.campanas {{ border-left: 5px solid #2F6BFF; }}
-.seccion.premios  {{ border-left: 5px solid #7B5CFF; }}
-.seccion.crm      {{ border-left: 5px solid #5E8BFF; }}
-.seccion.miembro .icono {{ background: linear-gradient(135deg, #F2B233, #7B5CFF); }}
-.seccion.economia .icono {{ background: linear-gradient(135deg, #0B2533, #0FB5C4); }}
-.seccion.miembro {{ border-left: 5px solid #F2B233; }}
-.seccion.economia {{ border-left: 5px solid #0B2533; }}
-
-@media (prefers-reduced-motion: reduce) {{
-  .stTabs [role="tabpanel"], .grilla > *, [data-testid="stMetric"], .seccion .icono {{ animation: none; }}
-  .seccion::after {{ display: none; }}
-}}
-
-/* Métricas como tarjetas translúcidas */
-[data-testid="stMetric"] {{
-  background: rgba(255,255,255,.8); border: 1px solid #D5ECEF; border-radius: 1.1rem; padding: 1rem 1.2rem;
-}}
-[data-testid="stMetricValue"] {{ font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; color: #0B6E78; }}
-
-/* Botón principal con degradado */
-.stButton button[kind="primary"], .stFormSubmitButton button {{
-  background: {GRADIENTE}; border: 0; color: #fff; font-weight: 600;
-  box-shadow: 0 8px 22px -10px rgba(47,107,255,.7);
-}}
-.stButton button[kind="primary"]:hover, .stFormSubmitButton button:hover {{ filter: brightness(1.07); color: #fff; }}
-button:focus-visible {{ outline: 3px solid #7B5CFF !important; outline-offset: 2px; }}
-
-/* Fichas de campaña */
-.grilla {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 1rem; margin: .6rem 0 1rem; }}
-.campana {{
-  position: relative; border-radius: 1.2rem; padding: 1.2rem 1.2rem 1.05rem; background: rgba(255,255,255,.86);
-  border: 1px solid #D5ECEF; overflow: hidden;
-}}
-.campana::before {{ content: ""; position: absolute; inset: 0 0 auto 0; height: 5px; background: {GRADIENTE}; }}
-.campana .fila {{ display: flex; justify-content: space-between; align-items: flex-start; gap: .8rem; }}
-.campana h4 {{ font-family: 'Bricolage Grotesque', sans-serif; font-size: 1.12rem; margin: .1rem 0 .2rem; padding: 0; line-height: 1.2; }}
-.campana .chequeo {{ color: #466373; font-size: .9rem; }}
-.pts {{
-  font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 1.7rem; line-height: 1; white-space: nowrap;
-  background: {GRADIENTE}; -webkit-background-clip: text; background-clip: text; color: transparent;
-}}
-.pts small {{ font-size: .8rem; font-weight: 600; }}
-.publico {{
-  display: inline-block; margin: .7rem 0 .55rem; padding: .22rem .7rem; border-radius: 999px; font-size: .84rem;
-  font-weight: 600; color: #0B6E78; background: rgba(15,181,196,.13);
-}}
-.campana .mensaje {{ font-size: .95rem; line-height: 1.5; margin: 0; }}
-.campana .porque {{ font-size: .82rem; color: #5B7784; margin-top: .55rem; }}
-
-/* Carnet del asegurado premiado: el elemento protagonista */
-.carnet {{
-  position: relative; border-radius: 1.3rem; padding: 1.2rem 1.3rem; color: #fff; overflow: hidden;
-  background: {GRADIENTE}; box-shadow: 0 16px 36px -18px rgba(47,107,255,.75);
-}}
-.carnet::after {{
-  content: ""; position: absolute; right: -4rem; bottom: -5rem; width: 14rem; height: 14rem; border-radius: 50%;
-  background: radial-gradient(circle, rgba(94,230,224,.5), transparent 65%);
-}}
-.carnet .cab {{ display: flex; justify-content: space-between; align-items: center; gap: .6rem; }}
-.carnet .nombre {{ font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 1.2rem; }}
-.carnet .poliza {{ font-size: .82rem; opacity: .85; }}
-.medalla {{ padding: .2rem .65rem; border-radius: 999px; font-size: .8rem; font-weight: 700; color: #0B2533; }}
-.medalla.Oro {{ background: #F2B233; }}
-.medalla.Plata {{ background: #DDE6EC; }}
-.medalla.Bronce {{ background: #E0A477; }}
-.carnet .motivo {{ font-size: .88rem; opacity: .92; margin: .6rem 0 .8rem; position: relative; z-index: 1; }}
-.carnet .prima {{ display: flex; flex-wrap: wrap; align-items: baseline; gap: .3rem .7rem; position: relative; z-index: 1; }}
-.carnet .antes {{ text-decoration: line-through; opacity: .75; font-size: 1rem; }}
-.carnet .despues {{ white-space: nowrap; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 2.1rem; line-height: 1; }}
-.carnet .despues small {{ font-size: .85rem; font-weight: 600; opacity: .85; }}
-.carnet .sube {{ margin-top: .6rem; font-size: .84rem; font-weight: 600; position: relative; z-index: 1; }}
-
-/* Rechazos: discretos */
-.rechazos {{ border-radius: 1rem; background: rgba(255,255,255,.8); border: 1px solid #F1D3D4; padding: .4rem 1rem; }}
-.rechazo {{ display: flex; gap: .8rem; padding: .55rem 0; border-bottom: 1px solid #F5E4E5; font-size: .92rem; }}
-.rechazo:last-child {{ border-bottom: 0; }}
-.rechazo .x {{ color: #E5484D; font-weight: 700; }}
-.rechazo .id {{ color: #5B7784; min-width: 7.5rem; }}
-
-/* Prima que baja en vivo: se anima un entero (centavos) y se muestra con contadores CSS */
-@property --c {{ syntax: '<integer>'; inherits: false; initial-value: 0; }}
-@property --d {{ syntax: '<integer>'; inherits: false; initial-value: 0; }}
-.contador {{
-  --c: var(--hasta); --d: calc((var(--c) - 50) / 100);
-  counter-reset: dol var(--d) cen calc(var(--c) - var(--d) * 100);
-  animation: bajar 1.8s .45s cubic-bezier(.16,1,.3,1) both;
-}}
-.contador::before {{ content: "$" counter(dol) "." counter(cen, decimal-leading-zero); }}
-@keyframes bajar {{ from {{ --c: var(--desde); }} to {{ --c: var(--hasta); }} }}
-.carnet .antes {{ animation: tachar .5s .3s ease-out both; }}
-@keyframes tachar {{ from {{ text-decoration-color: transparent; opacity: 1; }} to {{ text-decoration-color: currentColor; opacity: .75; }} }}
-.carnet .ahorro {{
-  display: inline-block; margin-left: auto; padding: .15rem .55rem; border-radius: 999px; font-size: .78rem; font-weight: 700; white-space: nowrap;
-  background: rgba(255,255,255,.22); animation: entrar .6s 1.9s cubic-bezier(.22,1,.36,1) both;
-}}
-
-/* Ranking de asegurados */
-.podio {{ display: grid; grid-template-columns: 1fr 1.15fr 1fr; align-items: end; gap: .9rem; margin: .4rem 0 1.4rem; }}
-.puesto {{
-  text-align: center; border-radius: 1.3rem 1.3rem .8rem .8rem; padding: 1.1rem .8rem 1rem; color: #fff; position: relative;
-  box-shadow: 0 16px 34px -18px rgba(47,107,255,.7); animation: subir .8s cubic-bezier(.34,1.4,.64,1) both;
-}}
-.puesto.p1 {{ background: linear-gradient(160deg, #F2B233, #E58A1F); min-height: 13.5rem; animation-delay: .25s; }}
-.puesto.p2 {{ background: linear-gradient(160deg, #0FB5C4, #2F6BFF); min-height: 11.5rem; animation-delay: .1s; }}
-.puesto.p3 {{ background: linear-gradient(160deg, #7B5CFF, #2F6BFF); min-height: 10rem; animation-delay: .4s; }}
-@keyframes subir {{ from {{ transform: translateY(40px) scale(.96); opacity: 0; }} to {{ transform: none; opacity: 1; }} }}
-.puesto .lugar {{ font-size: 2.1rem; line-height: 1; }}
-.puesto .quien {{ font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 1.1rem; margin-top: .4rem; }}
-.puesto .dato {{ font-size: .85rem; opacity: .92; }}
-.puesto .puntaje {{ font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 1.9rem; margin-top: .3rem; }}
-.ranking {{ border-radius: 1.2rem; background: rgba(255,255,255,.85); border: 1px solid #D5ECEF; padding: .3rem 1.1rem; }}
-.fila-r {{ display: grid; grid-template-columns: 2rem 1fr 11rem 6.5rem; align-items: center; gap: .9rem; padding: .7rem 0; border-bottom: 1px solid #E4F1F3; }}
-.fila-r:last-child {{ border-bottom: 0; }}
-.fila-r .pos {{ font-weight: 700; color: #7C98A4; text-align: center; }}
-.fila-r .nom b {{ display: block; }}
-.fila-r .nom span {{ font-size: .82rem; color: #5B7784; }}
-.barra {{ height: .55rem; border-radius: 999px; background: #E1EEF1; overflow: hidden; }}
-.barra i {{ display: block; height: 100%; border-radius: inherit; background: {GRADIENTE}; transform-origin: left;
-  animation: llenar 1s .3s cubic-bezier(.22,1,.36,1) both; }}
-@keyframes llenar {{ from {{ transform: scaleX(0); }} }}
-.meta {{ font-size: .78rem; color: #5B7784; margin-top: .25rem; }}
-.fila-r .prima {{ text-align: right; font-weight: 700; }}
-.fila-r .prima s {{ display: block; font-weight: 400; font-size: .8rem; color: #8AA2AD; }}
-@media (max-width: 720px) {{
-  .podio {{ gap: .5rem; }} .puesto {{ padding: .8rem .4rem; }} .puesto .quien {{ font-size: .92rem; }}
-  .fila-r {{ grid-template-columns: 1.4rem 1fr 5.5rem; }} .fila-r .avance {{ display: none; }}
-}}
-
-/* Vista previa en el celular */
-.telefono {{
-  margin: .6rem auto 0; max-width: 330px; border-radius: 2.6rem; padding: .8rem; background: #0B2533;
-  box-shadow: 0 30px 60px -25px rgba(11,37,51,.6), inset 0 0 0 2px #24475a; position: sticky; top: 4.5rem;
-}}
-.pantalla {{
-  border-radius: 2rem; min-height: 34rem; padding: 2.6rem .75rem 1rem; position: relative; overflow: hidden;
-  background: linear-gradient(170deg, #0FB5C4 0%, #2F6BFF 55%, #7B5CFF 100%);
-}}
-.pantalla::before {{ content: ""; position: absolute; top: .6rem; left: 50%; width: 5.5rem; height: 1.4rem; border-radius: 1rem;
-  background: #0B2533; transform: translateX(-50%); }}
-.pantalla .hora {{ text-align: center; color: #fff; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 2.6rem; line-height: 1; }}
-.pantalla .fecha {{ text-align: center; color: rgba(255,255,255,.85); font-size: .85rem; margin: .2rem 0 1.1rem; }}
-.notif {{
-  background: rgba(255,255,255,.9); backdrop-filter: blur(10px); border-radius: 1.1rem; padding: .65rem .75rem; margin-bottom: .55rem;
-  animation: notificar .6s cubic-bezier(.34,1.4,.64,1) both;
-}}
-.notif:nth-child(2) {{ animation-delay: .35s; }} .notif:nth-child(3) {{ animation-delay: .7s; }}
-.notif:nth-child(4) {{ animation-delay: 1.05s; }} .notif:nth-child(n+5) {{ animation-delay: 1.4s; }}
-@keyframes notificar {{ from {{ transform: translateY(-16px) scale(.94); opacity: 0; }} to {{ transform: none; opacity: 1; }} }}
-.notif .app {{ display: flex; align-items: center; gap: .4rem; font-size: .72rem; color: #5B7784; }}
-.notif .app i {{ width: 1.1rem; height: 1.1rem; border-radius: .35rem; background: {GRADIENTE}; display: inline-block; }}
-.notif .app em {{ margin-left: auto; font-style: normal; }}
-.notif b {{ display: block; font-size: .86rem; margin: .2rem 0 .1rem; color: #0B2533; }}
-.notif p {{ margin: 0; font-size: .8rem; line-height: 1.35; color: #29485A; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }}
-
-/* Hospital en vivo: línea de tiempo */
-.linea {{ position: relative; margin: .4rem 0 1rem; padding: .2rem .4rem .2rem 1.6rem; max-height: 27rem; overflow-y: auto; }}
-.linea::before {{ content: ""; position: absolute; left: .55rem; top: .4rem; bottom: .4rem; width: 3px; border-radius: 3px; background: linear-gradient(#0FB5C4, #7B5CFF); }}
-.evento {{
-  position: relative; display: grid; grid-template-columns: 2.6rem 1fr auto; gap: .8rem; align-items: center;
-  background: rgba(255,255,255,.88); border: 1px solid #D5ECEF; border-radius: 1rem; padding: .65rem .9rem; margin-bottom: .6rem;
-  animation: entrar .5s cubic-bezier(.22,1,.36,1) both;
-}}
-.evento::before {{ content: ""; position: absolute; left: -1.33rem; top: 50%; width: .8rem; height: .8rem; border-radius: 50%;
-  transform: translateY(-50%); background: #fff; border: 3px solid #0FB5C4; }}
-.evento .ico {{ display: grid; place-items: center; width: 2.6rem; height: 2.6rem; border-radius: .8rem; font-size: 1.3rem; background: rgba(15,181,196,.12); }}
-.evento b {{ display: block; font-size: .95rem; }}
-.evento span {{ font-size: .82rem; color: #5B7784; }}
-.estado {{ padding: .2rem .65rem; border-radius: 999px; font-size: .76rem; font-weight: 700; white-space: nowrap; }}
-.estado.nuevo {{ background: rgba(47,107,255,.12); color: #2F6BFF; }}
-.estado.premiado {{ background: rgba(16,185,129,.14); color: #0B7A57; }}
-.estado.rechazado {{ background: rgba(229,72,77,.12); color: #C0353A; }}
-.estado.repetido {{ background: #EEF3F5; color: #5B7784; }}
-
-@media (prefers-reduced-motion: reduce) {{
-  .contador, .carnet .antes, .carnet .ahorro, .puesto, .barra i, .notif, .evento {{ animation: none; }}
-}}
-
-/* Piloto automático: el botón que ejecuta todo el agente */
-.st-key-piloto button {{
-  width: 100%; min-height: 3.6rem; border: 0; border-radius: 1.2rem; color: #fff; font-size: 1.1rem; font-weight: 700;
-  background: linear-gradient(110deg, #0B2533 0%, #16425A 45%, #0B2533 100%); background-size: 220% 100%;
-  box-shadow: 0 14px 34px -14px rgba(11,37,51,.8), inset 0 0 0 1px rgba(94,230,224,.45);
-  animation: latido 2.8s ease-in-out infinite, barrido 5s linear infinite;
-}}
-.st-key-piloto button:hover {{ color: #5EE6E0; filter: brightness(1.15); }}
-.st-key-piloto button p {{ font-size: 1.08rem; font-weight: 700; }}
-@keyframes latido {{
-  0%, 100% {{ box-shadow: 0 14px 34px -14px rgba(11,37,51,.8), inset 0 0 0 1px rgba(94,230,224,.45), 0 0 0 0 rgba(15,181,196,.45); }}
-  50% {{ box-shadow: 0 14px 34px -14px rgba(11,37,51,.8), inset 0 0 0 1px rgba(94,230,224,.8), 0 0 0 10px rgba(15,181,196,0); }}
-}}
-@keyframes barrido {{ from {{ background-position: 0% 0; }} to {{ background-position: -220% 0; }} }}
-.resumen-piloto {{
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: .8rem; margin: .8rem 0 .2rem;
-}}
-.resumen-piloto div {{
-  border-radius: 1rem; padding: .85rem 1rem; background: rgba(255,255,255,.85); border: 1px solid #D5ECEF;
-  animation: entrar .6s cubic-bezier(.22,1,.36,1) both;
-}}
-.resumen-piloto div:nth-child(2) {{ animation-delay: .1s; }} .resumen-piloto div:nth-child(3) {{ animation-delay: .2s; }}
-.resumen-piloto div:nth-child(4) {{ animation-delay: .3s; }}
-.resumen-piloto b {{ display: block; font-family: 'Bricolage Grotesque', sans-serif; font-size: 1.7rem; line-height: 1.1;
-  background: {GRADIENTE}; -webkit-background-clip: text; background-clip: text; color: transparent; }}
-.resumen-piloto span {{ font-size: .85rem; color: #466373; }}
-@media (max-width: 720px) {{ .resumen-piloto {{ grid-template-columns: 1fr 1fr; }} }}
-
-/* Perfil: tarjeta de membresía holográfica */
-.membresia {{
-  position: relative; aspect-ratio: 1.586; border-radius: 1.4rem; padding: 1.4rem 1.5rem; color: #fff; overflow: hidden;
-  display: flex; flex-direction: column; justify-content: space-between;
-  box-shadow: 0 30px 60px -28px rgba(47,107,255,.9); transform: perspective(900px) rotateX(4deg) rotateY(-7deg);
-  transition: transform .6s cubic-bezier(.22,1,.36,1); animation: voltear .9s cubic-bezier(.22,1,.36,1) both;
-}}
-.membresia:hover {{ transform: perspective(900px) rotateX(0) rotateY(0) scale(1.02); }}
-@keyframes voltear {{ from {{ transform: perspective(900px) rotateY(-70deg) translateX(-30px); opacity: 0; }} }}
-.membresia.Bronce {{ background: linear-gradient(135deg, #8A5A3B, #C98B5E 45%, #7B4E33); }}
-.membresia.Plata {{ background: linear-gradient(135deg, #5D7285, #C7D3DC 48%, #6F8597); }}
-.membresia.Oro {{ background: linear-gradient(135deg, #9C6B12, #F2C14E 45%, #B07A10); }}
-.membresia::before {{
-  content: ""; position: absolute; inset: -60%; pointer-events: none; mix-blend-mode: overlay; opacity: .75;
-  background: conic-gradient(from 0deg, #0FB5C4, #7B5CFF, #FF7AD9, #F2B233, #5EE6E0, #0FB5C4);
-  animation: holograma 8s linear infinite; filter: blur(18px);
-}}
-.membresia::after {{
-  content: ""; position: absolute; inset: 0; pointer-events: none;
-  background: linear-gradient(115deg, transparent 35%, rgba(255,255,255,.55) 48%, transparent 60%);
-  background-size: 250% 100%; animation: reflejo 4.5s ease-in-out infinite;
-}}
-@keyframes holograma {{ to {{ transform: rotate(360deg); }} }}
-@keyframes reflejo {{ 0% {{ background-position: 130% 0; }} 60%, 100% {{ background-position: -60% 0; }} }}
-.membresia > * {{ position: relative; z-index: 1; text-shadow: 0 1px 8px rgba(0,0,0,.25); }}
-.membresia .arriba {{ display: flex; justify-content: space-between; align-items: flex-start; }}
-.membresia .marca {{ font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 1.05rem; letter-spacing: .02em; }}
-.membresia .chip {{ width: 2.6rem; height: 2rem; border-radius: .45rem; background: linear-gradient(135deg, #F6E3A1, #C9A441);
-  box-shadow: inset 0 0 0 1px rgba(0,0,0,.2); }}
-.membresia .numero {{ font-family: 'Bricolage Grotesque', sans-serif; font-size: 1.35rem; letter-spacing: .18em; }}
-.membresia .abajo {{ display: flex; justify-content: space-between; align-items: flex-end; gap: 1rem; }}
-.membresia .titular {{ font-size: .72rem; opacity: .85; }}
-.membresia .nombre-t {{ font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 1.25rem; }}
-.membresia .nivel-t {{ font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 1.6rem; text-align: right; line-height: 1; }}
-.membresia .nivel-t small {{ display: block; font-size: .72rem; font-weight: 600; opacity: .9; }}
-
-.anillo-caja {{ display: flex; align-items: center; gap: 1.1rem; background: rgba(255,255,255,.85); border: 1px solid #D5ECEF;
-  border-radius: 1.2rem; padding: 1rem 1.2rem; margin-bottom: 1rem; }}
-@property --a {{ syntax: '<number>'; inherits: false; initial-value: 0; }}
-.anillo {{
-  --a: var(--meta); flex: none; width: 6.4rem; height: 6.4rem; border-radius: 50%; display: grid; place-items: center;
-  background: conic-gradient(#0FB5C4, #2F6BFF calc(var(--a) * 0.5%), #7B5CFF calc(var(--a) * 1%), #E1EEF1 0);
-  animation: cargar 1.4s .3s cubic-bezier(.22,1,.36,1) both;
-}}
-@keyframes cargar {{ from {{ --a: 0; }} }}
-.anillo div {{ width: 4.9rem; height: 4.9rem; border-radius: 50%; background: #fff; display: grid; place-items: center; text-align: center; }}
-.anillo b {{ font-family: 'Bricolage Grotesque', sans-serif; font-size: 1.45rem; line-height: 1; display: block; }}
-.anillo span {{ font-size: .7rem; color: #5B7784; }}
-.anillo-caja h4 {{ font-family: 'Bricolage Grotesque', sans-serif; margin: 0 0 .2rem; padding: 0; font-size: 1.1rem; }}
-.anillo-caja p {{ margin: 0; font-size: .9rem; color: #466373; }}
-
-.insignias {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: .7rem; margin: .4rem 0 1rem; }}
-.insignia {{ text-align: center; border-radius: 1rem; padding: .8rem .5rem; background: rgba(255,255,255,.85); border: 1px solid #D5ECEF;
-  animation: aparecer .6s cubic-bezier(.34,1.56,.64,1) both; }}
-.insignia .emoji {{ font-size: 2rem; line-height: 1.1; }}
-.insignia b {{ display: block; font-size: .84rem; margin-top: .3rem; }}
-.insignia span {{ font-size: .72rem; color: #5B7784; }}
-.insignia.ganada {{ border-color: transparent; background: linear-gradient(#fff, #fff) padding-box, {GRADIENTE} border-box; border: 2px solid transparent;
-  box-shadow: 0 10px 24px -14px rgba(47,107,255,.8); }}
-.insignia.bloqueada {{ opacity: .55; }}
-.insignia.bloqueada .emoji {{ filter: grayscale(1); opacity: .5; }}
-.insignias .insignia:nth-child(2) {{ animation-delay: .06s; }} .insignias .insignia:nth-child(3) {{ animation-delay: .12s; }}
-.insignias .insignia:nth-child(4) {{ animation-delay: .18s; }} .insignias .insignia:nth-child(5) {{ animation-delay: .24s; }}
-.insignias .insignia:nth-child(6) {{ animation-delay: .3s; }} .insignias .insignia:nth-child(7) {{ animation-delay: .36s; }}
-
-.reco {{ display: flex; align-items: center; gap: .9rem; border-radius: 1rem; padding: .8rem 1rem; margin-bottom: .6rem;
-  background: rgba(255,255,255,.88); border: 1px solid #D5ECEF; animation: entrar .6s cubic-bezier(.22,1,.36,1) both; }}
-.reco .ico {{ font-size: 1.6rem; }}
-.reco b {{ display: block; }}
-.reco span {{ font-size: .85rem; color: #466373; }}
-.reco .gana {{ margin-left: auto; text-align: right; white-space: nowrap; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800;
-  background: {GRADIENTE}; -webkit-background-clip: text; background-clip: text; color: transparent; font-size: 1.2rem; }}
-.reco .gana small {{ display: block; font-family: 'Public Sans', sans-serif; font-size: .75rem; font-weight: 700; color: #0B7A57; -webkit-text-fill-color: #0B7A57; }}
-
-/* Impacto económico: cifra protagonista */
-.impacto {{
-  position: relative; overflow: hidden; border-radius: 1.6rem; padding: 1.8rem 2rem; color: #fff; margin-bottom: 1.2rem;
-  background: linear-gradient(125deg, #0B2533 0%, #0E4A5E 45%, #2F2A7A 100%);
-  box-shadow: 0 24px 50px -26px rgba(11,37,51,.9);
-}}
-.impacto::after {{ content: ""; position: absolute; right: -8rem; top: -10rem; width: 26rem; height: 26rem; border-radius: 50%;
-  background: radial-gradient(circle, rgba(15,181,196,.45), transparent 65%); pointer-events: none; }}
-.impacto .etiqueta {{ font-size: .95rem; opacity: .85; }}
-@property --v {{ syntax: '<integer>'; inherits: false; initial-value: 0; }}
-.cifra {{ --v: var(--meta); counter-reset: v var(--v); animation: contar 1.8s .2s cubic-bezier(.16,1,.3,1) both; }}
-.cifra::after {{ content: counter(v); }}
-@keyframes contar {{ from {{ --v: 0; }} }}
-.impacto .grande {{ font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: clamp(2.6rem, 6vw, 4.4rem); line-height: 1;
-  margin: .3rem 0 .4rem; background: linear-gradient(90deg, #5EE6E0, #FFFFFF 55%, #B9A8FF); -webkit-background-clip: text; background-clip: text; color: transparent; }}
-.impacto .grande .cifra::after {{ -webkit-text-fill-color: transparent; }}
-.impacto .sub {{ opacity: .85; max-width: 46rem; }}
-.impacto .kpis {{ display: grid; grid-template-columns: repeat(4, 1fr); gap: .8rem; margin-top: 1.3rem; position: relative; z-index: 1; }}
-.impacto .kpis div {{ border-radius: 1rem; padding: .8rem 1rem; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18); }}
-.impacto .kpis b {{ display: block; font-family: 'Bricolage Grotesque', sans-serif; font-size: 1.5rem; }}
-.impacto .kpis span {{ font-size: .8rem; opacity: .8; }}
-@media (max-width: 720px) {{ .impacto .kpis {{ grid-template-columns: 1fr 1fr; }} .impacto {{ padding: 1.3rem 1.2rem; }} }}
-
-@media (prefers-reduced-motion: reduce) {{
-  .st-key-piloto button, .membresia, .membresia::before, .membresia::after, .anillo, .insignia, .reco, .cifra, .resumen-piloto div {{ animation: none; }}
-}}
-
-/* Nota de privacidad */
-.privacidad {{
-  border-radius: 1rem; padding: 1rem 1.2rem; margin-top: 1rem; background: rgba(255,255,255,.8);
-  border: 1px solid #D5ECEF; border-left: 5px solid #0FB5C4; font-size: .95rem; line-height: 1.5;
-}}
-</style>
-"""
-
-PUBLICO = {"M": "Hombres", "F": "Mujeres", "Todos": "Hombres y mujeres"}
+NIVEL_COLOR = {"Bronce": "#8E5321", "Plata": "#54707C", "Oro": "#8A6A12"}
+NIVEL_FONDO = {"Bronce": "#F4E9DE", "Plata": "#E7EDEF", "Oro": "#F4EEDA"}
 
 
-def hero(campanas_activas: int, premios: int, ahorro: float) -> str:
-    pasos = [
-        ("Analizar", "Diagnósticos del hospital, sin identidades", True),
-        ("Diseñar campañas", f"{campanas_activas} campañas activas" if campanas_activas else "Pendiente", campanas_activas > 0),
-        ("Premiar chequeos", f"{premios} premiados · ${ahorro:.2f} menos al mes" if premios else "Pendiente", premios > 0),
-    ]
-    html = "".join(
-        f'<div class="paso{" hecho" if hecho else ""}"><b><span class="num">{"✓" if hecho else i}</span>{t}</b>'
-        f"<span>{d}</span></div>"
-        for i, (t, d, hecho) in enumerate(pasos, 1)
-    )
+def _usd(v) -> str:
+    return f"${float(v or 0):,.2f}"
+
+
+def _pts(v) -> str:
+    return f"{int(v or 0):,}".replace(",", " ")
+
+
+def _poblacion(c: dict) -> str:
+    sexo = c.get("sexo", "Todos")
+    quien = "Hombres y mujeres" if sexo == "Todos" else ("Mujeres" if sexo == "F" else "Hombres")
+    return f"{quien} de {int(c['edad_min'])} a {int(c['edad_max'])} años"
+
+
+CSS = """<style>
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap');
+
+:root{
+  --ground:#EFF4F5; --surface:#FFFFFF; --surface-2:#F5F9FA; --surface-3:#E4EDEF;
+  --line:#DAE5E8; --line-2:#BECED3;
+  --ink:#16262C; --ink-2:#47606A; --ink-3:#778F98;
+  --marca:#12566A; --marca-honda:#0C3F4E; --marca-suave:#E3EEF1;
+  --azul:#00719B; --calido:#BE6B26;
+  --verde:#35915F; --verde-suave:#E5F1EA;
+  --rojo:#8F2620; --rojo-suave:#F6E6E4;
+  --ambar:#A87515; --ambar-suave:#F7EEDC;
+  --bronce:#8E5321; --bronce-suave:#F4E9DE;
+  --plata:#54707C;  --plata-suave:#E7EDEF;
+  --oro:#8A6A12;    --oro-suave:#F4EEDA;
+  --sombra:0 1px 2px rgba(18,42,52,.06), 0 12px 28px -20px rgba(18,42,52,.32);
+  --serif:"Source Serif 4", Georgia, "Times New Roman", serif;
+  --sans:"Source Sans 3", "Segoe UI", system-ui, sans-serif;
+}
+
+/* ── chrome de Streamlit ─────────────────────────────────────────────── */
+.stApp{ background:var(--ground); }
+html, body, [class*="st-"]{ font-family:var(--sans); }
+.block-container{ padding-top:2.1rem; padding-bottom:4rem; max-width:1180px; }
+#MainMenu, footer{ visibility:hidden; }
+[data-testid="stHeader"]{ background:transparent; }
+
+h1,h2,h3,h4{ font-family:var(--serif) !important; letter-spacing:-.008em; color:var(--ink); }
+.stApp p, .stApp li, .stApp label{ color:var(--ink-2); }
+.stApp a{ color:var(--marca); }
+
+[data-testid="stSidebar"]{ background:var(--surface); border-right:1px solid var(--line); }
+[data-testid="stSidebar"] h2{ font-size:1.15rem; }
+
+/* pestañas: barra institucional, no pastillas de panel */
+.stTabs [data-baseweb="tab-list"]{
+  gap:2px; border-bottom:1px solid var(--line); background:transparent;
+}
+.stTabs [data-baseweb="tab"]{
+  height:auto; padding:10px 16px; background:transparent; border-radius:0;
+  font-family:var(--sans); font-size:.95rem; font-weight:500; color:var(--ink-3);
+  border-bottom:2px solid transparent;
+}
+.stTabs [aria-selected="true"]{
+  color:var(--ink) !important; font-weight:600; border-bottom-color:var(--marca) !important;
+  background:transparent !important;
+}
+.stTabs [data-baseweb="tab-highlight"], .stTabs [data-baseweb="tab-border"]{ display:none; }
+
+.stButton > button, .stFormSubmitButton > button, .stLinkButton > a{
+  border-radius:9px; font-weight:600; font-family:var(--sans);
+  border:1.5px solid var(--line-2); background:var(--surface); color:var(--marca);
+  transition:border-color .15s, background .15s;
+}
+.stButton > button:hover, .stFormSubmitButton > button:hover, .stLinkButton > a:hover{
+  border-color:var(--marca); background:var(--marca-suave); color:var(--marca);
+}
+.stButton > button[kind="primary"], .stFormSubmitButton > button[kind="primary"]{
+  background:var(--marca); border-color:var(--marca); color:#fff;
+}
+.stButton > button[kind="primary"]:hover, .stFormSubmitButton > button[kind="primary"]:hover{
+  background:var(--marca-honda); border-color:var(--marca-honda); color:#fff;
+}
+
+[data-testid="stMetric"]{
+  background:var(--surface); border:1px solid var(--line); border-radius:12px;
+  padding:16px 18px; box-shadow:var(--sombra);
+}
+[data-testid="stMetricLabel"] p{
+  font-size:.78rem !important; text-transform:uppercase; letter-spacing:.1em;
+  font-weight:600; color:var(--ink-3) !important;
+}
+[data-testid="stMetricValue"]{
+  font-family:var(--serif); font-weight:700; color:var(--marca); letter-spacing:-.02em;
+}
+
+[data-testid="stExpander"]{
+  border:1px solid var(--line); border-radius:12px; background:var(--surface); overflow:hidden;
+}
+[data-testid="stExpander"] summary{ font-weight:600; color:var(--ink-2); }
+[data-testid="stForm"]{
+  border:1px solid var(--line); border-radius:14px; background:var(--surface);
+  padding:22px; box-shadow:var(--sombra);
+}
+[data-testid="stDataFrame"], [data-testid="stJson"]{
+  border:1px solid var(--line); border-radius:12px; overflow:hidden;
+}
+[data-testid="stSlider"] [data-baseweb="slider"] [role="slider"]{ background:var(--marca); }
+hr{ border-color:var(--line); }
+
+/* ── portada ─────────────────────────────────────────────────────────── */
+.v-kicker{
+  text-transform:uppercase; letter-spacing:.13em; font-size:.74rem; font-weight:700;
+  color:var(--marca); display:block; margin-bottom:12px;
+}
+.v-hero{
+  background:radial-gradient(900px 340px at 88% -20%, var(--marca-suave), transparent 62%), var(--surface);
+  border:1px solid var(--line); border-radius:18px; padding:42px 44px 36px;
+  box-shadow:var(--sombra);
+}
+.v-hero h1{
+  font-family:var(--serif); font-size:2.45rem; line-height:1.14; letter-spacing:-.022em;
+  margin:0; font-weight:600; max-width:19ch; color:var(--ink);
+}
+.v-hero h1 em{ font-style:italic; color:var(--marca); }
+.v-hero .sub{
+  color:var(--ink-2); font-size:1.05rem; line-height:1.65; margin-top:16px; max-width:62ch;
+}
+.v-trust{
+  display:flex; gap:42px; margin-top:30px; padding-top:22px;
+  border-top:1px solid var(--line); flex-wrap:wrap;
+}
+.v-trust b{
+  display:block; font-family:var(--serif); font-size:1.85rem; font-weight:700;
+  letter-spacing:-.02em; color:var(--marca); font-variant-numeric:tabular-nums; line-height:1.15;
+}
+.v-trust span{ font-size:.86rem; color:var(--ink-3); display:block; margin-top:2px; }
+
+/* ── encabezado de sección ───────────────────────────────────────────── */
+.v-sec{ margin:6px 0 22px; padding-bottom:10px; border-bottom:1px solid var(--line-2); }
+.v-sec h2{ font-family:var(--serif); font-size:1.5rem; margin:0; font-weight:600; }
+.v-sec p{ color:var(--ink-2); font-size:.98rem; margin:7px 0 0; max-width:74ch; line-height:1.6; }
+
+/* ── resultado del piloto ────────────────────────────────────────────── */
+.v-piloto{
+  background:linear-gradient(140deg,#17697C,#0C3B49); color:#EAF5F8;
+  border-radius:16px; padding:26px 30px; box-shadow:var(--sombra);
+}
+.v-piloto h3{ font-family:var(--serif); color:#fff !important; margin:0 0 16px; font-size:1.3rem; }
+.v-piloto .fila{ display:flex; gap:38px; flex-wrap:wrap; }
+.v-piloto b{
+  display:block; font-family:var(--serif); font-size:1.9rem; font-weight:700;
+  font-variant-numeric:tabular-nums; line-height:1.15;
+}
+.v-piloto span{ font-size:.85rem; opacity:.82; display:block; margin-top:2px; }
+
+/* ── tarjetas de campaña ─────────────────────────────────────────────── */
+.v-camps{ display:grid; grid-template-columns:repeat(auto-fit,minmax(272px,1fr)); gap:16px; }
+.v-camp{
+  background:var(--surface); border:1px solid var(--line); border-radius:14px;
+  overflow:hidden; display:flex; flex-direction:column; box-shadow:var(--sombra);
+}
+.v-camp .top{
+  background:var(--marca-suave); padding:13px 18px; border-bottom:1px solid var(--line);
+  font-size:.84rem; font-weight:600; color:var(--marca);
+}
+.v-camp .cuerpo{ padding:18px; display:flex; flex-direction:column; gap:12px; flex:1; }
+.v-camp h4{ font-family:var(--serif); font-size:1.12rem; margin:0; line-height:1.3; font-weight:600; }
+.v-camp .msg{
+  color:var(--ink-2); font-size:.92rem; line-height:1.6; font-style:italic;
+  border-left:3px solid var(--line-2); padding-left:13px;
+}
+.v-camp .datos{
+  display:flex; justify-content:space-between; gap:12px; font-size:.88rem;
+  border-top:1px solid var(--line); padding-top:11px; margin-top:auto;
+}
+.v-camp .datos span{ color:var(--ink-3); }
+.v-camp .datos b{ color:var(--verde); font-variant-numeric:tabular-nums; }
+.v-camp .porque{ font-size:.82rem; color:var(--ink-3); line-height:1.55; }
+
+/* ── teléfono ────────────────────────────────────────────────────────── */
+.v-fono{
+  width:284px; max-width:100%; margin:0 auto; border-radius:34px; padding:16px 13px 22px;
+  background:linear-gradient(160deg,#1C3038,#0E1D22); box-shadow:0 20px 46px -22px rgba(12,32,40,.75);
+}
+.v-fono .notch{ width:88px; height:5px; border-radius:3px; background:rgba(255,255,255,.22); margin:2px auto 14px; }
+.v-fono .aviso{
+  background:rgba(255,255,255,.96); border-radius:15px; padding:11px 13px; margin-bottom:9px;
+}
+.v-fono .de{
+  font-size:.66rem; text-transform:uppercase; letter-spacing:.09em; color:var(--marca);
+  font-weight:700; display:flex; justify-content:space-between;
+}
+.v-fono .de i{ font-style:normal; color:var(--ink-3); font-weight:500; letter-spacing:0; }
+.v-fono h5{ font-family:var(--serif); font-size:.92rem; margin:5px 0 3px; color:var(--ink); font-weight:600; }
+.v-fono p{ font-size:.79rem; color:var(--ink-2); margin:0; line-height:1.5; }
+
+/* ── carnets de premiados ────────────────────────────────────────────── */
+.v-carnets{ display:grid; grid-template-columns:repeat(auto-fit,minmax(286px,1fr)); gap:16px; }
+.v-carnet{
+  border-radius:16px; padding:20px 22px; color:#EAF5F8; position:relative; overflow:hidden;
+  background:linear-gradient(142deg,#17697C,#0C3B49); box-shadow:var(--sombra);
+}
+.v-carnet::after{
+  content:""; position:absolute; right:-52px; top:-52px; width:164px; height:164px;
+  border-radius:50%; background:rgba(255,255,255,.07);
+}
+.v-carnet .cab{ display:flex; justify-content:space-between; align-items:center; position:relative; z-index:1; }
+.v-carnet .marca{ font-size:.76rem; letter-spacing:.11em; text-transform:uppercase; opacity:.8; font-weight:700; }
+.v-carnet .nivel{
+  background:rgba(255,255,255,.18); border-radius:20px; padding:3px 11px;
+  font-size:.72rem; font-weight:700; letter-spacing:.07em; text-transform:uppercase;
+}
+.v-carnet h4{
+  font-family:var(--serif); font-size:1.28rem; margin:18px 0 1px; color:#fff !important;
+  position:relative; z-index:1; font-weight:600;
+}
+.v-carnet .pol{ font-size:.79rem; opacity:.7; letter-spacing:.12em; position:relative; z-index:1; }
+.v-carnet .campana{
+  font-size:.82rem; opacity:.85; margin-top:12px; position:relative; z-index:1; line-height:1.5;
+}
+.v-carnet .pie{
+  display:flex; justify-content:space-between; align-items:flex-end; gap:14px;
+  margin-top:16px; padding-top:13px; border-top:1px solid rgba(255,255,255,.2);
+  position:relative; z-index:1;
+}
+.v-carnet .pie i{ font-style:normal; font-size:.7rem; opacity:.7; display:block; text-transform:uppercase; letter-spacing:.08em; }
+.v-carnet .pie b{ font-family:var(--serif); font-size:1.24rem; font-variant-numeric:tabular-nums; }
+.v-carnet .antes{ text-decoration:line-through; opacity:.55; font-size:.82rem; margin-right:7px; font-family:var(--sans); }
+.v-carnet .ahora{ color:#9FE3BC; }
+.v-carnet .subio{
+  display:inline-block; margin-top:11px; background:rgba(159,227,188,.2); color:#B6ECCC;
+  border-radius:20px; padding:3px 11px; font-size:.74rem; font-weight:700;
+  position:relative; z-index:1;
+}
+
+/* ── rechazos ────────────────────────────────────────────────────────── */
+.v-rech{ display:flex; flex-direction:column; gap:9px; }
+.v-rech .item{
+  display:flex; gap:14px; align-items:flex-start; background:var(--surface);
+  border:1px solid var(--line); border-left:4px solid var(--rojo); border-radius:11px; padding:14px 16px;
+}
+.v-rech .item.dup{ border-left-color:var(--ambar); }
+.v-rech .quien{ min-width:190px; }
+.v-rech .quien b{ display:block; color:var(--ink); font-size:.95rem; }
+.v-rech .quien span{ font-size:.79rem; color:var(--ink-3); letter-spacing:.05em; }
+.v-rech .motivo{ font-size:.89rem; color:var(--ink-2); line-height:1.55; }
+.v-rech .etiqueta{
+  font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em;
+  color:var(--rojo); background:var(--rojo-suave); border-radius:20px; padding:3px 11px;
+  white-space:nowrap; margin-left:auto;
+}
+.v-rech .item.dup .etiqueta{ color:var(--ambar); background:var(--ambar-suave); }
+
+/* ── línea del hospital ──────────────────────────────────────────────── */
+.v-linea{ display:flex; flex-direction:column; }
+.v-linea .ev{
+  display:flex; gap:16px; align-items:flex-start; padding:13px 0;
+  border-bottom:1px solid var(--line);
+}
+.v-linea .ev:last-child{ border-bottom:0; }
+.v-linea .punto{
+  width:11px; height:11px; border-radius:50%; margin-top:6px; flex:none;
+  background:var(--line-2); box-shadow:0 0 0 3px var(--surface-3);
+}
+.v-linea .ev.ok .punto{ background:var(--verde); box-shadow:0 0 0 3px var(--verde-suave); }
+.v-linea .ev.no .punto{ background:var(--rojo); box-shadow:0 0 0 3px var(--rojo-suave); }
+.v-linea .ev.dup .punto{ background:var(--ambar); box-shadow:0 0 0 3px var(--ambar-suave); }
+.v-linea .txt b{ color:var(--ink); font-size:.95rem; }
+.v-linea .txt span{ display:block; font-size:.85rem; color:var(--ink-3); margin-top:2px; }
+.v-linea .fecha{ margin-left:auto; font-size:.8rem; color:var(--ink-3); white-space:nowrap; font-variant-numeric:tabular-nums; }
+
+/* ── podio y tabla de posiciones ─────────────────────────────────────── */
+.v-podio{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; align-items:end; margin-bottom:22px; }
+.v-podio .p{
+  background:var(--surface); border:1px solid var(--line); border-radius:14px;
+  padding:18px 16px; text-align:center; box-shadow:var(--sombra);
+}
+.v-podio .p.uno{ border-color:var(--oro); box-shadow:0 0 0 3px var(--oro-suave), var(--sombra); }
+.v-podio .medalla{ font-size:1.5rem; line-height:1; }
+.v-podio h5{ font-family:var(--serif); font-size:1rem; margin:9px 0 2px; color:var(--ink); font-weight:600; }
+.v-podio .pts{ font-family:var(--serif); font-size:1.5rem; font-weight:700; color:var(--marca); font-variant-numeric:tabular-nums; }
+.v-podio .det{ font-size:.78rem; color:var(--ink-3); }
+
+.v-tabla{ display:flex; flex-direction:column; gap:7px; }
+.v-fila{
+  display:grid; grid-template-columns:30px 1fr 128px 96px; gap:14px; align-items:center;
+  background:var(--surface); border:1px solid var(--line); border-radius:11px; padding:11px 15px;
+}
+.v-fila .pos{ font-family:var(--serif); color:var(--ink-3); font-weight:700; font-variant-numeric:tabular-nums; }
+.v-fila .nom b{ display:block; color:var(--ink); font-size:.95rem; }
+.v-fila .nom span{ font-size:.78rem; color:var(--ink-3); letter-spacing:.05em; }
+.v-fila .barra{ height:6px; background:var(--surface-3); border-radius:3px; overflow:hidden; }
+.v-fila .barra i{ display:block; height:100%; background:var(--verde); border-radius:3px; }
+.v-fila .barra + small{ font-size:.72rem; color:var(--ink-3); display:block; margin-top:4px; }
+.v-fila .cifra{ text-align:right; }
+.v-fila .cifra b{ font-family:var(--serif); font-size:1.05rem; font-variant-numeric:tabular-nums; color:var(--ink); }
+.v-fila .cifra span{ display:block; font-size:.76rem; color:var(--verde); font-weight:600; }
+
+.v-chip{
+  display:inline-block; font-size:.72rem; font-weight:700; border-radius:20px;
+  padding:2px 11px; letter-spacing:.04em;
+}
+
+/* ── membresía y anillo ──────────────────────────────────────────────── */
+.v-memb{
+  border-radius:18px; padding:26px 28px; color:#EAF5F8; position:relative; overflow:hidden;
+  background:linear-gradient(142deg,#17697C,#0C3B49); box-shadow:var(--sombra);
+}
+.v-memb::after{
+  content:""; position:absolute; right:-60px; top:-60px; width:196px; height:196px;
+  border-radius:50%; background:rgba(255,255,255,.07);
+}
+.v-memb .cab{ display:flex; justify-content:space-between; align-items:center; position:relative; z-index:1; }
+.v-memb .marca{ font-size:.78rem; letter-spacing:.12em; text-transform:uppercase; opacity:.8; font-weight:700; }
+.v-memb .nivel{
+  background:rgba(255,255,255,.18); border-radius:20px; padding:4px 13px;
+  font-size:.74rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+}
+.v-memb h3{
+  font-family:var(--serif); font-size:1.6rem; margin:24px 0 2px; color:#fff !important;
+  position:relative; z-index:1; font-weight:600;
+}
+.v-memb .pol{ font-size:.85rem; opacity:.7; letter-spacing:.14em; position:relative; z-index:1; }
+.v-memb .rejilla{
+  display:grid; grid-template-columns:1fr 1fr; gap:3px 26px; margin-top:22px;
+  padding-top:16px; border-top:1px solid rgba(255,255,255,.2); position:relative; z-index:1;
+}
+.v-memb .rejilla i{ font-style:normal; font-size:.71rem; opacity:.72; text-transform:uppercase; letter-spacing:.09em; font-weight:600; }
+.v-memb .rejilla b{ font-family:var(--serif); font-size:1.35rem; font-variant-numeric:tabular-nums; }
+.v-memb .rejilla b.baja{ color:#9FE3BC; }
+.v-memb .rejilla b small{ font-size:.78rem; opacity:.6; font-family:var(--sans); text-decoration:line-through; margin-right:7px; }
+
+.v-anillo{
+  background:var(--surface); border:1px solid var(--line); border-radius:14px;
+  padding:20px 22px; display:flex; align-items:center; gap:22px; box-shadow:var(--sombra);
+}
+.v-anillo .txt b{ display:block; font-family:var(--serif); font-size:1.08rem; color:var(--ink); }
+.v-anillo .txt span{ font-size:.88rem; color:var(--ink-2); line-height:1.55; display:block; margin-top:4px; }
+
+/* ── recomendaciones e insignias ─────────────────────────────────────── */
+.v-recos{ display:flex; flex-direction:column; gap:10px; }
+.v-reco{
+  background:var(--surface); border:1px solid var(--line); border-left:4px solid var(--verde);
+  border-radius:11px; padding:14px 16px;
+}
+.v-reco b{ display:block; font-family:var(--serif); font-size:1.02rem; color:var(--ink); }
+.v-reco .quien{ font-size:.82rem; color:var(--ink-3); margin-top:2px; }
+.v-reco .gana{
+  display:flex; gap:18px; margin-top:10px; padding-top:10px; border-top:1px dotted var(--line);
+  font-size:.86rem; flex-wrap:wrap;
+}
+.v-reco .gana span{ color:var(--ink-3); }
+.v-reco .gana b{ display:inline; font-family:var(--sans); color:var(--verde); font-weight:700; }
+.v-vacio{
+  background:var(--verde-suave); border-radius:11px; padding:15px 17px;
+  font-size:.92rem; color:var(--ink-2); line-height:1.6;
+}
+
+.v-insig{ display:grid; grid-template-columns:repeat(auto-fit,minmax(154px,1fr)); gap:12px; }
+.v-ins{
+  background:var(--surface); border:1px solid var(--line); border-radius:12px;
+  padding:15px 14px; text-align:center;
+}
+.v-ins.no{ opacity:.45; }
+.v-ins .ic{ font-size:1.5rem; line-height:1; }
+.v-ins b{ display:block; font-size:.88rem; color:var(--ink); margin-top:8px; font-weight:600; }
+.v-ins span{ display:block; font-size:.75rem; color:var(--ink-3); margin-top:3px; line-height:1.45; }
+
+/* ── impacto ─────────────────────────────────────────────────────────── */
+.v-imp{ display:grid; grid-template-columns:repeat(auto-fit,minmax(168px,1fr)); gap:14px; }
+.v-imp .t{
+  background:var(--surface); border:1px solid var(--line); border-radius:13px;
+  padding:17px 18px; box-shadow:var(--sombra);
+}
+.v-imp .t i{
+  font-style:normal; font-size:.72rem; text-transform:uppercase; letter-spacing:.1em;
+  color:var(--ink-3); font-weight:700; display:block; margin-bottom:6px;
+}
+.v-imp .t b{
+  font-family:var(--serif); font-size:1.62rem; font-weight:700; color:var(--marca);
+  letter-spacing:-.02em; font-variant-numeric:tabular-nums; display:block; line-height:1.15;
+}
+.v-imp .t.bueno b{ color:var(--verde); }
+.v-imp .t span{ font-size:.78rem; color:var(--ink-3); display:block; margin-top:4px; line-height:1.45; }
+.v-imp-pie{
+  background:var(--marca-suave); border-radius:12px; padding:15px 18px; margin-top:14px;
+  font-size:.92rem; color:var(--ink-2); line-height:1.6;
+}
+
+/* ── privacidad ──────────────────────────────────────────────────────── */
+.v-priv{
+  display:flex; gap:14px; background:var(--verde-suave); border-radius:13px;
+  padding:17px 19px; margin-top:16px;
+}
+.v-priv .ic{ font-size:1.2rem; line-height:1.3; }
+.v-priv b{ display:block; color:var(--ink); font-size:.98rem; margin-bottom:4px; font-weight:600; }
+.v-priv p{ font-size:.9rem; color:var(--ink-2); margin:0; line-height:1.6; }
+
+@media (max-width: 820px){
+  .v-hero{ padding:28px 22px; }
+  .v-hero h1{ font-size:1.85rem; }
+  .v-podio{ grid-template-columns:1fr; }
+  .v-fila{ grid-template-columns:26px 1fr; }
+  .v-fila .barra, .v-fila .barra + small{ display:none; }
+}
+@media (prefers-reduced-motion: reduce){ *{ transition:none !important; animation:none !important; } }
+</style>"""
+
+
+# ── portada ─────────────────────────────────────────────────────────────
+
+def hero(n_campanas: int, n_con_descuento: int, ahorro: float) -> str:
     return (
-        '<div class="hero"><h1>Agente de Bienestar Preventivo</h1>'
-        "<p>Detecta qué enfermedades son más frecuentes entre los asegurados, lanza campañas de prevención "
-        "y, cuando la persona se hace su chequeo, le baja la prima automáticamente en el CRM.</p>"
-        f'<div class="pasos">{html}</div></div>'
+        '<div class="v-hero">'
+        '<span class="v-kicker">Programa Bienestar Preventivo</span>'
+        '<h1>Hágase el chequeo a tiempo y <em>su prima baja</em>.</h1>'
+        '<p class="sub">Revisamos cada mes qué está enfermando a nuestros asegurados, abrimos '
+        'campañas de prevención para los casos más frecuentes y le devolvemos el gesto: cada '
+        'chequeo que usted cumple suma puntos, sube de nivel y descuenta su cuota mensual.</p>'
+        '<div class="v-trust">'
+        f'<div><b>{n_campanas}</b><span>campañas abiertas</span></div>'
+        f'<div><b>{n_con_descuento}</b><span>asegurados con descuento</span></div>'
+        f'<div><b>{_usd(ahorro)}</b><span>menos de prima al mes</span></div>'
+        '</div></div>'
     )
 
 
-def campanas(lista: list[dict], nombres_chequeo: dict) -> str:
-    fichas = []
-    for c in lista:
-        porque = f'<div class="porque">Por qué: {escape(c["justificacion"])}</div>' if c.get("justificacion") else ""
-        fichas.append(
-            '<div class="campana"><div class="fila"><div>'
-            f'<h4>{escape(c["nombre"])}</h4><div class="chequeo">{escape(nombres_chequeo[c["tipo_chequeo"]])}</div></div>'
-            f'<div class="pts">+{c["puntos"]}<small> pts</small></div></div>'
-            f'<span class="publico">{PUBLICO[c["sexo"]]} de {c["edad_min"]} a {c["edad_max"]} años</span>'
-            f'<p class="mensaje">{escape(c["mensaje"])}</p>{porque}</div>'
-        )
-    return f'<div class="grilla">{"".join(fichas)}</div>'
-
-
-def _etiqueta_ahorro(d) -> str:
-    """Ahorro logrado, o cuánto falta para el siguiente nivel si el premio aún no baja la prima."""
-    from agente.gamificacion import siguiente_nivel
-
-    ahorro = d.prima_antes - d.prima_despues
-    if ahorro > 0:
-        return f"−${ahorro:.2f} al mes"
-    sig = siguiente_nivel(d.asegurado["puntos"] + d.puntos)
-    return f"Le faltan {sig[1]} pts para {sig[0]}" if sig else "Nivel máximo"
-
-
-def carnets(premiados: list) -> str:
-    tarjetas = []
-    for d in premiados:
-        a = d.asegurado
-        sube = f'<div class="sube">▲ Sube a nivel {d.nivel_nuevo}</div>' if d.subio_de_nivel else ""
-        tarjetas.append(
-            '<div class="carnet"><div class="cab"><div>'
-            f'<div class="nombre">{escape(a["nombre"])}</div><div class="poliza">{escape(d.poliza)} · {escape(CHEQUEOS.get(d.tipo, d.tipo))}</div></div>'
-            f'<span class="medalla {d.nivel_nuevo}">{d.nivel_nuevo}</span></div>'
-            f'<div class="motivo">{escape(d.motivo)}</div>'
-            f'<div class="prima"><span class="antes">${d.prima_antes:.2f}</span>'
-            f'<span class="despues"><span class="contador" role="img" aria-label="${d.prima_despues:.2f}" '
-            f'style="--desde:{round(d.prima_antes * 100)};--hasta:{round(d.prima_despues * 100)}"></span>'
-            f'<small> /mes</small></span>'
-            f'<span class="ahorro">{_etiqueta_ahorro(d)}</span></div>{sube}</div>'
-        )
-    return f'<div class="grilla">{"".join(tarjetas)}</div>'
-
-
-def rechazos(lista: list) -> str:
-    filas = "".join(
-        f'<div class="rechazo"><span class="x">{"✕" if d.estado == "Rechazado" else "↺"}</span>'
-        f'<span class="id">{escape(d.id_chequeo)}<br>{escape(d.poliza)}</span><span>{escape(d.motivo)}</span></div>'
-        for d in lista
+def seccion(clave: str, emoji: str, titulo: str, subtitulo: str) -> str:
+    """Encabezado de sección. `emoji` se recibe por compatibilidad y no se usa:
+    la identidad institucional no lleva emojis como marcadores."""
+    return (
+        f'<div class="v-sec" id="{escape(str(clave))}">'
+        f'<h2>{escape(titulo)}</h2>'
+        f'<p>{escape(subtitulo)}</p>'
+        '</div>'
     )
-    return f'<div class="rechazos">{filas}</div>'
-
-
-MEDALLA = {"Oro": "🥇", "Plata": "🥈", "Bronce": "🥉"}
-ICONO_CHEQUEO = {"PROSTATA": "🧬", "MAMOGRAFIA": "🎗️", "PAPANICOLAOU": "🌸", "GLUCOSA": "🩸",
-                 "PRESION": "🫀", "COLESTEROL": "🧪", "COLONOSCOPIA": "🔬"}
-
-
-def ranking(asegurados: list[dict]) -> str:
-    """Podio de los 3 con más puntos y tabla de posiciones con el avance al siguiente nivel."""
-    from agente.gamificacion import siguiente_nivel
-
-    orden = sorted(asegurados, key=lambda a: (-a["puntos"], a["prima_final"] - a["prima_base"], a["nombre"]))
-    podio = ""
-    if orden and orden[0]["puntos"] > 0:
-        puestos = []
-        tres = orden[:3] + [None] * (3 - len(orden[:3]))
-        for clase, lugar, a in (("p2", "🥈", tres[1]), ("p1", "🏆", tres[0]), ("p3", "🥉", tres[2])):
-            if a is None or a["puntos"] <= 0:
-                puestos.append("<div></div>")
-                continue
-            ahorro = a["prima_base"] - a["prima_final"]
-            puestos.append(
-                f'<div class="puesto {clase}"><div class="lugar">{lugar}</div><div class="quien">{escape(a["nombre"])}</div>'
-                f'<div class="puntaje">{a["puntos"]} pts</div><div class="dato">Nivel {a["nivel"]} · ahorra ${ahorro:.2f}/mes</div></div>'
-            )
-        podio = f'<div class="podio">{"".join(puestos)}</div>'
-
-    filas = []
-    for i, a in enumerate(orden, 1):
-        sig = siguiente_nivel(a["puntos"])
-        if sig:
-            nivel, faltan, avance = sig
-            meta = f"Le faltan {faltan} pts para {nivel}"
-        else:
-            avance, meta = 1.0, "Nivel máximo alcanzado"
-        prima = (f'<s>${a["prima_base"]:.2f}</s>${a["prima_final"]:.2f}' if a["prima_final"] < a["prima_base"]
-                 else f'${a["prima_final"]:.2f}')
-        filas.append(
-            f'<div class="fila-r"><div class="pos">{i}</div>'
-            f'<div class="nom"><b>{MEDALLA.get(a["nivel"], "")} {escape(a["nombre"])}</b>'
-            f'<span>{escape(a["poliza"])} · {a["puntos"]} pts · nivel {a["nivel"]}</span></div>'
-            f'<div class="avance"><div class="barra"><i style="width:{max(avance, .02) * 100:.0f}%"></i></div>'
-            f'<div class="meta">{meta}</div></div><div class="prima">{prima}</div></div>'
-        )
-    return f'{podio}<div class="ranking">{"".join(filas)}</div>'
-
-
-def telefono(campanas: list[dict]) -> str:
-    """Las campañas como notificaciones en la pantalla del celular del asegurado."""
-    notifs = "".join(
-        f'<div class="notif"><div class="app"><i></i>Mi Seguro de Salud<em>ahora</em></div>'
-        f'<b>{ICONO_CHEQUEO.get(c["tipo_chequeo"], "💙")} {escape(c["nombre"])}</b><p>{escape(c["mensaje"])}</p></div>'
-        for c in campanas[:4]
-    )
-    return (f'<div class="telefono"><div class="pantalla"><div class="hora">9:41</div>'
-            f'<div class="fecha">Así lo recibe el asegurado</div>{notifs}</div></div>')
-
-
-def linea_hospital(feed: list[dict], asegurados: list[dict], decisiones: list | None) -> str:
-    """Los chequeos que reporta el hospital como una línea de tiempo, con su resultado si ya se procesaron."""
-    por_poliza = {a["poliza"]: a for a in asegurados}
-    resultado = {d.id_chequeo: d.estado for d in (decisiones or [])}
-    clase = {"Premiado": "premiado", "Rechazado": "rechazado", "Ya premiado": "repetido"}
-    eventos = []
-    for i, ch in enumerate(reversed(feed)):
-        a = por_poliza.get(ch["poliza"])
-        quien = escape(a["nombre"]) if a else "Póliza no registrada"
-        estado = resultado.get(ch["id_chequeo"], "Nuevo")
-        eventos.append(
-            f'<div class="evento" style="animation-delay:{min(i, 8) * .05:.2f}s">'
-            f'<div class="ico">{ICONO_CHEQUEO.get(ch["tipo_chequeo"], "🩺")}</div>'
-            f'<div><b>{quien}</b><span>{escape(CHEQUEOS.get(ch["tipo_chequeo"], ch["tipo_chequeo"]))} · '
-            f'{escape(ch["poliza"])} · {escape(str(ch["fecha"]))}</span></div>'
-            f'<span class="estado {clase.get(estado, "nuevo")}">{estado}</span></div>'
-        )
-    return f'<div class="linea">{"".join(eventos)}</div>'
 
 
 def resumen_piloto(r: dict) -> str:
-    datos = [(r["campanas"], "campañas lanzadas"), (r["premiados"], "chequeos premiados"),
-             (r["suben"], "asegurados subieron de nivel"), (f'${r["ahorro"]:.2f}', "menos al mes en primas")]
-    return '<div class="resumen-piloto">' + "".join(f"<div><b>{v}</b><span>{t}</span></div>" for v, t in datos) + "</div>"
-
-
-def membresia(a: dict) -> str:
-    numero = a["poliza"].replace("POL-", "")
+    suben = int(r.get("suben", 0))
+    frase = "Nadie cambió de nivel en esta tanda." if not suben else (
+        "1 asegurado subió de nivel." if suben == 1 else f"{suben} asegurados subieron de nivel.")
     return (
-        f'<div class="membresia {a["nivel"]}"><div class="arriba"><div class="marca">Bienestar Preventivo</div>'
-        f'<div class="chip"></div></div><div class="numero">•••• •••• {escape(numero)}</div>'
-        f'<div class="abajo"><div><div class="titular">Titular</div><div class="nombre-t">{escape(a["nombre"])}</div></div>'
-        f'<div class="nivel-t"><small>Miembro</small>{a["nivel"]}</div></div></div>'
+        '<div class="v-piloto">'
+        '<h3>El agente cerró su ciclo completo</h3>'
+        '<div class="fila">'
+        f'<div><b>{int(r.get("campanas", 0))}</b><span>campañas publicadas</span></div>'
+        f'<div><b>{int(r.get("premiados", 0))}</b><span>chequeos premiados</span></div>'
+        f'<div><b>{suben}</b><span>subieron de nivel</span></div>'
+        f'<div><b>{_usd(r.get("ahorro", 0))}</b><span>menos de prima al mes</span></div>'
+        '</div>'
+        f'<p style="margin:16px 0 0;opacity:.82;font-size:.9rem">{frase} '
+        'Todo quedó escrito en el CRM.</p>'
+        '</div>'
     )
-
-
-def anillo(a: dict) -> str:
-    from agente.gamificacion import siguiente_nivel
-
-    sig = siguiente_nivel(a["puntos"])
-    if sig:
-        nivel, faltan, avance = sig
-        titulo, texto = f"Rumbo a {nivel}", f"Le faltan <b>{faltan} puntos</b> para subir de nivel."
-    else:
-        avance, titulo, texto = 1.0, "Nivel máximo", "Tiene el mayor descuento disponible: 10 % en su prima."
-    ahorro = a["prima_base"] - a["prima_final"]
-    extra = f" Hoy ahorra <b>${ahorro:.2f} al mes</b>." if ahorro > 0 else ""
-    return (
-        f'<div class="anillo-caja"><div class="anillo" style="--meta:{avance * 100:.0f}"><div><div><b>{a["puntos"]}</b>'
-        f'<span>puntos</span></div></div></div><div><h4>{titulo}</h4><p>{texto}{extra}</p></div></div>'
-    )
-
-
-def insignias(lista: list[dict]) -> str:
-    return '<div class="insignias">' + "".join(
-        f'<div class="insignia {"ganada" if i["ganada"] else "bloqueada"}" title="{escape(i["como"])}">'
-        f'<div class="emoji">{i["icono"]}</div><b>{i["nombre"]}</b><span>{"Ganada" if i["ganada"] else escape(i["como"])}</span></div>'
-        for i in lista
-    ) + "</div>"
-
-
-def recomendaciones(lista: list[dict]) -> str:
-    if not lista:
-        return ('<div class="reco"><div class="ico">✨</div><div><b>Está al día</b>'
-                "<span>No tiene chequeos pendientes en las campañas activas.</span></div></div>")
-    filas = []
-    for r in lista:
-        c = r["campana"]
-        extra = f"<small>sube a {r['nivel_nuevo']} · −${r['ahorro_extra']:.2f}/mes</small>" if r["sube"] else ""
-        filas.append(
-            f'<div class="reco"><div class="ico">{ICONO_CHEQUEO.get(c["tipo_chequeo"], "🩺")}</div>'
-            f'<div><b>{escape(c["nombre"])}</b><span>{escape(CHEQUEOS.get(c["tipo_chequeo"], ""))}</span></div>'
-            f'<div class="gana">+{r["puntos"]} pts{extra}</div></div>'
-        )
-    return "".join(filas)
-
-
-def impacto(r: dict, asegurados: int, participacion: float) -> str:
-    neto = max(r["neto"], 0)
-    kpis = [
-        (f'{r["roi"]:.1f}×', "retorno por cada dólar invertido"),
-        (f'{r["casos"]:,.0f}', "casos detectados a tiempo"),
-        (f'${r["chequeos"] / 1000:,.0f} mil', "costo de los chequeos"),
-        (f'${r["descuentos"] / 1000:,.0f} mil', "descuentos pagados en primas"),
-    ]
-    return (
-        f'<div class="impacto"><div class="etiqueta">Ahorro neto estimado para la aseguradora, por año</div>'
-        f'<div class="grande" role="img" aria-label="${neto:,.0f}">$<span class="cifra" style="--meta:{round(neto / 1000)}"></span> mil</div>'
-        f'<div class="sub">Con {asegurados:,} asegurados y {participacion * 100:.0f} % de participación, después de pagar '
-        f'los chequeos y los descuentos en primas.</div><div class="kpis">'
-        + "".join(f"<div><b>{v}</b><span>{t}</span></div>" for v, t in kpis) + "</div></div>"
-    )
-
-
-def seccion(clase: str, icono: str, titulo: str, texto: str) -> str:
-    return (f'<div class="seccion {clase}"><div class="icono">{icono}</div>'
-            f"<div><h3>{titulo}</h3><p>{texto}</p></div></div>")
 
 
 def privacidad(minimo: int) -> str:
     return (
-        '<div class="privacidad">🔒 <b>Privacidad desde el diseño.</b> Los registros del hospital llegan sin nombre '
-        "ni póliza. Al modelo de IA solo se le envían conteos agregados, y los grupos con menos de "
-        f"{minimo} casos se ocultan para que nadie pueda ser identificado.</div>"
+        '<div class="v-priv">'
+        '<span class="ic">🔒</span><div>'
+        '<b>Por qué esto no identifica a nadie</b>'
+        '<p>Los diagnósticos llegan sin nombre y sin número de póliza. Los grupos de sexo y edad '
+        f'con menos de {int(minimo)} casos se ocultan, porque en un grupo tan pequeño decir el '
+        'diagnóstico sería casi decir el nombre. Al modelo de IA solo le llegan conteos agregados: '
+        'nunca una fila de una persona.</p>'
+        '</div></div>'
     )
+
+
+# ── campañas ────────────────────────────────────────────────────────────
+
+def campanas(lista: list[dict], chequeos: dict | None = None) -> str:
+    nombres = chequeos or CHEQUEOS
+    tarjetas = []
+    for c in lista:
+        tipo = c.get("tipo_chequeo", "")
+        justif = c.get("justificacion") or c.get("diagnostico") or ""
+        tarjetas.append(
+            '<article class="v-camp">'
+            f'<div class="top">{escape(_poblacion(c))}</div>'
+            '<div class="cuerpo">'
+            f'<h4>{escape(str(c.get("nombre", "")))}</h4>'
+            f'<p class="msg">«{escape(str(c.get("mensaje", "")))}»</p>'
+            f'<p class="porque">{escape(str(justif))}</p>'
+            '<div class="datos">'
+            f'<span>{escape(nombres.get(tipo, tipo))}</span>'
+            f'<b>{int(c.get("puntos", 0))} puntos</b>'
+            '</div></div></article>'
+        )
+    return f'<div class="v-camps">{"".join(tarjetas)}</div>'
+
+
+def telefono(propuestas: list[dict]) -> str:
+    avisos = []
+    for i, c in enumerate(propuestas[:4]):
+        cuando = "ahora" if i == 0 else f"hace {i * 3} min"
+        avisos.append(
+            '<div class="aviso">'
+            f'<div class="de">Vitalia <i>{cuando}</i></div>'
+            f'<h5>{escape(str(c.get("nombre", "")))}</h5>'
+            f'<p>{escape(str(c.get("mensaje", ""))[:120])}…</p>'
+            '</div>'
+        )
+    return f'<div class="v-fono"><div class="notch"></div>{"".join(avisos)}</div>'
+
+
+# ── premios ─────────────────────────────────────────────────────────────
+
+def carnets(premiados: list) -> str:
+    tarjetas = []
+    for d in premiados:
+        a = d.asegurado or {}
+        nivel = d.nivel_nuevo or a.get("nivel", "Bronce")
+        campana = (d.campana or {}).get("nombre", "")
+        if d.prima_antes is not None and d.prima_despues is not None and d.prima_despues < d.prima_antes:
+            prima = (f'<span class="antes">{_usd(d.prima_antes)}</span>'
+                     f'<span class="ahora">{_usd(d.prima_despues)}</span>')
+        else:
+            prima = _usd(d.prima_despues if d.prima_despues is not None else a.get("prima_final", 0))
+        subio = '<span class="subio">Subió a nivel ' + escape(nivel) + '</span>' if d.subio_de_nivel else ''
+        tarjetas.append(
+            '<article class="v-carnet">'
+            '<div class="cab">'
+            '<span class="marca">Vitalia</span>'
+            f'<span class="nivel">{escape(nivel)}</span>'
+            '</div>'
+            f'<h4>{escape(str(a.get("nombre", d.poliza)))}</h4>'
+            f'<div class="pol">{escape(str(d.poliza))}</div>'
+            f'<p class="campana">{escape(CHEQUEOS.get(d.tipo, d.tipo))} · {escape(str(campana))}</p>'
+            '<div class="pie">'
+            f'<div><i>Puntos ganados</i><b>+{int(d.puntos)}</b></div>'
+            f'<div style="text-align:right"><i>Cuota mensual</i><b>{prima}</b></div>'
+            '</div>'
+            f'{subio}'
+            '</article>'
+        )
+    return f'<div class="v-carnets">{"".join(tarjetas)}</div>'
+
+
+def rechazos(otros: list) -> str:
+    filas = []
+    for d in otros:
+        dup = d.estado == "Ya premiado"
+        a = d.asegurado or {}
+        nombre = a.get("nombre") or "Póliza no encontrada"
+        filas.append(
+            f'<div class="item{" dup" if dup else ""}">'
+            '<div class="quien">'
+            f'<b>{escape(str(nombre))}</b>'
+            f'<span>{escape(str(d.poliza))} · {escape(CHEQUEOS.get(d.tipo, d.tipo))}</span>'
+            '</div>'
+            f'<div class="motivo">{escape(str(d.motivo))}</div>'
+            f'<span class="etiqueta">{escape(d.estado)}</span>'
+            '</div>'
+        )
+    return f'<div class="v-rech">{"".join(filas)}</div>'
+
+
+def linea_hospital(feed: list[dict], asegurados: list[dict], decisiones=None) -> str:
+    por_poliza = {a["poliza"]: a for a in asegurados}
+    estado_por_id = {}
+    if decisiones:
+        for d in decisiones:
+            estado_por_id[d.id_chequeo] = d.estado
+
+    eventos = []
+    for ch in sorted(feed, key=lambda c: str(c.get("fecha", "")), reverse=True):
+        estado = estado_por_id.get(ch["id_chequeo"])
+        clase = {"Premiado": "ok", "Rechazado": "no", "Ya premiado": "dup"}.get(estado, "")
+        a = por_poliza.get(ch["poliza"])
+        quien = a["nombre"] if a else "Póliza no registrada"
+        detalle = CHEQUEOS.get(ch["tipo_chequeo"], ch["tipo_chequeo"])
+        if estado:
+            detalle += f" · {estado.lower()}"
+        eventos.append(
+            f'<div class="ev {clase}">'
+            '<span class="punto"></span>'
+            '<div class="txt">'
+            f'<b>{escape(str(quien))}</b>'
+            f'<span>{escape(detalle)}</span>'
+            '</div>'
+            f'<span class="fecha">{escape(str(ch.get("fecha", "")))}</span>'
+            '</div>'
+        )
+    if not eventos:
+        return '<div class="v-vacio">El hospital todavía no ha reportado chequeos este mes.</div>'
+    return f'<div class="v-linea">{"".join(eventos)}</div>'
+
+
+# ── CRM ─────────────────────────────────────────────────────────────────
+
+def _chip_nivel(nivel: str) -> str:
+    color = NIVEL_COLOR.get(nivel, "#54707C")
+    fondo = NIVEL_FONDO.get(nivel, "#E7EDEF")
+    return f'<span class="v-chip" style="color:{color};background:{fondo}">{escape(nivel)}</span>'
+
+
+def ranking(asegurados: list[dict]) -> str:
+    orden = sorted(asegurados, key=lambda a: (-a.get("puntos", 0), a.get("nombre", "")))
+    medallas = ["🥇", "🥈", "🥉"]
+    podio = []
+    for i, a in enumerate(orden[:3]):
+        podio.append(
+            f'<div class="p{" uno" if i == 0 else ""}">'
+            f'<div class="medalla">{medallas[i]}</div>'
+            f'<h5>{escape(str(a.get("nombre", "")))}</h5>'
+            f'<div class="pts">{_pts(a.get("puntos"))}</div>'
+            f'<div class="det">puntos · {escape(str(a.get("nivel", "Bronce")))}</div>'
+            '</div>'
+        )
+
+    filas = []
+    for i, a in enumerate(orden, start=1):
+        puntos = int(a.get("puntos", 0))
+        meta = 200 if puntos < 200 else max(puntos, 200)
+        avance = min(100, round(puntos / meta * 100)) if meta else 0
+        falta = ("nivel máximo alcanzado" if puntos >= 200
+                 else f"faltan {100 - puntos} para Plata" if puntos < 100
+                 else f"faltan {200 - puntos} para Oro")
+        ahorro = float(a.get("prima_base", 0)) - float(a.get("prima_final", 0))
+        linea_ahorro = f'<span>−{_usd(ahorro)} al mes</span>' if ahorro > 0 else ''
+        filas.append(
+            '<div class="v-fila">'
+            f'<div class="pos">{i}</div>'
+            '<div class="nom">'
+            f'<b>{escape(str(a.get("nombre", "")))} {_chip_nivel(str(a.get("nivel", "Bronce")))}</b>'
+            f'<span>{escape(str(a.get("poliza", "")))}</span>'
+            '</div>'
+            f'<div><div class="barra"><i style="width:{avance}%"></i></div><small>{escape(falta)}</small></div>'
+            f'<div class="cifra"><b>{_pts(puntos)}</b>{linea_ahorro}</div>'
+            '</div>'
+        )
+    return f'<div class="v-podio">{"".join(podio)}</div><div class="v-tabla">{"".join(filas)}</div>'
+
+
+# ── perfil ──────────────────────────────────────────────────────────────
+
+def membresia(a: dict) -> str:
+    base = float(a.get("prima_base", 0))
+    final = float(a.get("prima_final", base))
+    if final < base:
+        prima = f'<b class="baja"><small>{_usd(base)}</small>{_usd(final)}</b>'
+    else:
+        prima = f'<b>{_usd(final)}</b>'
+    return (
+        '<div class="v-memb">'
+        '<div class="cab">'
+        '<span class="marca">Vitalia · Bienestar Preventivo</span>'
+        f'<span class="nivel">{escape(str(a.get("nivel", "Bronce")))}</span>'
+        '</div>'
+        f'<h3>{escape(str(a.get("nombre", "")))}</h3>'
+        f'<div class="pol">{escape(str(a.get("poliza", "")))}</div>'
+        '<div class="rejilla">'
+        '<i>Puntos acumulados</i><i>Cuota mensual</i>'
+        f'<b>{_pts(a.get("puntos"))}</b>{prima}'
+        '</div></div>'
+    )
+
+
+def anillo(a: dict) -> str:
+    puntos = int(a.get("puntos", 0))
+    if puntos >= 200:
+        meta, falta, titulo = 200, 0, "Nivel Oro alcanzado"
+        texto = "Ya tiene el 10 % de descuento, el máximo del programa. Sus puntos siguen sumando."
+    elif puntos >= 100:
+        meta, falta, titulo = 200, 200 - puntos, "Camino al nivel Oro"
+        texto = f"Le faltan {falta} puntos para llegar a Oro y pasar del 5 % al 10 % de descuento."
+    else:
+        meta, falta, titulo = 100, 100 - puntos, "Camino al nivel Plata"
+        texto = f"Le faltan {falta} puntos para llegar a Plata y empezar a pagar 5 % menos."
+
+    avance = min(1.0, puntos / meta) if meta else 0.0
+    radio, circ = 34, 2 * 3.14159 * 34
+    ofs = circ * (1 - avance)
+    anillo_svg = (
+        '<svg width="86" height="86" viewBox="0 0 86 86" aria-hidden="true">'
+        f'<circle cx="43" cy="43" r="{radio}" fill="none" stroke="#E4EDEF" stroke-width="9"/>'
+        f'<circle cx="43" cy="43" r="{radio}" fill="none" stroke="{VERDE}" stroke-width="9"'
+        f' stroke-linecap="round" stroke-dasharray="{circ:.1f}" stroke-dashoffset="{ofs:.1f}"'
+        ' transform="rotate(-90 43 43)"/>'
+        f'<text x="43" y="49" text-anchor="middle" font-size="19" font-weight="700"'
+        f' font-family="Source Serif 4, Georgia, serif" fill="{TINTA}">{round(avance * 100)}%</text>'
+        '</svg>'
+    )
+    return (
+        f'<div class="v-anillo">{anillo_svg}'
+        f'<div class="txt"><b>{escape(titulo)}</b><span>{escape(texto)}</span></div></div>'
+    )
+
+
+def recomendaciones(lista: list[dict]) -> str:
+    if not lista:
+        return ('<div class="v-vacio">Por ahora no hay ninguna campaña abierta que le corresponda, '
+                'o ya cumplió todas las que aplican a su edad. Le avisaremos cuando se abra una nueva.</div>')
+    bloques = []
+    for r in lista:
+        c = r["campana"]
+        extra = (f'<span>Su cuota bajaría <b>{_usd(r["ahorro_extra"])}</b> al mes</span>'
+                 if r.get("ahorro_extra", 0) > 0 else
+                 '<span>Acerca su próximo nivel de descuento</span>')
+        sube = f'<span>Pasaría a nivel <b>{escape(str(r["nivel_nuevo"]))}</b></span>' if r.get("sube") else ''
+        bloques.append(
+            '<div class="v-reco">'
+            f'<b>{escape(str(c.get("nombre", "")))}</b>'
+            f'<div class="quien">{escape(CHEQUEOS.get(c.get("tipo_chequeo", ""), ""))} · {escape(_poblacion(c))}</div>'
+            '<div class="gana">'
+            f'<span>Le sumaría <b>{int(r.get("puntos", 0))} puntos</b></span>'
+            f'{extra}{sube}'
+            '</div></div>'
+        )
+    return f'<div class="v-recos">{"".join(bloques)}</div>'
+
+
+def insignias(lista: list[dict]) -> str:
+    tarjetas = []
+    for i in lista:
+        ganada = bool(i.get("ganada"))
+        tarjetas.append(
+            f'<div class="v-ins{"" if ganada else " no"}">'
+            f'<div class="ic">{escape(str(i.get("icono", "")))}</div>'
+            f'<b>{escape(str(i.get("nombre", "")))}</b>'
+            f'<span>{escape(str(i.get("como", "")))}</span>'
+            '</div>'
+        )
+    return f'<div class="v-insig">{"".join(tarjetas)}</div>'
+
+
+# ── impacto económico ───────────────────────────────────────────────────
+
+def impacto(res: dict, n_asegurados: int, participacion: float) -> str:
+    roi = float(res.get("roi", 0))
+    neto = float(res.get("neto", 0))
+    tiles = [
+        ("Ahorro en tratamientos", _usd(res.get("ahorro", 0)),
+         "por casos detectados a tiempo", True),
+        ("Costo de los chequeos", _usd(res.get("chequeos", 0)),
+         "lo que paga la aseguradora por tamizar", False),
+        ("Descuentos otorgados", _usd(res.get("descuentos", 0)),
+         "menor prima para quien se cuida", False),
+        ("Resultado neto al año", _usd(neto),
+         "ahorro menos costos del programa", neto >= 0),
+        ("Retorno por dólar", f"{roi:,.2f}×",
+         "se recupera por cada dólar invertido", roi >= 1),
+        ("Casos detectados a tiempo", f"{float(res.get('casos', 0)):,.0f}",
+         "antes de que se vuelvan caros", True),
+    ]
+    bloques = "".join(
+        f'<div class="t{" bueno" if bueno else ""}"><i>{escape(t)}</i><b>{escape(v)}</b>'
+        f'<span>{escape(s)}</span></div>'
+        for t, v, s, bueno in tiles
+    )
+    cuantos = f"{int(n_asegurados):,}".replace(",", " ")
+    veredicto = (
+        f'Con {cuantos} asegurados y una participación del {participacion * 100:.0f} %, '
+        f'el programa {"se paga solo y deja" if neto >= 0 else "todavía no se paga: le falta"} '
+        f'{_usd(abs(neto))} al año. La prevención se cobra sola cuando evita un tratamiento tardío.'
+    )
+    return f'<div class="v-imp">{bloques}</div><div class="v-imp-pie">{escape(veredicto)}</div>'
