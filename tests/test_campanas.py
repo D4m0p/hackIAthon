@@ -28,6 +28,7 @@ class _Resp:
 
 def test_respaldo_si_el_modelo_principal_agota_su_cupo(monkeypatch):
     import requests
+
     from agente import campanas
     usados = []
 
@@ -46,6 +47,7 @@ def test_respaldo_si_el_modelo_principal_agota_su_cupo(monkeypatch):
 
 def test_plantillas_si_ningun_modelo_responde(monkeypatch):
     import requests
+
     from agente import campanas
 
     def falso(*_):

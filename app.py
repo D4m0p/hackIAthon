@@ -73,8 +73,8 @@ with st.sidebar:
     else:
         st.warning("CRM: modo local (en memoria)")
         for p in st.session_state.get("problemas_notion", []):
-            st.caption(f"⚠️ {p}")
-    st.write("IA: " + ("✅ Groq configurado" if groq_key else "⚠️ sin clave, se usarán plantillas"))
+            st.caption(p)
+    st.write("IA: " + ("Groq configurado" if groq_key else "sin clave, se usan campañas de plantilla"))
 
     st.divider()
     if st.button("Reiniciar demostración", width="stretch",
@@ -204,7 +204,7 @@ with paso1:
     orden_etiquetas = [ui.etiqueta(d) for d in orden_diag]
     tope = matriz["casos"].max()
     columnas_mapa = st.columns(2, gap="medium")
-    for col, sexo in zip(columnas_mapa, ["Mujeres", "Hombres"]):
+    for col, sexo in zip(columnas_mapa, ["Mujeres", "Hombres"], strict=True):
         datos = matriz[matriz["sexo"] == sexo].assign(valor=lambda d: d["casos"].fillna(0))
         base = alt.Chart(datos).encode(
             x=alt.X("rango_edad:N", title="Edad", sort=analisis.ETIQUETAS,
