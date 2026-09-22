@@ -132,6 +132,11 @@ class CRM:
             "Nivel": _sel("Bronce"), "Descuento %": _num(0), "Prima final": _num(float(a["prima_base"])),
         })
 
+    def editar_asegurado(self, page_id: str, edad: int, prima_base: float, prima_final: float):
+        self._actualizar(page_id, {
+            "Edad": _num(int(edad)), "Prima base": _num(float(prima_base)), "Prima final": _num(float(prima_final)),
+        })
+
     def actualizar_asegurado(self, page_id: str, puntos: int, nivel: str, descuento: int, prima_final: float):
         self._actualizar(page_id, {
             "Puntos": _num(puntos), "Nivel": _sel(nivel),
@@ -220,6 +225,9 @@ class CRMLocal:
             "prima_base": float(a["prima_base"]), "puntos": 0, "nivel": "Bronce", "descuento": 0,
             "prima_final": float(a["prima_base"]),
         }
+
+    def editar_asegurado(self, page_id, edad, prima_base, prima_final):
+        self._asegurados[page_id].update(edad=int(edad), prima_base=float(prima_base), prima_final=float(prima_final))
 
     def actualizar_asegurado(self, page_id, puntos, nivel, descuento, prima_final):
         self._asegurados[page_id].update(puntos=puntos, nivel=nivel, descuento=descuento, prima_final=prima_final)

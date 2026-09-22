@@ -350,6 +350,59 @@ with tab_crm:
     st.caption("Niveles: **Bronce** de 0 a 99 puntos, sin descuento. **Plata** de 100 a 199 puntos, 5 % de descuento. "
                "**Oro** desde 200 puntos, 10 % de descuento en la prima.")
 
+    # Alta y edición: el CRM público es de solo lectura; los cambios pasan por el agente.
+    st.subheader("Agregar o editar asegurados")
+    st.caption("Los cambios se guardan en el CRM a través del agente. Los puntos, el nivel y el descuento no se editan "
+               "a mano: solo se ganan cumpliendo chequeos.")
+    if alta := st.session_state.pop("alta", None):
+        st.success(alta)
+    col_alta, col_edicion = st.columns(2, gap="large")
+
+    with col_alta, st.form("alta_asegurado", clear_on_submit=True):
+        st.markdown("**Agregar un asegurado**")
+        nombre_n = st.text_input("Nombre completo")
+        c_edad, c_sexo = st.columns(2)
+        edad_n = c_edad.number_input("Edad", perfil.EDAD_MIN, perfil.EDAD_MAX, 45, step=1)
+        sexo_n = c_sexo.selectbox("Sexo", ["F", "M"], format_func={"F": "Mujer", "M": "Hombre"}.get)
+        prima_n = st.number_input("Prima base mensual (USD)", perfil.PRIMA_MIN, perfil.PRIMA_MAX, 120.0, step=5.0)
+        if st.form_submit_button("Agregar asegurado", type="primary", width="stretch"):
+            problemas = perfil.validar_datos(nombre_n, edad_n, prima_n)
+            if problemas:
+                st.error(" ".join(problemas))
+            else:
+                nuevo = {"poliza": perfil.siguiente_poliza(lista_asegurados), "nombre": nombre_n.strip(),
+                         "sexo": sexo_n, "edad": int(edad_n), "prima_base": float(prima_n)}
+                with st.spinner("Guardando en el CRM..."):
+                    crm.crear_asegurado(nuevo)
+                ficha = nuevo | {"puntos": 0, "descuento": 0, "prima_final": float(prima_n)}
+                califica = [r["campana"]["nombre"] for r in perfil.recomendaciones(ficha, activas, [])]
+                st.session_state.alta = (
+                    f"Se registró a {nuevo['nombre']} con la póliza {nuevo['poliza']}. "
+                    + (f"Califica para {len(califica)} campaña(s) activa(s): {', '.join(califica)}."
+                       if califica else "Por ahora no califica para ninguna campaña activa.")
+                )
+                st.rerun()
+
+    with col_edicion:
+        st.markdown("**Editar un asegurado**")
+        por_etiqueta = {f"{a['nombre']} · {a['poliza']}": a for a in lista_asegurados}
+        a_editar = por_etiqueta[st.selectbox("Asegurado a editar", list(por_etiqueta))]
+        with st.form("edicion_asegurado"):
+            # La clave incluye la póliza para que los campos se rellenen con los datos del elegido.
+            edad_e = st.number_input("Edad", perfil.EDAD_MIN, perfil.EDAD_MAX, int(a_editar["edad"]), step=1,
+                                     key=f"edad_{a_editar['poliza']}")
+            prima_e = st.number_input("Prima base mensual (USD)", perfil.PRIMA_MIN, perfil.PRIMA_MAX,
+                                      float(a_editar["prima_base"]), step=5.0, key=f"prima_{a_editar['poliza']}")
+            st.caption(f"Nivel {a_editar['nivel']} con {int(a_editar['descuento'])} % de descuento: "
+                       "la prima final se recalcula con ese descuento.")
+            if st.form_submit_button("Guardar cambios", type="primary", width="stretch"):
+                final = perfil.prima_con_descuento(a_editar, prima_e)
+                with st.spinner("Guardando en el CRM..."):
+                    crm.editar_asegurado(a_editar["id"], int(edad_e), float(prima_e), final)
+                st.session_state.alta = (f"Se actualizó a {a_editar['nombre']}: {int(edad_e)} años, prima base "
+                                         f"${prima_e:,.2f} y prima final ${final:,.2f} al mes.")
+                st.rerun()
+
 # --- Perfil del asegurado ----------------------------------------------------------
 
 with tab_perfil:

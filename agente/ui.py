@@ -676,6 +676,20 @@ hr{ border-color:var(--line); }
 .v-imp .t.bueno b{ animation:v-resaltar 1s 2.1s ease-out both; }
 @keyframes v-resaltar{ 0%{ text-shadow:0 0 0 rgba(53,145,95,0); } 40%{ text-shadow:0 0 18px rgba(53,145,95,.45); } 100%{ text-shadow:0 0 0 rgba(53,145,95,0); } }
 
+/* formularios: campos visibles sobre fondo blanco y botón de envío con el color de la marca */
+[data-testid="stForm"] [data-testid="stTextInputRootElement"],
+[data-testid="stForm"] [data-testid="stNumberInputContainer"],
+[data-testid="stForm"] [data-testid="stSelectbox"] [role="group"]{
+  background:var(--surface-2); border:1px solid var(--line-2) !important; border-radius:9px;
+}
+[data-testid="stForm"] [data-testid="stTextInputRootElement"]:focus-within,
+[data-testid="stForm"] [data-testid="stNumberInputContainer"]:focus-within{
+  border-color:var(--marca) !important; box-shadow:0 0 0 3px var(--marca-suave);
+}
+[data-testid="stForm"] input{ background:transparent; }
+.stFormSubmitButton > button[kind="primaryFormSubmit"]{ background:var(--marca); border-color:var(--marca); color:#fff; }
+.stFormSubmitButton > button[kind="primaryFormSubmit"]:hover{ background:var(--marca-honda); border-color:var(--marca-honda); color:#fff; }
+
 @media (prefers-reduced-motion: reduce){ *{ transition:none !important; animation:none !important; } }
 </style>"""
 

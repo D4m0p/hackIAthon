@@ -63,6 +63,11 @@ Toda propuesta del modelo pasa por una validación antes de llegar al CRM:
 El panel incluye un ranking con podio, el perfil de cada asegurado con su tarjeta de membresía,
 insignias y las campañas que el agente le recomienda hacer a continuación.
 
+La página pública del CRM en Notion es de **solo lectura**: los datos cambian únicamente a través
+del agente. Desde la pestaña **Asegurados** se puede agregar un asegurado (el agente indica para qué
+campañas activas califica) o editar su edad y su prima base. Los puntos, el nivel y el descuento no
+se editan a mano: solo se ganan cumpliendo chequeos.
+
 ### Impacto económico
 
 Una pestaña estima el ahorro anual de la aseguradora: casos detectados a tiempo, ahorro en
