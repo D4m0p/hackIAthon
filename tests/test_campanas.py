@@ -55,3 +55,25 @@ def test_plantillas_si_ningun_modelo_responde(monkeypatch):
     cs, origen = campanas.disenar([ITEM], api_key="x")
     assert origen == "plantillas (la IA no respondió: cupo de Groq agotado por este minuto)"
     assert cs[0]["tipo_chequeo"] == "PROSTATA"
+
+
+def test_validar_no_deja_fuera_a_los_mayores():
+    presion = {"diagnostico": "Hipertensión esencial", "codigo_cie10": "I10", "casos": 255,
+               "porcentaje_del_total": 14.2, "chequeo_preventivo": "PRESION", "grupos_mas_afectados": []}
+    c = _validar({"sexo": "Todos", "edad_min": 40, "edad_max": 59, "puntos": 120, "justificacion": "Pico en 40-59."}, presion)
+    assert (c["edad_min"], c["edad_max"]) == (40, 90)  # conserva el foco, pero incluye a los mayores de 60
+    assert "ampliado por reglas clínicas de 59 a 90" in c["justificacion"]
+    # Si la IA ya incluye a los mayores, no se toca nada.
+    c = _validar({"edad_min": 40, "edad_max": 90, "puntos": 100}, presion)
+    assert c["edad_max"] == 90 and "ampliado" not in c["justificacion"]
+
+
+def test_diego_de_67_ya_no_queda_fuera():
+    from agente.premios import evaluar
+    presion = {"diagnostico": "Hipertensión esencial", "porcentaje_del_total": 14.2, "chequeo_preventivo": "PRESION"}
+    campana = {**_validar({"sexo": "Todos", "edad_min": 40, "edad_max": 59, "puntos": 120}, presion), "id": "c1", "estado": "Activa"}
+    diego = {"id": "a7", "poliza": "POL-0007", "nombre": "Diego Castillo", "sexo": "M", "edad": 67,
+             "prima_base": 175.0, "puntos": 0, "nivel": "Bronce", "descuento": 0, "prima_final": 175.0}
+    decisiones, _ = evaluar([{"id_chequeo": "CHQ-1008", "poliza": "POL-0007", "tipo_chequeo": "PRESION", "fecha": "2026-09-11"}],
+                            [diego], [campana], set())
+    assert decisiones[0].estado == "Premiado"

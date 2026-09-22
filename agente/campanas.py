@@ -61,6 +61,13 @@ def _validar(c: dict, item: dict) -> dict:
         edad_max = max(edad_min, min(int(c["edad_max"]), 90))
     except (KeyError, TypeError, ValueError):
         edad_min, edad_max = base["edad_min"], base["edad_max"]
+    # El riesgo de estas enfermedades crece con la edad: la IA puede enfocar la campaña,
+    # pero nunca dejar fuera a los mayores que las guías clínicas incluyen.
+    ajuste = ""
+    if edad_max < base["edad_max"]:
+        ajuste = (f" Rango ampliado por reglas clínicas de {edad_max} a {base['edad_max']} años: "
+                  "el riesgo aumenta con la edad y ese grupo no puede quedar fuera.")
+        edad_max = base["edad_max"]
     try:
         puntos = max(50, min(int(c["puntos"]), 150))
     except (KeyError, TypeError, ValueError):
@@ -74,7 +81,7 @@ def _validar(c: dict, item: dict) -> dict:
         "edad_max": edad_max,
         "puntos": puntos,
         "mensaje": str(c.get("mensaje") or _plantilla(item)["mensaje"])[:400],
-        "justificacion": str(c.get("justificacion") or "")[:300],
+        "justificacion": (str(c.get("justificacion") or "")[:300] + ajuste).strip(),
     }
 
 

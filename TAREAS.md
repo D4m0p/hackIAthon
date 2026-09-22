@@ -17,7 +17,7 @@ La clave de Groq ya está conectada. Estado del modelo:
 En la demo, pestaña **Campañas** → **Diseñar campañas con IA**. Hágalo 3 o 4 veces (la IA varía un poco cada vez) y revise:
 
 - ¿Las edades de cada población objetivo tienen sentido clínico?
-  **Caso ya detectado:** la IA suele proponer la campaña de **hipertensión solo para 40–59 años**, dejando fuera a mayores de 60, que son el grupo de más riesgo. ¿Es aceptable o hay que corregirlo?
+  **Caso ya corregido:** la IA solía proponer la campaña de **hipertensión solo para 40–59 años**, dejando fuera a mayores de 60, el grupo de más riesgo. Ahora el agente nunca deja una campaña terminar antes de la edad que marcan las guías clínicas (`POBLACION_BASE` en `agente/catalogo.py`) y lo explica en la justificación. Revise que esos límites sean los correctos.
 - ¿Los puntos (50 a 150) están bien repartidos según la gravedad de cada enfermedad?
 - ¿Los mensajes son correctos, en español neutro, tratando de "usted" y sin prometer diagnósticos ni curas?
 

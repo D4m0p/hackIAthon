@@ -119,6 +119,13 @@ if aviso := st.session_state.pop("aviso", None):
 if st.button("Ejecutar el agente completo", key="piloto", width="stretch", icon=":material/play_arrow:",
              help="Analiza, diseña las campañas con IA, las publica y premia los chequeos, sin intervención."):
     with st.status("El agente está trabajando de forma autónoma...", expanded=True) as estado:
+        # Cada corrida parte de cero: si no, los chequeos ya premiados por otra persona
+        # darían "0 premiados" y la demostración no mostraría nada.
+        st.write("**Preparando** los datos de demostración: 15 asegurados sin puntos y sin campañas...")
+        crm.reiniciar(asegurados_de_prueba())
+        st.session_state.feed = pd.read_csv(DATA / "chequeos.csv").to_dict("records")
+        for k in ("propuestas", "decisiones", "resumen_piloto"):
+            st.session_state.pop(k, None)
         resumen_auto = analisis.resumen_para_ia(df, 5)
         st.write(f"**Analizando** {len(df):,} diagnósticos anónimos del hospital...")
         time.sleep(.5)
