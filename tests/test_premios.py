@@ -54,12 +54,11 @@ def test_mismo_id_repetido_en_el_lote():
     assert finales["POL-0001"]["puntos"] == 150
 
 
-def test_etiqueta_de_ahorro_en_el_carnet():
-    from agente.ui import _etiqueta_ahorro
-    campanas = _campanas("GLUCOSA")
-    campanas[0]["puntos"] = 90  # no alcanza Plata
-    decisiones, _ = evaluar([{"id_chequeo": "X1", "poliza": "POL-0005", "tipo_chequeo": "GLUCOSA", "fecha": "2026-09-21"}],
-                            _asegurados(), campanas, set())
-    assert _etiqueta_ahorro(decisiones[0]) == "Le faltan 10 pts para Plata"
+def test_carnet_anima_la_prima_desde_la_anterior():
+    from agente.ui import carnets
     decisiones, _ = evaluar(_chequeos()[:1], _asegurados(), CAMPANAS, set())
-    assert _etiqueta_ahorro(decisiones[0]) == "−$7.25 al mes"
+    html = carnets(decisiones)
+    # Carlos: la prima baja de $145.00 a $137.75; el contador parte del valor anterior.
+    assert "--desde:14500;--hasta:13775" in html
+    assert '<span class="v-sr">$137.75</span>' in html
+    assert "Subió a nivel Plata" in html

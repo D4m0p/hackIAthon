@@ -37,3 +37,11 @@ def test_matriz_riesgo_suprime_grupos_pequenos():
     assert (m.loc[~m["suprimido"], "casos"] >= MINIMO_POR_GRUPO).all()
     assert not ((m["diagnostico"] == "Tumor maligno de próstata") & (m["sexo"] == "Mujeres")).any()
     assert "Infección respiratoria aguda" not in set(m["diagnostico"])  # solo prevenibles
+
+
+def test_contador_grande_elige_formato_y_no_parte_de_cero():
+    from agente.ui import _cuenta_grande
+    assert 'class="v-cnt-g g2"' in _cuenta_grande(804_135) and "--hasta:804135" in _cuenta_grande(804_135)
+    assert 'class="v-cnt-g g3"' in _cuenta_grande(1_250_000)
+    assert "--desde:1000;" in _cuenta_grande(1_500)  # nunca arranca con menos cifras que el valor final
+    assert _cuenta_grande(-2_000).startswith("−")

@@ -37,6 +37,35 @@ def _pts(v) -> str:
     return f"{int(v or 0):,}".replace(",", " ")
 
 
+def _cuenta(n: int) -> str:
+    """Entero que cuenta desde cero al aparecer (contador CSS). El valor real queda en aria-label."""
+    n = int(n or 0)
+    return f'<var class="v-cnt" aria-hidden="true" style="--hasta:{n}"></var><span class="v-sr">{n}</span>'
+
+
+def _cuenta_usd(hasta: float, desde: float | None = None) -> str:
+    """Monto con centavos que se anima de `desde` a `hasta` (para montos menores a mil)."""
+    h = round(float(hasta or 0) * 100)
+    d = round(float(desde if desde is not None else 0) * 100)
+    return (f'<var class="v-cnt-usd" aria-hidden="true" style="--desde:{d};--hasta:{h}"></var>'
+            f'<span class="v-sr">{_usd(hasta)}</span>')
+
+
+def _cuenta_grande(valor: float) -> str:
+    """Monto grande en dólares enteros, con separador de miles, que sube hasta su valor."""
+    v = round(abs(float(valor or 0)))
+    signo = "−" if valor < 0 else ""
+    if v >= 1_000_000:
+        forma, piso = "g3", 1_000_000
+    elif v >= 1_000:
+        forma, piso = "g2", 1_000
+    else:
+        forma, piso = "g1", 0
+    desde = max(piso, round(v * 0.55))
+    return (f'{signo}<var class="v-cnt-g {forma}" aria-hidden="true" style="--desde:{desde};--hasta:{v}"></var>'
+            f'<span class="v-sr">{signo}${v:,}</span>')
+
+
 def _poblacion(c: dict) -> str:
     sexo = c.get("sexo", "Todos")
     quien = "Hombres y mujeres" if sexo == "Todos" else ("Mujeres" if sexo == "F" else "Hombres")
@@ -511,6 +540,142 @@ hr{ border-color:var(--line); }
   .v-podio .medalla{ margin:0; flex:none; }
   .v-podio .p .txt{ min-width:0; }
 }
+/* ══ movimiento con propósito ══════════════════════════════════════════
+   Todo se apaga con prefers-reduced-motion (regla al final del bloque). */
+
+/* pestañas: Streamlit 1.64 ya no usa data-baseweb="tab"; mismo estilo institucional */
+.stTabs [role="tablist"]{ gap:2px; border-bottom:1px solid var(--line); background:transparent; }
+.stTabs [data-testid="stTab"]{
+  height:auto; padding:10px 16px; background:transparent; border-radius:0; position:relative;
+  font-family:var(--sans); font-size:.95rem; font-weight:500; color:var(--ink-3); transition:color .25s;
+}
+.stTabs [data-testid="stTab"] p{ color:inherit; }
+.stTabs [data-testid="stTab"]::after{
+  content:""; position:absolute; left:12px; right:12px; bottom:-1px; height:2px; background:var(--marca);
+  transform:scaleX(0); transition:transform .35s cubic-bezier(.22,1,.36,1);
+}
+.stTabs [data-testid="stTab"]:hover{ color:var(--ink); }
+.stTabs [data-testid="stTab"][aria-selected="true"]{ color:var(--ink); font-weight:600; }
+.stTabs [data-testid="stTab"][aria-selected="true"]::after{ transform:scaleX(1); }
+.stTabs .react-aria-SelectionIndicator{ display:none; }
+
+/* cambio de sección: el contenido entra con un desvanecido corto */
+@keyframes v-entrar{ from{ opacity:0; transform:translateY(14px); } to{ opacity:1; transform:none; } }
+.stTabs [role="tabpanel"]{ animation:v-entrar .55s cubic-bezier(.22,1,.36,1) both; }
+.v-hero, .v-piloto{ animation:v-entrar .7s cubic-bezier(.22,1,.36,1) both; }
+
+/* tarjetas en cascada */
+.v-camps > *, .v-carnets > *, .v-recos > *, .v-insig > *, .v-imp > *, .v-tabla > *, .v-rech > *{
+  animation:v-entrar .6s cubic-bezier(.22,1,.36,1) both;
+}
+.v-camps > :nth-child(2), .v-carnets > :nth-child(2), .v-recos > :nth-child(2), .v-insig > :nth-child(2), .v-imp > :nth-child(2), .v-tabla > :nth-child(2), .v-rech > :nth-child(2){ animation-delay:.06s; }
+.v-camps > :nth-child(3), .v-carnets > :nth-child(3), .v-recos > :nth-child(3), .v-insig > :nth-child(3), .v-imp > :nth-child(3), .v-tabla > :nth-child(3), .v-rech > :nth-child(3){ animation-delay:.12s; }
+.v-camps > :nth-child(4), .v-carnets > :nth-child(4), .v-recos > :nth-child(4), .v-insig > :nth-child(4), .v-imp > :nth-child(4), .v-tabla > :nth-child(4), .v-rech > :nth-child(4){ animation-delay:.18s; }
+.v-camps > :nth-child(5), .v-carnets > :nth-child(5), .v-recos > :nth-child(5), .v-insig > :nth-child(5), .v-imp > :nth-child(5), .v-tabla > :nth-child(5), .v-rech > :nth-child(5){ animation-delay:.24s; }
+.v-camps > :nth-child(n+6), .v-carnets > :nth-child(n+6), .v-recos > :nth-child(n+6), .v-insig > :nth-child(n+6), .v-imp > :nth-child(n+6), .v-tabla > :nth-child(n+6), .v-rech > :nth-child(n+6){ animation-delay:.3s; }
+
+/* tarjetas que responden al puntero */
+.v-camp, .v-carnet, .v-reco, .v-ins, .v-imp .t, .v-podio .p, [data-testid="stMetric"]{
+  transition:transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s;
+}
+.v-camp:hover, .v-carnet:hover, .v-reco:hover, .v-ins:hover, .v-imp .t:hover, .v-podio .p:hover, [data-testid="stMetric"]:hover{
+  transform:translateY(-3px);
+  box-shadow:0 2px 4px rgba(18,42,52,.06), 0 22px 40px -22px rgba(18,42,52,.45);
+}
+
+/* encabezado: trazo de electrocardiograma */
+.v-hero{ position:relative; overflow:hidden; }
+.v-ecg{ position:absolute; right:36px; top:46px; width:min(44%,500px); height:auto; pointer-events:none; overflow:visible; }
+.v-ecg path{ fill:none; stroke-linecap:round; stroke-linejoin:round; }
+.v-ecg .base{ stroke:var(--line); stroke-width:2; }
+.v-ecg .traza{
+  stroke:var(--marca); stroke-width:3; stroke-dasharray:1; stroke-dashoffset:1;
+  animation:v-trazar 2.2s .35s cubic-bezier(.65,0,.35,1) forwards;
+}
+@keyframes v-trazar{ to{ stroke-dashoffset:0; } }
+.v-ecg .pulso{
+  fill:var(--verde); filter:drop-shadow(0 0 6px rgba(53,145,95,.8));
+  offset-rotate:0deg; offset-distance:0%; opacity:0;
+  animation:v-recorrer 3.6s 2.6s linear infinite;
+}
+@keyframes v-recorrer{ 0%{ offset-distance:0%; opacity:0; } 6%{ opacity:1; } 90%{ opacity:1; } 100%{ offset-distance:100%; opacity:0; } }
+@media (max-width: 900px){
+  .v-ecg{ position:relative; right:auto; top:auto; width:100%; max-width:460px; display:block; margin:18px 0 -6px; }
+}
+
+/* contadores: se anima un entero registrado y se muestra con contadores CSS */
+@property --v-n{ syntax:'<integer>'; inherits:false; initial-value:0; }
+@property --v-c{ syntax:'<integer>'; inherits:false; initial-value:0; }
+@property --v-d{ syntax:'<integer>'; inherits:false; initial-value:0; }
+@property --v-g{ syntax:'<integer>'; inherits:false; initial-value:0; }
+@property --v-k{ syntax:'<integer>'; inherits:false; initial-value:0; }
+@property --v-u{ syntax:'<integer>'; inherits:false; initial-value:0; }
+@property --v-m{ syntax:'<integer>'; inherits:false; initial-value:0; }
+@property --v-kk{ syntax:'<integer>'; inherits:false; initial-value:0; }
+@counter-style v-tres{ system:extends decimal; pad:3 "0"; }
+/* texto solo para lectores de pantalla: el número real detrás de cada contador */
+.v-sr{ position:absolute !important; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+.v-cnt, .v-cnt-usd, .v-cnt-g{ font:inherit; color:inherit; font-style:normal; }
+
+.v-cnt{ --v-n:var(--hasta); counter-reset:vn var(--v-n); animation:v-contar-n 1.3s .25s cubic-bezier(.16,1,.3,1) both; }
+.v-cnt::before{ content:counter(vn); }
+@keyframes v-contar-n{ from{ --v-n:0; } }
+
+.v-cnt-usd{
+  --v-c:var(--hasta); --v-d:calc((var(--v-c) - 50) / 100);
+  counter-reset:vd var(--v-d) vc calc(var(--v-c) - var(--v-d) * 100);
+  animation:v-contar-usd 1.8s .45s cubic-bezier(.16,1,.3,1) both;
+}
+.v-cnt-usd::before{ content:"$" counter(vd) "." counter(vc, decimal-leading-zero); }
+@keyframes v-contar-usd{ from{ --v-c:var(--desde); } }
+
+.v-cnt-g{
+  --v-g:var(--hasta);
+  --v-k:calc((var(--v-g) - 500) / 1000); --v-u:calc(var(--v-g) - var(--v-k) * 1000);
+  --v-m:calc((var(--v-k) - 500) / 1000); --v-kk:calc(var(--v-k) - var(--v-m) * 1000);
+  counter-reset:vg var(--v-g) vk var(--v-k) vu var(--v-u) vm var(--v-m) vkk var(--v-kk);
+  animation:v-contar-g 1.9s .3s cubic-bezier(.16,1,.3,1) both;
+}
+.v-cnt-g.g1::before{ content:"$" counter(vg); }
+.v-cnt-g.g2::before{ content:"$" counter(vk) "," counter(vu, v-tres); }
+.v-cnt-g.g3::before{ content:"$" counter(vm) "," counter(vkk, v-tres) "," counter(vu, v-tres); }
+@keyframes v-contar-g{ from{ --v-g:var(--desde); } }
+
+/* carnet: la prima vieja se tacha y la nueva baja; un reflejo cruza la tarjeta una vez */
+.v-carnet .antes{ animation:v-tachar .5s .3s ease-out both; }
+@keyframes v-tachar{ from{ text-decoration-color:transparent; opacity:1; } }
+.v-carnet .ahora{ display:inline-block; }
+.v-carnet::before, .v-memb::before{
+  content:""; position:absolute; inset:0; pointer-events:none; z-index:2;
+  background:linear-gradient(110deg, transparent 38%, rgba(255,255,255,.16) 50%, transparent 62%);
+  background-size:260% 100%; background-position:130% 0;
+}
+.v-carnet::before{ animation:v-reflejo 1.6s .5s ease-out both; }
+.v-memb::before{ animation:v-reflejo 2.4s .6s ease-in-out infinite; animation-delay:.6s; }
+@keyframes v-reflejo{ to{ background-position:-40% 0; } }
+.v-carnet .subio{ animation:v-entrar .5s 1.9s cubic-bezier(.22,1,.36,1) both; }
+
+/* membresía: entra con un leve giro */
+.v-memb{ animation:v-girar .9s cubic-bezier(.22,1,.36,1) both; transform-origin:left center; }
+@keyframes v-girar{ from{ opacity:0; transform:perspective(900px) rotateY(-24deg) translateX(-12px); } }
+
+/* gamificación: podio que sube, barras y anillo que se llenan */
+.v-podio .p{ animation:v-subir .8s cubic-bezier(.34,1.35,.64,1) both; }
+.v-podio .p:nth-child(1){ animation-delay:.1s; }
+.v-podio .p:nth-child(2){ animation-delay:.25s; }
+.v-podio .p:nth-child(3){ animation-delay:.4s; }
+@keyframes v-subir{ from{ opacity:0; transform:translateY(34px); } }
+.v-podio .p.uno .medalla{ animation:v-latido 2.4s 1.2s ease-in-out infinite; }
+@keyframes v-latido{ 0%,100%{ box-shadow:0 0 0 0 rgba(138,106,18,.45); } 50%{ box-shadow:0 0 0 9px rgba(138,106,18,0); } }
+.v-fila .barra i{ transform-origin:left; animation:v-llenar 1.1s .35s cubic-bezier(.22,1,.36,1) both; }
+@keyframes v-llenar{ from{ transform:scaleX(0); } }
+.v-anillo .arco{ animation:v-arco 1.4s .3s cubic-bezier(.22,1,.36,1) both; }
+@keyframes v-arco{ from{ stroke-dashoffset:213.6; } }
+
+/* impacto: la cifra neta respira una vez al llegar */
+.v-imp .t.bueno b{ animation:v-resaltar 1s 2.1s ease-out both; }
+@keyframes v-resaltar{ 0%{ text-shadow:0 0 0 rgba(53,145,95,0); } 40%{ text-shadow:0 0 18px rgba(53,145,95,.45); } 100%{ text-shadow:0 0 0 rgba(53,145,95,0); } }
+
 @media (prefers-reduced-motion: reduce){ *{ transition:none !important; animation:none !important; } }
 </style>"""
 
@@ -526,11 +691,20 @@ def hero(n_campanas: int, n_con_descuento: int, ahorro: float) -> str:
         'campañas de prevención para los casos más frecuentes y le devolvemos el gesto: cada '
         'chequeo que usted cumple suma puntos, sube de nivel y descuenta su cuota mensual.</p>'
         '<div class="v-trust">'
-        f'<div><b>{n_campanas}</b><span>campañas abiertas</span></div>'
-        f'<div><b>{n_con_descuento}</b><span>asegurados con descuento</span></div>'
-        f'<div><b>{_usd(ahorro)}</b><span>menos de prima al mes</span></div>'
-        '</div></div>'
+        f'<div><b>{_cuenta(n_campanas)}</b><span>campañas abiertas</span></div>'
+        f'<div><b>{_cuenta(n_con_descuento)}</b><span>asegurados con descuento</span></div>'
+        f'<div><b>{_cuenta_usd(ahorro)}</b><span>menos de prima al mes</span></div>'
+        f'</div>{_ECG}</div>'
     )
+
+
+# Trazo de electrocardiograma del encabezado: se dibuja una vez y un punto de luz lo recorre.
+_TRAZO = "M0 96 H150 L166 96 L178 78 L190 96 H214 L226 110 L244 18 L264 150 L282 96 H330 L346 84 L362 96 H560"
+_ECG = (
+    '<svg class="v-ecg" viewBox="0 0 560 170" aria-hidden="true" preserveAspectRatio="xMidYMid meet">'
+    f'<path class="base" d="{_TRAZO}"/><path class="traza" d="{_TRAZO}" pathLength="1"/>'
+    f'<circle class="pulso" r="5" style="offset-path:path(\'{_TRAZO}\')"/></svg>'
+)
 
 
 def seccion(clave: str, titulo: str, subtitulo: str) -> str:
@@ -551,10 +725,10 @@ def resumen_piloto(r: dict) -> str:
         '<div class="v-piloto">'
         '<h3>El agente cerró su ciclo completo</h3>'
         '<div class="fila">'
-        f'<div><b>{int(r.get("campanas", 0))}</b><span>campañas publicadas</span></div>'
-        f'<div><b>{int(r.get("premiados", 0))}</b><span>chequeos premiados</span></div>'
-        f'<div><b>{suben}</b><span>subieron de nivel</span></div>'
-        f'<div><b>{_usd(r.get("ahorro", 0))}</b><span>menos de prima al mes</span></div>'
+        f'<div><b>{_cuenta(r.get("campanas", 0))}</b><span>campañas publicadas</span></div>'
+        f'<div><b>{_cuenta(r.get("premiados", 0))}</b><span>chequeos premiados</span></div>'
+        f'<div><b>{_cuenta(suben)}</b><span>subieron de nivel</span></div>'
+        f'<div><b>{_cuenta_usd(r.get("ahorro", 0))}</b><span>menos de prima al mes</span></div>'
         '</div>'
         f'<p style="margin:16px 0 0;opacity:.82;font-size:.9rem">{frase} '
         'Todo quedó escrito en el CRM.</p>'
@@ -607,7 +781,7 @@ def telefono(propuestas: list[dict]) -> str:
         cuando = "ahora" if i == 0 else f"hace {i * 3} min"
         avisos.append(
             '<div class="aviso">'
-            f'<div class="de">Vitalia <i>{cuando}</i></div>'
+            f'<div class="de">Bienestar Preventivo <i>{cuando}</i></div>'
             f'<h5>{escape(str(c.get("nombre", "")))}</h5>'
             f'<p>{escape(str(c.get("mensaje", ""))[:120])}…</p>'
             '</div>'
@@ -625,14 +799,14 @@ def carnets(premiados: list) -> str:
         campana = (d.campana or {}).get("nombre", "")
         if d.prima_antes is not None and d.prima_despues is not None and d.prima_despues < d.prima_antes:
             prima = (f'<span class="antes">{_usd(d.prima_antes)}</span>'
-                     f'<span class="ahora">{_usd(d.prima_despues)}</span>')
+                     f'<span class="ahora">{_cuenta_usd(d.prima_despues, d.prima_antes)}</span>')
         else:
             prima = _usd(d.prima_despues if d.prima_despues is not None else a.get("prima_final", 0))
         subio = '<span class="subio">Subió a nivel ' + escape(nivel) + '</span>' if d.subio_de_nivel else ''
         tarjetas.append(
             '<article class="v-carnet">'
             '<div class="cab">'
-            '<span class="marca">Vitalia</span>'
+            '<span class="marca">Bienestar Preventivo</span>'
             f'<span class="nivel">{escape(nivel)}</span>'
             '</div>'
             f'<h4>{escape(str(a.get("nombre", d.poliza)))}</h4>'
@@ -757,7 +931,7 @@ def membresia(a: dict) -> str:
     return (
         '<div class="v-memb">'
         '<div class="cab">'
-        '<span class="marca">Vitalia · Bienestar Preventivo</span>'
+        '<span class="marca">Programa Bienestar Preventivo</span>'
         f'<span class="nivel">{escape(str(a.get("nivel", "Bronce")))}</span>'
         '</div>'
         f'<h3>{escape(str(a.get("nombre", "")))}</h3>'
@@ -788,7 +962,7 @@ def anillo(a: dict) -> str:
         '<svg width="86" height="86" viewBox="0 0 86 86" aria-hidden="true">'
         f'<circle cx="43" cy="43" r="{radio}" fill="none" stroke="#E4EDEF" stroke-width="9"/>'
         f'<circle cx="43" cy="43" r="{radio}" fill="none" stroke="{VERDE}" stroke-width="9"'
-        f' stroke-linecap="round" stroke-dasharray="{circ:.1f}" stroke-dashoffset="{ofs:.1f}"'
+        f' class="arco" stroke-linecap="round" stroke-dasharray="{circ:.1f}" stroke-dashoffset="{ofs:.1f}"'
         ' transform="rotate(-90 43 43)"/>'
         f'<text x="43" y="49" text-anchor="middle" font-size="19" font-weight="700"'
         f' font-family="Source Serif 4, Georgia, serif" fill="{TINTA}">{round(avance * 100)}%</text>'
@@ -843,13 +1017,13 @@ def impacto(res: dict, n_asegurados: int, participacion: float) -> str:
     roi = float(res.get("roi", 0))
     neto = float(res.get("neto", 0))
     tiles = [
-        ("Ahorro en tratamientos", _usd(res.get("ahorro", 0)),
+        ("Ahorro en tratamientos", _cuenta_grande(res.get("ahorro", 0)),
          "por casos detectados a tiempo", True),
         ("Costo de los chequeos", _usd(res.get("chequeos", 0)),
          "lo que paga la aseguradora por tamizar", False),
         ("Descuentos otorgados", _usd(res.get("descuentos", 0)),
          "menor prima para quien se cuida", False),
-        ("Resultado neto al año", _usd(neto),
+        ("Resultado neto al año", _cuenta_grande(neto),
          "ahorro menos costos del programa", neto >= 0),
         ("Retorno por dólar", f"{roi:,.2f}×",
          "se recupera por cada dólar invertido", roi >= 1),
@@ -857,7 +1031,7 @@ def impacto(res: dict, n_asegurados: int, participacion: float) -> str:
          "antes de que se vuelvan caros", True),
     ]
     bloques = "".join(
-        f'<div class="t{" bueno" if bueno else ""}"><i>{escape(t)}</i><b>{escape(v)}</b>'
+        f'<div class="t{" bueno" if bueno else ""}"><i>{escape(t)}</i><b>{v if "v-cnt" in v else escape(v)}</b>'
         f'<span>{escape(s)}</span></div>'
         for t, v, s, bueno in tiles
     )
